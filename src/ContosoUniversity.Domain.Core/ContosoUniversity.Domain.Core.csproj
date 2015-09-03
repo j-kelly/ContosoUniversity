@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D0FFC052-CD52-4BB8-8908-9AE3CC5FCAFD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContosoUniversity.Domain.Core</RootNamespace>
+    <AssemblyName>ContosoUniversity.Domain.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NRepository.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NRepository.EntityFramework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NRepository.EntityFramework.3.2.1.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseCommandModel.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseRequest.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseResponse.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentCommandModel.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentRequest.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentResponse.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentCommandModel.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentRequest.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentResponse.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\IDepartmentApplicationService.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseCommandModel.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseRequest.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseResponse.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsCommandModel.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsRequest.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsResponse.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\ICourseApplicationService.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseCommandModel.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseRequest.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseResponse.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentCommandModel.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentRequest.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentResponse.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesCommandModel.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesRequest.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesResponse.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorCommandModel.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorRequest.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorResponse.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\IInstructorApplicationService.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesCommandModel.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesRequest.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesResponse.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentCommandModel.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentRequest.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentResponse.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentCommandModel.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentRequest.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentResponse.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\IStudentApplicationService.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentCommandModel.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequest.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequestContextualValidation.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequestInvariantValidation.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentResponse.cs" />
+    <Compile Include="Repository\Entities\Course.cs" />
+    <Compile Include="Repository\Entities\Department.cs" />
+    <Compile Include="Repository\Entities\Enrollments.cs" />
+    <Compile Include="Repository\Enums\Grade.cs" />
+    <Compile Include="Repository\Entities\Instructor.cs" />
+    <Compile Include="Repository\Entities\OfficeAssignment.cs" />
+    <Compile Include="Repository\Entities\Person.cs" />
+    <Compile Include="Repository\Entities\Student.cs" />
+    <Compile Include="Repository\ContosoDbContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ContosoDbInitializer.cs" />
+    <Compile Include="Repository\Strategies\FindByIdsSpecificationStrategy.cs" />
+    <Compile Include="Repository\Migrations\201402242126344_InitialCreate.cs" />
+    <Compile Include="Repository\Migrations\201402242126344_InitialCreate.Designer.cs">
+      <DependentUpon>201402242126344_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201402242138028_MaxLengthOnNames.cs" />
+    <Compile Include="Repository\Migrations\201402242138028_MaxLengthOnNames.Designer.cs">
+      <DependentUpon>201402242138028_MaxLengthOnNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201402242139118_ColumnFirstName.cs" />
+    <Compile Include="Repository\Migrations\201402242139118_ColumnFirstName.Designer.cs">
+      <DependentUpon>201402242139118_ColumnFirstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201402242150170_ComplexDataModel.cs" />
+    <Compile Include="Repository\Migrations\201402242150170_ComplexDataModel.Designer.cs">
+      <DependentUpon>201402242150170_ComplexDataModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201402251758056_DepartmentSP.cs" />
+    <Compile Include="Repository\Migrations\201402251758056_DepartmentSP.Designer.cs">
+      <DependentUpon>201402251758056_DepartmentSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201402251804219_RowVersion.cs" />
+    <Compile Include="Repository\Migrations\201402251804219_RowVersion.Designer.cs">
+      <DependentUpon>201402251804219_RowVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201402251853267_Inheritance.cs" />
+    <Compile Include="Repository\Migrations\201402251853267_Inheritance.Designer.cs">
+      <DependentUpon>201402251853267_Inheritance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\Configuration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_Infrastructure\Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Repository\Migrations\201402242126344_InitialCreate.resx">
+      <DependentUpon>201402242126344_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201402242138028_MaxLengthOnNames.resx">
+      <DependentUpon>201402242138028_MaxLengthOnNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201402242139118_ColumnFirstName.resx">
+      <DependentUpon>201402242139118_ColumnFirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201402242150170_ComplexDataModel.resx">
+      <DependentUpon>201402242150170_ComplexDataModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201402251758056_DepartmentSP.resx">
+      <DependentUpon>201402251758056_DepartmentSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201402251804219_RowVersion.resx">
+      <DependentUpon>201402251804219_RowVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201402251853267_Inheritance.resx">
+      <DependentUpon>201402251853267_Inheritance.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContosoUniversity.Core\ContosoUniversity.Core.csproj">
+      <Project>{fb76888d-92a9-492b-9297-43969b590219}</Project>
+      <Name>ContosoUniversity.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Behaviours\HowToAddNewBehaviours.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

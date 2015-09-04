@@ -1,4 +1,4 @@
-﻿namespace ContosoUniversity.Features.Student
+﻿namespace ContosoUniversity.Web.App.Features.Student
 {
     using ContosoUniversity.Core.Annotations;
     using Domain.Core.Behaviours.StudentApplicationService;
@@ -33,7 +33,7 @@
         public ActionResult Delete(int id)
         {
             var response = _StudentApplicationService.DeleteStudent(new DeleteStudentRequest(
-                CurrentPrincipalHelper.UserId,
+                CurrentPrincipalHelper.Name,
                 new DeleteStudentCommandModel { StudentId = id }));
 
             if (!response.HasValidationIssues)
@@ -46,7 +46,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateStudentCommandModel commandModel)
         {
-            var response = _StudentApplicationService.CreateStudent(new CreateStudentRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _StudentApplicationService.CreateStudent(new CreateStudentRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -58,7 +58,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ModifyStudentCommandModel commandModel)
         {
-            var response = _StudentApplicationService.ModifyStudent(new ModifyStudentRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _StudentApplicationService.ModifyStudent(new ModifyStudentRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 

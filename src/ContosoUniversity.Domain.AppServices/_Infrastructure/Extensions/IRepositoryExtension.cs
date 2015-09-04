@@ -41,6 +41,11 @@
                 validationDetails.Add(new ValidationMessage(string.Empty, "Unable to save changes. Try again, and if the problem persists, see your system administrator."));
                 return validationDetails;
             }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, ex.Message);
+                throw;
+            }
         }
     }
 }

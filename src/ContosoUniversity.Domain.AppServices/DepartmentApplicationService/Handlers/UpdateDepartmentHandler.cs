@@ -4,6 +4,7 @@
     using DepartmentApplicationService.UpdateDepartment;
     using Models;
     using NRepository.Core;
+    using NRepository.EntityFramework.Query;
     using System.Data.Entity.Infrastructure;
     using System.Linq;
 
@@ -75,6 +76,10 @@
                 return new UpdateDepartmentResponse(validationDetails);
 
             var commandModel = request.CommandModel;
+            var currentDept = _Repository.GetEntity<Department>(
+                p => p.DepartmentID == commandModel.DepartmentID,
+                new AsNoTrackingQueryStrategy());
+
             var dept = new Department
             {
                 DepartmentID = commandModel.DepartmentID,
@@ -82,7 +87,9 @@
                 InstructorID = commandModel.InstructorID,
                 Name = commandModel.Name,
                 RowVersion = commandModel.RowVersion,
-                StartDate = commandModel.StartDate
+                StartDate = commandModel.StartDate,
+                CreatedBy = currentDept.CreatedBy,
+                CreatedOn = currentDept.CreatedOn
             };
 
             var rowVersion = default(byte[]);

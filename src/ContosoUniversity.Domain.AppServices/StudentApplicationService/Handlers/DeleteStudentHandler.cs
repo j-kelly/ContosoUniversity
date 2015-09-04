@@ -73,8 +73,7 @@
             if (validationDetails.HasValidationIssues)
                 return new DeleteStudentResponse(validationDetails);
 
-            var student = new Student { ID = request.CommandModel.StudentId };
-            _Repository.Modify(student);
+            var student = _Repository.GetEntity<Student>(p => p.ID == request.CommandModel.StudentId);
             _Repository.Delete(student);
             validationDetails = _Repository.SaveWithValidation();
 

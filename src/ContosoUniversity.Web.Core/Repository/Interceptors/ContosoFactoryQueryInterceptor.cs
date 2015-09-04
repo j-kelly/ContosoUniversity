@@ -1,7 +1,8 @@
 ﻿namespace ContosoUniversity.Web.Core.Repository.Interceptors
 {
-    using Factories;
+    using Cache;
     using NRepository.Core.Query.Interceptors.Factories;
+    using Projections;
     using Projections.Factories;
     using System.Collections.Generic;
 
@@ -9,11 +10,18 @@
     {
         private static readonly IEnumerable<IFactoryQuery> AllQueryFactories = new IFactoryQuery[]
         {
-            new CourseDetailFactoryQuery(),
-            new EnrollmentDateGroupFactoryQuery(),
-            new InstructorDetailFactoryQuery(),
-            new DepartmentDetailFactoryQuery(),
-            new StudentDetailFactoryQuery()
+            // Caching
+            new EfCacheableFactoryQuery(),
+            new CacheableProjectionFactoryQuery(),
+
+            // Projections
+            new CourseDetail.CourseDetailFactoryQuery(),
+            new EnrollmentDateGroup.EnrollmentDateGroupFactoryQuery(),
+            new DepartmentDetail.DepartmentDetailFactoryQuery(),
+            new StudentDetail.StudentDetailFactoryQuery(),
+
+            // Filters
+            new SoftDeleteFilterFactoryQuery(),
         };
 
         public ContosoFactoryQueryInterceptor()

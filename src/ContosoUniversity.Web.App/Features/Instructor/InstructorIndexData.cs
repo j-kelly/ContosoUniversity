@@ -1,4 +1,4 @@
-﻿namespace ContosoUniversity.Features.Instructor
+﻿namespace ContosoUniversity.Web.App.Features.Instructor
 {
     using ContosoUniversity.Web.Core.Repository.Projections;
     using System.Collections.Generic;

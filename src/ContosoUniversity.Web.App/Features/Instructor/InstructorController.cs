@@ -1,9 +1,9 @@
-﻿namespace ContosoUniversity.Features.Instructor
+﻿namespace ContosoUniversity.Web.App.Features.Instructor
 {
     using ContosoUniversity.Core.Annotations;
-    using ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService.CreateInstructorWithCourses;
     using ContosoUniversity.Web.Core.Repository.Projections;
     using Domain.Core.Behaviours.InstructorApplicationService;
+    using Domain.Core.Behaviours.InstructorApplicationService.CreateInstructorWithCourses;
     using Domain.Core.Behaviours.InstructorApplicationService.DeleteInstructor;
     using Domain.Core.Behaviours.InstructorApplicationService.ModifyInstructorAndCourses;
     using Models;
@@ -11,9 +11,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+
     [GenerateTestFactoryAttribute]
     public class InstructorController : Controller
     {
@@ -33,7 +35,7 @@
         public ActionResult DeleteConfirmed(int id)
         {
             _InstructorAppService.DeleteInstructor(new DeleteInstructorRequest(
-                CurrentPrincipalHelper.UserId,
+                CurrentPrincipalHelper.Name,
                 new DeleteInstructorCommandModel { InstructorId = id }));
 
             return RedirectToAction("Index");
@@ -44,7 +46,7 @@
         public async Task<ActionResult> Create(CreateInstructorWithCoursesCommandModel commandModel)
         {
             var response = _InstructorAppService.CreateInstructorWithCourses(new CreateInstructorWithCoursesRequest(
-               CurrentPrincipalHelper.UserId,
+               CurrentPrincipalHelper.Name,
                commandModel));
 
             if (response.HasValidationIssues)
@@ -62,7 +64,7 @@
         public async Task<ActionResult> Edit(ModifyInstructorAndCoursesCommandModel commandModel)
         {
             var response = _InstructorAppService.ModifyInstructorAndCourses(new ModifyInstructorAndCoursesRequest(
-               CurrentPrincipalHelper.UserId,
+               CurrentPrincipalHelper.Name,
                commandModel));
 
             if (response.HasValidationIssues)
@@ -78,9 +80,7 @@
         public async Task<ActionResult> Index(int? id, int? courseID)
         {
             var viewModel = new InstructorIndexData();
-            viewModel.Instructors = _QueryRepository.GetEntities<InstructorDetail>(
-                new OrderByQueryStrategy<InstructorDetail>(p => p.LastName))
-                .ToArray();
+            viewModel.Instructors = GetInstructorDetails().ToArray();
 
             if (id != null)
             {
@@ -109,7 +109,7 @@
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var instructorDetail = await _QueryRepository.GetEntityAsync<InstructorDetail>(p => p.InstructorId == id.Value);
+            var instructorDetail = await GetInstructorDetails(p => p.InstructorId == id.Value).SingleOrDefaultAsync();
             if (instructorDetail == null)
                 return HttpNotFound();
 
@@ -152,7 +152,7 @@
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var instructorDetail = await _QueryRepository.GetEntityAsync<InstructorDetail>(p => p.InstructorId == id.Value);
+            var instructorDetail = await GetInstructorDetails(p => p.InstructorId == id.Value).SingleOrDefaultAsync();
             if (instructorDetail == null)
                 return HttpNotFound();
 
@@ -175,6 +175,32 @@
             }
 
             ViewBag.Courses = viewModel;
+        }
+
+        private IQueryable<InstructorDetail> GetInstructorDetails(Expression<Func<InstructorDetail, bool>> expression = null)
+        {
+            var instructors = _QueryRepository.GetEntities<Instructor>(
+                new OrderByQueryStrategy<Instructor>(p => p.LastName))
+                  .Select(p => new InstructorDetail
+                  {
+                      FirstMidName = p.FirstMidName,
+                      HireDate = p.HireDate,
+                      InstructorId = p.ID,
+                      LastName = p.LastName,
+                      OfficeLocation = p.OfficeAssignment.Location,
+                      CourseDetails = p.Courses.Select(p1 => new CourseDetail
+                      {
+                          CourseID = p1.CourseID,
+                          Credits = p1.Credits,
+                          DepartmentID = p1.DepartmentID,
+                          DepartmentName = p1.Department.Name,
+                          Title = p1.Title
+                      }),
+                  });
+
+            return expression != null
+                ? instructors.Where(expression)
+                : instructors;
         }
     }
 }

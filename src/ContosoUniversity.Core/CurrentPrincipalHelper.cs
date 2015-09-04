@@ -6,7 +6,7 @@ namespace System
     [ExcludeFromCodeCoverage]
     public static class CurrentPrincipalHelper
     {
-        private static readonly Func<string> httpCurrentUserFunction = () =>
+        private static readonly Func<string> defaultUserFunction = () =>
         {
             return string.IsNullOrEmpty(Thread.CurrentPrincipal.Identity.Name)
                 ? "anon"
@@ -14,21 +14,28 @@ namespace System
         };
 
         // Don't shift the order of this method
-        private static Func<string> userIdFunction = httpCurrentUserFunction;
+        private static Func<string> userIdFunction = defaultUserFunction;
 
-        public static string UserId
+        public static string Name
         {
             get { return userIdFunction.Invoke(); }
         }
 
-        public static void SetUserId(string name)
+        public static void SetName(string name)
         {
             userIdFunction = () => name;
         }
 
-        public static void ResetUserId()
+        public static Func<string> SetName(Func<string> nameFunc)
         {
-            userIdFunction = httpCurrentUserFunction;
+            var retVal = userIdFunction;
+            userIdFunction = nameFunc;
+            return retVal;
+        }
+
+        public static void ResetName()
+        {
+            userIdFunction = defaultUserFunction;
         }
     }
 }

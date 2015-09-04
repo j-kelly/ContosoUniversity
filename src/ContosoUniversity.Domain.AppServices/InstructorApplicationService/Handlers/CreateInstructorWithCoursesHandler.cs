@@ -1,13 +1,12 @@
 ﻿namespace ContosoUniversity.Domain.Core.Behaviours
 {
-    using DAL;
-    using System.Linq;
+    using ContosoUniversity.Core.Domain.ContextualValidation;
+    using InstructorApplicationService.CreateInstructorWithCourses;
     using Models;
     using NRepository.Core;
     using NRepository.EntityFramework;
-    using ContosoUniversity.Core.Domain.ContextualValidation;
-    using InstructorApplicationService.CreateInstructorWithCourses;
-
+    using System.Data.Entity;
+    using System.Linq;
 
     /*
          ************************************************************************************************
@@ -62,10 +61,6 @@
         
     */
 
-    // ************************************************************************************************
-    // * Place this in the Domain.AppServices/xxxApplicationService/Handlers folder
-    // * **********************************************************************************************  
-    // Request Handler
     public class CreateInstructorWithCoursesHandler
     {
         private readonly IRepository _Repository;
@@ -84,13 +79,13 @@
             var commandModel = request.CommandModel;
             var courses = commandModel.SelectedCourses == null
                 ? new Course[0].ToList()
-                :commandModel.SelectedCourses.Select(courseId =>
-                {
-                    var course = new Course { CourseID = courseId };
-                    _Repository.UpdateEntityState(course, System.Data.Entity.EntityState.Unchanged);
-                    return course;
-                }).ToList();
-                
+                : commandModel.SelectedCourses.Select(courseId =>
+                 {
+                     var course = new Course { CourseID = courseId };
+                     _Repository.UpdateEntityState(course, EntityState.Unchanged);
+                     return course;
+                 }).ToList();
+
             var instructor = new Instructor
             {
                 HireDate = commandModel.HireDate,

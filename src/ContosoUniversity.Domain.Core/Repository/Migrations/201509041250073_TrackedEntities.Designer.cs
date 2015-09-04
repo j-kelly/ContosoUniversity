@@ -6,14 +6,14 @@ namespace ContosoUniversity.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-beta1-30206")]
-    public sealed partial class DepartmentSP : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class TrackedEntities : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DepartmentSP));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TrackedEntities));
         
         string IMigrationMetadata.Id
         {
-            get { return "201402251758056_DepartmentSP"; }
+            get { return "201509041250073_TrackedEntities"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,9 +1,9 @@
-﻿namespace ContosoUniversity.Features.Department
+﻿namespace ContosoUniversity.Web.App.Features.Department
 {
     using ContosoUniversity.Core.Annotations;
-    using ContosoUniversity.Domain.Core.Behaviours.DepartmentApplicationService;
-    using ContosoUniversity.Domain.Core.Behaviours.DepartmentApplicationService.DeleteDepartment;
-    using ContosoUniversity.Domain.Core.Behaviours.DepartmentApplicationService.UpdateDepartment;
+    using Domain.Core.Behaviours.DepartmentApplicationService;
+    using Domain.Core.Behaviours.DepartmentApplicationService.DeleteDepartment;
+    using Domain.Core.Behaviours.DepartmentApplicationService.UpdateDepartment;
     using Domain.Core.Behaviours.DepartmentApplicationService.CreateDepartment;
     using Models;
     using NRepository.Core.Query;
@@ -33,7 +33,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateDepartmentCommandModel commandModel)
         {
-            var response = _DepartmentAppService.CreateDepartment(new CreateDepartmentRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _DepartmentAppService.CreateDepartment(new CreateDepartmentRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -48,7 +48,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Delete(DeleteDepartmentCommandModel commandModel)
         {
-            var response = _DepartmentAppService.DeleteDepartment(new DeleteDepartmentRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _DepartmentAppService.DeleteDepartment(new DeleteDepartmentRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -63,7 +63,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(UpdateDepartmentCommandModel commandModel)
         {
-            var response = _DepartmentAppService.UpdateDepartment(new UpdateDepartmentRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _DepartmentAppService.UpdateDepartment(new UpdateDepartmentRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 

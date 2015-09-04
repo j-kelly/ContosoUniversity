@@ -83,10 +83,6 @@
    
     */
 
-    // ************************************************************************************************
-    // * Place this in the Domain.AppServices/xxxApplicationService/Handlers folder
-    // * **********************************************************************************************  
-    // Request Handler
     public class ModifyInstructorAndCoursesHandler
     {
         private readonly IRepository _Repository;

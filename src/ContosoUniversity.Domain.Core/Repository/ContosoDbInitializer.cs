@@ -1,10 +1,10 @@
-﻿namespace ContosoUniversity.DAL
+﻿namespace ContosoUniversity.Domain.Core.Repository
 {
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using Models;
 
     public class ContosoDbInitializer : DropCreateDatabaseIfModelChanges<ContosoDbContext>
     {

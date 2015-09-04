@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ContosoUniversity.Domain.Core.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContosoUniversity.Models
 {
-    public class Department
+    public class Department : ITrackedEntity
     {
         public int DepartmentID { get; set; }
 
@@ -22,7 +23,18 @@ namespace ContosoUniversity.Models
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
+        [Required]
+        public string CreatedBy { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        [Required]
+        public string ModifiedBy { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
+
         public virtual Instructor Administrator { get; set; }
+
         public virtual ICollection<Course> Courses { get; set; }
     }
 }

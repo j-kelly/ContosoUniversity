@@ -1,12 +1,37 @@
 namespace ContosoUniversity.Web.Core.Repository.Projections
 {
     using ContosoUniversity.Models;
+    using NRepository.Core.Query;
+    using NRepository.Core.Query.Interceptors.Factories;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     public class StudentDetail
     {
+        public class StudentDetailFactoryQuery : FactoryQuery<StudentDetail>
+        {
+            public override IQueryable<object> Query<T>(IQueryRepository repository, object additionalQueryData)
+            {
+                var students = repository.GetEntities<Student>()
+                    .Select(student => new StudentDetail
+                    {
+                        StudentId = student.ID,
+                        EnrollmentDate = student.EnrollmentDate,
+                        FirstMidName = student.FirstMidName,
+                        LastName = student.LastName,
+                        EnrollmentDetails = student.Enrollments.Select(enrollment => new StudentDetail.EnrollmentDetail
+                        {
+                            CourseTitle = enrollment.Course.Title,
+                            Grade = enrollment.Grade
+                        }),
+                    });
+
+                return students;
+            }
+        }
+
         public class EnrollmentDetail
         {
             public string CourseTitle { get; set; }

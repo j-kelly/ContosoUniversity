@@ -32,24 +32,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NRepository.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
+      <HintPath>..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NRepository.EntityFramework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NRepository.EntityFramework.3.2.1.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
+      <HintPath>..\packages\NRepository.EntityFramework.3.2.1.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,19 +60,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Audit\AuditItem.cs" />
+    <Compile Include="Repository\Audit\AuditPropertyItem.cs" />
+    <Compile Include="Repository\Audit\AuditSaveCommandInterceptorBase.cs" />
+    <Compile Include="Repository\Audit\IAuditItem.cs" />
+    <Compile Include="Repository\Cache\EfCacheableFactoryQuery.cs" />
+    <Compile Include="Repository\Cache\ICacheableProjection.cs" />
+    <Compile Include="Repository\Cache\CacheableProjectionFactoryQuery.cs" />
     <Compile Include="Repository\Interceptors\ContosoFactoryQueryInterceptor.cs" />
     <Compile Include="Repository\Interceptors\ContosoUniversityRepositoryInterceptors.cs" />
-    <Compile Include="Repository\Projections\Factories\CourseDetailFactoryQuery.cs" />
-    <Compile Include="Repository\Projections\Factories\DepartmentDetailFactoryQuery.cs" />
-    <Compile Include="Repository\Projections\Factories\EnrollmentDateGroupQueryFactory.cs" />
-    <Compile Include="Repository\Projections\Factories\InstructorDetailFactoryQuery.cs" />
-    <Compile Include="Repository\Interceptors\ThrowOriginalExceptionSaveCommandInterceptor.cs" />
+    <Compile Include="Repository\Interceptors\Delete\SoftDeleteDeleteCommandInterceptor.cs" />
+    <Compile Include="Repository\Interceptors\Add\TrackedEntitiesAddCommandInterceptor.cs" />
+    <Compile Include="Repository\Interceptors\Modify\TrackedEntitiesModifyCommandInterceptor.cs" />
+    <Compile Include="Repository\Interceptors\Save\ContosoUniversitySaveCommandInterceptor.cs" />
     <Compile Include="Repository\Projections\CourseDetail.cs" />
     <Compile Include="Repository\Projections\DepartmentDetail.cs" />
     <Compile Include="Repository\Projections\EnrollmentDateGroup.cs" />
-    <Compile Include="Repository\Projections\Factories\StudentDetailFactoryQuery.cs" />
-    <Compile Include="Repository\Projections\InstructorDetail.cs" />
+    <Compile Include="Repository\Filters\SoftDeleteFilterFactoryQuery.cs" />
     <Compile Include="Repository\Projections\StudentDetail.cs" />
+    <Compile Include="Repository\Strategies\FilterByNoneSoftDeletedQueryStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -87,9 +94,7 @@
       <Name>ContosoUniversity.Domain.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repository\Strategies\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,12 +1,12 @@
 namespace ContosoUniversity.App_Start
 {
-    using ContosoUniversity.DAL;
-    using ContosoUniversity.Domain.Core.Behaviours.DepartmentApplicationService;
     using ContosoUniversity.Web.Core.Repository.Interceptors;
     using Domain.AppServices;
     using Domain.Core.Behaviours.CourseApplicationService;
+    using Domain.Core.Behaviours.DepartmentApplicationService;
     using Domain.Core.Behaviours.InstructorApplicationService;
     using Domain.Core.Behaviours.StudentApplicationService;
+    using Domain.Core.Repository;
     using Domain.Services.DepartmentApplicationService;
     using Microsoft.Practices.Unity;
     using NRepository.Core;

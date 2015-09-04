@@ -1,5 +1,6 @@
-﻿namespace ContosoUniversity.DAL
+﻿namespace ContosoUniversity.Domain.Core.Repository
 {
+    using Domain.Core.Repository.Entities;
     using Models;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
@@ -8,8 +9,7 @@
     {
         static ContosoDbContext()
         {
-            Database.SetInitializer(new ContosoDbInitializer());
-            
+            Database.SetInitializer(new ContosoUniversity.Domain.Core.Repository.ContosoDbInitializer());
         }
 
         public ContosoDbContext()
@@ -18,6 +18,7 @@
             Configuration.LazyLoadingEnabled = false;
         }
 
+        public DbSet<AuditPropertyTrail> AuditPropertyTrails { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }

@@ -7,13 +7,10 @@ namespace ContosoUniversity.Web.Core.Repository.Interceptors
     {
         public ContosoUniversityRepositoryInterceptors()
         {
-            // base.QueryInterceptor = new ContosoFactoryQueryInterceptor();
-            SaveCommandInterceptor = new ThrowOriginalExceptionSaveCommandInterceptor();
-
-            // Can also set
-            // AddCommandInterceptor
-            // DeleteCommandInterceptor
-            // ModifyCommandInterceptor 
+            SaveCommandInterceptor = new ContosoUniversitySaveCommandInterceptor();
+            DeleteCommandInterceptor = new SoftDeleteDeleteCommandInterceptor();
+            AddCommandInterceptor = new TrackedEntitiesAddCommandInterceptor();
+            ModifyCommandInterceptor = new TrackedEntitiesModifyCommandInterceptor();
         }
     }
 }

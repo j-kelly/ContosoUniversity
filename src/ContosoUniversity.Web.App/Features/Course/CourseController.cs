@@ -1,4 +1,4 @@
-﻿namespace ContosoUniversity.Features.Course
+﻿namespace ContosoUniversity.Web.App.Features.Course
 {
     using ContosoUniversity.Core.Annotations;
     using Domain.Core.Behaviours.CourseApplicationService;
@@ -32,7 +32,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateCourseCommandModel commandModel)
         {
-            var response = _CourseAppService.CreateCourse(new CreateCourseRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _CourseAppService.CreateCourse(new CreateCourseRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -44,7 +44,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(UpdateCourseCommandModel commandModel)
         {
-            var response = _CourseAppService.UpdateCourse(new UpdateCourseRequest(CurrentPrincipalHelper.UserId, commandModel));
+            var response = _CourseAppService.UpdateCourse(new UpdateCourseRequest(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -58,7 +58,7 @@
         public ActionResult DeleteConfirmed(int id)
         {
             _CourseAppService.DeleteCourse(new DeleteCourseRequest(
-                CurrentPrincipalHelper.UserId,
+                CurrentPrincipalHelper.Name,
                 new DeleteCourseCommandModel { CourseId = id }));
 
             return RedirectToAction("Index");
@@ -70,7 +70,7 @@
             if (multiplier != null)
             {
                 var response = _CourseAppService.UpdateCourseCredits(new UpdateCourseCreditsRequest(
-                    CurrentPrincipalHelper.UserId,
+                    CurrentPrincipalHelper.Name,
                     new UpdateCourseCreditsCommandModel { Multiplier = multiplier.Value }));
 
                 ViewBag.RowsAffected = response.RowsEffected;

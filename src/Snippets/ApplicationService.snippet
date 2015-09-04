@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Behaviour implementation boilerplate</Title>
+      <Shortcut>curservice</Shortcut>
+      <Description></Description>
+      <Author>JK</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>behaviour</ID>
+          <ToolTip>type of behaviour</ToolTip>
+          <Default>CreateObject</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[namespace ContosoUniversity.Domain.Core.Behaviours
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using ContosoUniversity.Domain.Core.Domain;
+    using ContosoUniversity.Domain.Core.Domain.Validation;
+    using NRepository.Core;
+    using ContosoUniversity.Core.Domain;
+    using NRepository.Samples.Core.Domain.Validation;
+    
+    /*
+         ************************************************************************************************
+         * Place this in the ContosoUniversity.Domain.AppServices.Tests/xxxxxApplicationServiceTests folder 
+         * **********************************************************************************************
+        [TestFixture]
+        public class $behaviour$Tests 
+        {
+			public $behaviour$Request CreateValidRequest(params Action<$behaviour$Request>[] updates)
+	        {
+				var commandModel = new $behaviour$CommandModel();
+				var request = new $behaviour$Request("UserId", commandModel);
+				updates.ToList().ForEach(func => func(request));
+				return request;
+	        }
+
+            [Test]
+            public void CheckInvariantValidation()
+            {
+                Action<$behaviour$Request> CallSut = request =>
+                {
+                    var serviceUnderTest = new ProductApplicationServiceFactory().Object;
+                    serviceUnderTest.$behaviour$(request);
+                };
+
+                Assert2.CheckInvariants("Command cannot be null", () => CallSut(CreateValidRequest(p => p.CommandModel = null)));
+                Assert2.CheckInvariants("ProductId must be > 0", () => CallSut(CreateValidRequest(p => p.CommandModel.ProductId = 0)));
+                // Assert2.CheckInvariants("", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
+                // Assert2.CheckInvariants("", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
+            }
+
+            [Test]
+            public void CheckValidationRules()
+            {
+               Func<$behaviour$Request, ValidationDetails> CallSut = request =>
+               {
+                  var serviceUnderTest = new ProductApplicationServiceFactory().Object;
+                  var reponse = serviceUnderTest.$behaviour$(request);
+                  return reponse.ValidationDetails;
+               };
+
+               // Assert2.CheckValidation(
+               //     "The effective date must not be before today",
+               //     "EffectiveFrom",
+               //     () => CallSut(CreateValidRequest(p => p.CommandModel.EffectiveFrom = DateTimeHelper.Today.AddDays(-1))));           }
+        
+            [Test]
+            public void Check$behaviour$HappyPath()
+            {
+            }
+        }
+
+         ************************************************************************************************
+         * Place this in the IxxxxApplicationService class 
+         * **********************************************************************************************   
+        // $behaviour$Response $behaviour$($behaviour$Request request);
+
+     
+         ************************************************************************************************
+         * Place this in the xxxxApplicationService class 
+         * **********************************************************************************************  
+        public $behaviour$Response $behaviour$($behaviour$Request request)
+        {
+            var retVal = Logger.TraceCall(() =>
+            {
+                var requestHandler = _UnityContainer.Resolve<$behaviour$Handler>();
+                var response = requestHandler.Handle(request);
+                return response;
+            });
+
+            return retVal;
+        }
+
+   
+    */
+
+    // ************************************************************************************************
+    // * Place this in the Domain.AppServices/xxxApplicationService/Handlers folder
+    // * **********************************************************************************************  
+    // Request Handler
+    public class $behaviour$Handler
+    {
+        private readonly IRepository _Repository;
+        
+        public $behaviour$Handler(IRepository repository)
+        {
+            _Repository = repository;
+        }
+
+        public $behaviour$Response Handle($behaviour$Request request)
+        {
+            var validationDetails = Validator.ValidateRequest(request);
+            if (validationDetails.HasValidationIssues)
+                return new $behaviour$Response(validationDetails);
+
+
+        // ****************************************************************************
+        //
+        // Add implementation here
+        //
+        // *****************************************************************************
+
+            return new $behaviour$Response();
+        }
+    }
+      
+    public class $behaviour$CommandModel
+    {
+    }
+        
+    public class $behaviour$Request : DomainRequest<$behaviour$CommandModel>
+    {
+        public $behaviour$Request(
+           string userId, $behaviour$CommandModel commandModel)
+            : base(userId, commandModel)
+        {
+            InvariantValidation = new $behaviour$RequestInvariantValidation(this);
+            ContextualValidation = new $behaviour$RequestContextualValidation(this);
+        }
+    }
+
+    public class $behaviour$Response : DomainResponse
+    {
+        public $behaviour$Response()
+            : base(new ValidationDetails())
+        {
+        }
+
+        public $behaviour$Response(ValidationDetails validationDetails)
+            : base(validationDetails)
+        {
+        }
+    }
+
+    public class $behaviour$RequestInvariantValidation : UserDomainRequestInvariantValidation<$behaviour$Request, $behaviour$CommandModel>
+    {
+        public $behaviour$RequestInvariantValidation($behaviour$Request context)
+            : base(context)
+        {
+        }
+
+        public void CommandModelCannotBeNull()
+        {
+            Assert(Context.CommandModel != null);
+        }
+    }
+
+    public class $behaviour$RequestContextualValidation : ContextualValidation<$behaviour$Request, $behaviour$CommandModel>
+    {
+        public $behaviour$RequestContextualValidation($behaviour$Request context)
+            : base(context)
+        {
+        }
+
+        public override void Validate(ValidationMessageCollection validationMessages)
+        {
+            // var queryRepository = ResolveService<IQueryRepository>();
+        }
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

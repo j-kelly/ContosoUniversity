@@ -32,19 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NRepository.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
+      <HintPath>..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NRepository.EntityFramework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NRepository.EntityFramework.3.2.1.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
+      <HintPath>..\packages\NRepository.EntityFramework.3.2.1.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -127,6 +127,22 @@
     <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequestContextualValidation.cs" />
     <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequestInvariantValidation.cs" />
     <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentResponse.cs" />
+    <Compile Include="Repository\Migrations\201509041250073_TrackedEntities.cs" />
+    <Compile Include="Repository\Migrations\201509041250073_TrackedEntities.Designer.cs">
+      <DependentUpon>201509041250073_TrackedEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Migrations\201509041412206_AuditProperttTrial.cs" />
+    <Compile Include="Repository\Migrations\201509041412206_AuditProperttTrial.Designer.cs">
+      <DependentUpon>201509041412206_AuditProperttTrial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\AuditPropertyTrail.cs" />
+    <Compile Include="Repository\Entities\IEntity.cs" />
+    <Compile Include="Repository\ICacheable.cs" />
+    <Compile Include="Repository\ITrackedEntity.cs" />
+    <Compile Include="Repository\Migrations\201509040833136_SoftDelete.cs" />
+    <Compile Include="Repository\Migrations\201509040833136_SoftDelete.Designer.cs">
+      <DependentUpon>201509040833136_SoftDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\Entities\Course.cs" />
     <Compile Include="Repository\Entities\Department.cs" />
     <Compile Include="Repository\Entities\Enrollments.cs" />
@@ -138,6 +154,7 @@
     <Compile Include="Repository\ContosoDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ContosoDbInitializer.cs" />
+    <Compile Include="Repository\ISoftDelete.cs" />
     <Compile Include="Repository\Strategies\FindByIdsSpecificationStrategy.cs" />
     <Compile Include="Repository\Migrations\201402242126344_InitialCreate.cs" />
     <Compile Include="Repository\Migrations\201402242126344_InitialCreate.Designer.cs">
@@ -154,10 +171,6 @@
     <Compile Include="Repository\Migrations\201402242150170_ComplexDataModel.cs" />
     <Compile Include="Repository\Migrations\201402242150170_ComplexDataModel.Designer.cs">
       <DependentUpon>201402242150170_ComplexDataModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\Migrations\201402251758056_DepartmentSP.cs" />
-    <Compile Include="Repository\Migrations\201402251758056_DepartmentSP.Designer.cs">
-      <DependentUpon>201402251758056_DepartmentSP.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\Migrations\201402251804219_RowVersion.cs" />
     <Compile Include="Repository\Migrations\201402251804219_RowVersion.Designer.cs">
@@ -177,6 +190,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Repository\Migrations\201509041250073_TrackedEntities.resx">
+      <DependentUpon>201509041250073_TrackedEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201509041412206_AuditProperttTrial.resx">
+      <DependentUpon>201509041412206_AuditProperttTrial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\Migrations\201509040833136_SoftDelete.resx">
+      <DependentUpon>201509040833136_SoftDelete.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Repository\Migrations\201402242126344_InitialCreate.resx">
       <DependentUpon>201402242126344_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,9 +210,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Repository\Migrations\201402242150170_ComplexDataModel.resx">
       <DependentUpon>201402242150170_ComplexDataModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Repository\Migrations\201402251758056_DepartmentSP.resx">
-      <DependentUpon>201402251758056_DepartmentSP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Repository\Migrations\201402251804219_RowVersion.resx">
       <DependentUpon>201402251804219_RowVersion.cs</DependentUpon>

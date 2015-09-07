@@ -46,8 +46,8 @@
       <HintPath>..\..\packages\NRepository.EntityFramework.3.3.0.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NRepository.TestKit, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NRepository.TestKit.3.2.0.0\lib\net45\NRepository.TestKit.dll</HintPath>
+    <Reference Include="NRepository.TestKit, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NRepository.TestKit.3.3.1.0\lib\net45\NRepository.TestKit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">

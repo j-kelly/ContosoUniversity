@@ -2,7 +2,6 @@
 {
     using ContosoUniversity.Core.Logging;
     using Core.Behaviours.CourseApplicationService;
-    using Microsoft.Practices.Unity;
     using NRepository.Core;
     using Services.CourseApplicationService;
     using Utility.Logging;
@@ -11,13 +10,11 @@
     {
         private ILogger Logger = LogManager.CreateLogger(typeof(CourseApplicationService));
 
-        private readonly IUnityContainer _UnityContainer;
         private readonly IRepository _Repository;
 
-        public CourseApplicationService(IUnityContainer unityContainer, IRepository repository)
+        public CourseApplicationService(IRepository repository)
         {
             _Repository = repository;
-            _UnityContainer = unityContainer;
         }
 
         public UpdateCourse.Response UpdateCourse(UpdateCourse.Request request)

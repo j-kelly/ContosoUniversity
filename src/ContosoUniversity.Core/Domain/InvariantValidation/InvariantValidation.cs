@@ -7,8 +7,6 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Text.RegularExpressions;
     using Utility.Logging;
 
     [ExcludeFromCodeCoverage]
@@ -24,8 +22,6 @@
 
         protected InvariantValidation(T context)
         {
-            AddTypeMethods();
-
             Context = context;
         }
 
@@ -34,64 +30,25 @@
             get;
         }
 
-        private void AddTypeMethods()
-        {
-            if (!specificationMethods.ContainsKey(typeof(T)))
-            {
-                lock (_syncObject)
-                {
-                    if (!specificationMethods.ContainsKey(typeof(T)))
-                    {
-                        var specs = new List<MethodInfo>();
-                        var bf = BindingFlags.Public | BindingFlags.Instance;
-                        GetType().GetMethods(bf).ToList().ForEach(methodInfo =>
-                        {
-                            if (methodInfo.DeclaringType == typeof(InvariantValidation<T>))
-                                return;
-
-                            if (methodInfo.DeclaringType == typeof(object))
-                                return;
-
-                            specs.Add(methodInfo);
-                        });
-
-                        specificationMethods[typeof(T)] = specs;
-                    }
-                }
-            }
-        }
 
         [DebuggerStepThrough]
-        protected virtual void Assert(bool result, [CallerMemberName] string errorMessage = "")
+        protected virtual void Assert(bool result, string errorMessage)
         {
             if (!result)
             {
-                var splitMessage = SplitCamelCase(errorMessage);
-                throw new InvariantValidationException(splitMessage);
+                throw new InvariantValidationException(errorMessage);
             }
         }
 
         [DebuggerStepThrough]
-        protected virtual void Assert<TException>(bool result, [CallerMemberName] string errorMessage = "") where TException : Exception
-        {
-            if (!result)
-            {
-                var exception = (Exception)Activator.CreateInstance(typeof(TException), errorMessage);
-                throw exception;
-            }
-        }
-
-        [DebuggerStepThrough]
-        public virtual void Assert(params object[] dependentServices)
+        public virtual void StartAsserting(params object[] dependentServices)
         {
             try
             {
                 _DependentServices = dependentServices;
 
-                specificationMethods[typeof(T)].ForEach(methodInfo =>
-                {
-                    methodInfo.Invoke(this, new object[0]);
-                });
+                Validate();
+                ValidateCommandModel();
             }
             catch (TargetInvocationException targetInvocationEx)
             {
@@ -104,19 +61,15 @@
             }
         }
 
+        [DebuggerStepThrough]
+        public virtual void Validate() { }
+
+        [DebuggerStepThrough]
+        public virtual void ValidateCommandModel() { }
+
         protected TInterface ResolveService<TInterface>()
         {
             return _DependentServices.OfType<TInterface>().Single();
-        }
-
-        protected static string SplitCamelCase(string str)
-        {
-            var retVal = Regex.Replace(
-                Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"),
-                @"(\p{Ll})(\P{Ll})",
-                "$1 $2");
-
-            return retVal.ToLower();
         }
     }
 }

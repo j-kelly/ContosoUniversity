@@ -9,6 +9,11 @@ namespace ContosoUniversity.Core.Domain
             ValidationDetails = validationDetails;
         }
 
+        public DomainResponse()
+            : this(new ValidationMessageCollection())
+        {
+        }
+
         public ValidationMessageCollection ValidationDetails
         {
             get;

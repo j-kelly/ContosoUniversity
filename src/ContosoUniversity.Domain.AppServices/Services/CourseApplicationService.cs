@@ -1,0 +1,71 @@
+﻿namespace ContosoUniversity.Domain.AppServices
+{
+    using ContosoUniversity.Core.Logging;
+    using Core.Behaviours.CourseApplicationService;
+    using Microsoft.Practices.Unity;
+    using NRepository.Core;
+    using Services.CourseApplicationService;
+    using Utility.Logging;
+
+    public class CourseApplicationService : ICourseApplicationService
+    {
+        private ILogger Logger = LogManager.CreateLogger(typeof(CourseApplicationService));
+
+        private readonly IUnityContainer _UnityContainer;
+        private readonly IRepository _Repository;
+
+        public CourseApplicationService(IUnityContainer unityContainer, IRepository repository)
+        {
+            _Repository = repository;
+            _UnityContainer = unityContainer;
+        }
+
+        public UpdateCourse.Response UpdateCourse(UpdateCourse.Request request)
+        {
+            var retVal = Logger.TraceCall(1, () =>
+            {
+                var requestHandler = new UpdateCourseHandler(_Repository);
+                var response = requestHandler.Handle(request);
+                return response;
+            });
+
+            return retVal;
+        }
+
+        public CreateCourse.Response CreateCourse(CreateCourse.Request request)
+        {
+            var retVal = Logger.TraceCall(() =>
+            {
+                var requestHandler = new CreateCourseHandler(_Repository);
+                var response = requestHandler.Handle(request);
+                return response;
+            });
+
+            return retVal;
+        }
+
+        public DeleteCourse.Response DeleteCourse(DeleteCourse.Request request)
+        {
+            var retVal = Logger.TraceCall(() =>
+            {
+                var requestHandler = new DeleteCourseHandler(_Repository);
+                var response = requestHandler.Handle(request);
+                return response;
+            });
+
+            return retVal;
+        }
+
+        public UpdateCourseCredits.Response UpdateCourseCredits(UpdateCourseCredits.Request request)
+        {
+            var retVal = Logger.TraceCall(() =>
+            {
+                var requestHandler = new UpdateCourseCreditsHandler(_Repository);
+                var response = requestHandler.Handle(request);
+                return response;
+            });
+
+            return retVal;
+        }
+    }
+}

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Behaviour implementation boilerplate</Title>
+      <Shortcut>curservice_single_class</Shortcut>
+      <Description></Description>
+      <Author>JK</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>behaviour</ID>
+          <ToolTip>type of behaviour</ToolTip>
+          <Default>CreateObject</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Core.Domain.InvariantValidation;
+    using NRepository.Core;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    // ************************************************************************************************
+    // * Place this in the ContosoUniversity.Domain.AppServices.Tests/xxxxxApplicationServiceTests folder 
+    // * **********************************************************************************************
+/* 
+    using ContosoUniversity.Core.Domain.ContextualValidation;
+    using NRepository.TestKit;
+    using NUnit.Framework;
+    using System;
+    using System.Linq;
+    using TestKit.Factories;
+    
+    [TestFixture]
+    public class $behaviour$HandlerTests 
+    {
+        // Prefer to leave this class at the top so easy to see what contistutes a valid command object
+        public $behaviour$.Request CreateValidRequest(params Action<$behaviour$.Request>[] updates)
+        {
+            var commandModel = EntityGenerator.Create<$behaviour$.CommandModel>();
+
+            var request = new $behaviour$.Request("UserId", commandModel);
+            updates.ToList().ForEach(func => func(request));
+            return request;
+        }
+
+        [Test]
+        public void CheckInvariantValidation()
+        {
+            Action <$behaviour$.Request> CallSut = request =>
+            {
+                var serviceUnderTest = new $behaviour$HandlerFactory().Object;
+                serviceUnderTest.Handle(request);
+            };
+
+            // Assert2.CheckInvariantValidation("[ErrorMessage]", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
+        }
+
+        [Test]
+        public void CheckValidationRules()
+        {
+            Func <$behaviour$.Request, ValidationMessageCollection > CallSut = request =>
+            {
+                var serviceUnderTest = new $behaviour$HandlerFactory().Object;
+                var reponse = serviceUnderTest.Handle(request);
+                return reponse.ValidationDetails;
+            };
+
+            // Assert2.CheckValidation( "[ExpectedMessage]", "[PropertyName]", () => CallSut(CreateValidRequest(p => p.CommandModel.DummyValue = "1")));           
+        }
+
+        [Test]
+        public void When$behaviour$IsCalledThenIExpectItToDoSomething()
+        {
+        }
+    }
+*/    
+
+    // ************************************************************************************************
+    // * Place this in the Domain.AppServices/xxxApplicationService folder
+    // * **********************************************************************************************  
+    // Request Handler
+    [GenerateTestFactory]
+    public class $behaviour$Handler
+    {
+        private readonly IRepository _Repository;
+
+        public $behaviour$Handler(IRepository repository)
+        {
+            _Repository = repository;
+        }
+
+        public $behaviour$.Response Handle($behaviour$.Request request)
+        {
+            var validationDetails = Validator.ValidateRequest(request);
+            if (validationDetails.HasValidationIssues)
+                return new $behaviour$.Response(validationDetails);
+
+
+            // ****************************************************************************
+            //
+            // Add your implementation here
+            //
+            // *****************************************************************************
+
+            return new $behaviour$.Response();
+        }
+    }
+
+    // ************************************************************************************************
+    //   * Place this in the IxxxxApplicationService class
+    //   ***********************************************************************************************
+    //   $behaviour$.Response $behaviour$($behaviour$.Request request);
+
+
+    //  ************************************************************************************************
+    //    * Place this in the xxxxApplicationService class
+    //    ***********************************************************************************************
+    //   public $behaviour$.Response $behaviour$($behaviour$.Request request)
+    //   {
+    //    var retVal = Logger.TraceCall(() =>
+    //    {
+    //        var requestHandler = _UnityContainer.Resolve<$behaviour$Handler > ();
+    //        var response = requestHandler.Handle(request);
+    //        return response;
+    //    });
+
+    //    return retVal;
+    //}
+
+    public class $behaviour$
+    {
+        // $behaviour$.CommandModel
+        public class CommandModel
+        {
+            [Required]
+            [StringLength(50, MinimumLength = 3)]
+            public string DummyValue { get; set; }
+        }
+
+        // $behaviour$.Request
+        public class Request : DomainRequest<CommandModel>
+        {
+            public Request(string userId, CommandModel commandModel)
+                : base(userId, commandModel)
+            {
+                InvariantValidation = new InvariantValidation(this);
+                ContextualValidation = new ContextualValidation(this);
+            }
+        }
+
+        // $behaviour$.Response
+        public class Response : DomainResponse
+        {
+            public Response()
+            {
+            }
+            
+            public Response(ValidationMessageCollection validationDetails)
+                : base(validationDetails)
+            {
+            }
+        }
+
+        // $behaviour$.InvariantValidation
+        public class InvariantValidation : UserDomainRequestInvariantValidation<Request, CommandModel>
+        {
+            public InvariantValidation(Request context)
+                : base(context)
+            {
+            }
+        }
+
+        // $behaviour$.ContextualValidation
+        public class ContextualValidation : ContextualValidation<Request, CommandModel>
+        {
+            public ContextualValidation(Request context)
+                : base(context)
+            {
+            }
+        }
+    }
+]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

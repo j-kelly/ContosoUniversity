@@ -20,7 +20,7 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
             get;
         }
 
-        public abstract void Validate(ValidationMessageCollection validationMessages);
+        public virtual void Validate(ValidationMessageCollection validationMessages) { }
 
         public ValidationMessageCollection Validate(params object[] dependentServices)
         {

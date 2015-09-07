@@ -9,9 +9,6 @@ namespace ContosoUniversity.Domain.Core.Behaviours.StudentApplicationService.Del
         {
         }
 
-        public void CommandModelCannotBeNull()
-        {
-            Assert(Context.CommandModel != null);
-        }
+
     }
 }

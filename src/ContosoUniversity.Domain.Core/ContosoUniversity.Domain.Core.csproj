@@ -58,75 +58,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseCommandModel.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseRequest.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse\DeleteCourseResponse.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentCommandModel.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentRequest.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment\DeleteDepartmentResponse.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentCommandModel.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentRequest.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment\UpdateDepartmentResponse.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\IDepartmentApplicationService.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseCommandModel.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseRequest.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\CreateCourse\CreateCourseResponse.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsCommandModel.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsRequest.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits\UpdateCourseCreditsResponse.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\ICourseApplicationService.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseCommandModel.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseRequest.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse\UpdateCourseResponse.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentCommandModel.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentRequest.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment\CreateDepartmentResponse.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesCommandModel.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesRequest.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses\CreateInstructorWithCoursesResponse.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorCommandModel.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorRequest.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor\DeleteInstructorResponse.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\IInstructorApplicationService.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesCommandModel.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesRequest.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses\ModifyInstructorAndCoursesResponse.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentCommandModel.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentRequest.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\CreateStudent\CreateStudentResponse.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentCommandModel.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentRequest.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent\DeleteStudentResponse.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\IStudentApplicationService.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentCommandModel.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequest.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequestContextualValidation.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentRequestInvariantValidation.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent\ModifyStudentResponse.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse.cs" />
+    <Compile Include="Behaviours\CourseApplicationService\CreateCourse.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment.cs" />
+    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment.cs" />
+    <Compile Include="Behaviours\IDepartmentApplicationService.cs" />
+    <Compile Include="Behaviours\ICourseApplicationService.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses.cs" />
+    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses.cs" />
+    <Compile Include="Behaviours\IInstructorApplicationService.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\CreateStudent.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent.cs" />
+    <Compile Include="Behaviours\IStudentApplicationService.cs" />
+    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent.cs" />
     <Compile Include="Repository\Migrations\201509041250073_TrackedEntities.cs" />
     <Compile Include="Repository\Migrations\201509041250073_TrackedEntities.Designer.cs">
       <DependentUpon>201509041250073_TrackedEntities.cs</DependentUpon>
@@ -224,9 +172,6 @@
       <Project>{fb76888d-92a9-492b-9297-43969b590219}</Project>
       <Name>ContosoUniversity.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Behaviours\HowToAddNewBehaviours.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

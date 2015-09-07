@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContosoUniversity</RootNamespace>
-    <AssemblyName>ContosoUniversity</AssemblyName>
+    <RootNamespace>ContosoUniversity.Web.App</RootNamespace>
+    <AssemblyName>ContosoUniversity.Web.App</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -181,18 +181,21 @@
     <Compile Include="Features\Course\CourseController.cs" />
     <Compile Include="Features\Department\DepartmentController.cs" />
     <Compile Include="Features\Home\HomeController.cs" />
-    <Compile Include="Features\Instructor\AssignedCourseData.cs" />
+    <Compile Include="Features\Instructor\ViewModels\AssignedCourseDataViewModel.cs" />
     <Compile Include="Features\Instructor\InstructorController.cs" />
-    <Compile Include="Features\Instructor\EnrollmentDetail.cs" />
-    <Compile Include="Features\Instructor\InstructorDetail.cs" />
+    <Compile Include="Features\Instructor\ViewModels\CreateInstructorWithCoursesViewModel.cs" />
+    <Compile Include="Features\Instructor\ViewModels\EnrollmentDetailViewModel.cs" />
+    <Compile Include="Features\Instructor\ViewModels\InstructorDetailViewModel.cs" />
+    <Compile Include="Features\Instructor\ViewModels\ModifyInstructorAndCoursesViewModel.cs" />
     <Compile Include="Features\Student\StudentController.cs" />
+    <Compile Include="Features\Student\ViewModels\CreateStudentViewModel.cs" />
     <Compile Include="_Infrastructure\Extensions\ModelStateExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Features\Instructor\InstructorIndexData.cs" />
+    <Compile Include="Features\Instructor\ViewModels\InstructorIndexDataViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -201,6 +204,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
+    <None Include="Features\_Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

@@ -2,9 +2,6 @@
 {
     using ContosoUniversity.Core.Annotations;
     using Domain.Core.Behaviours.DepartmentApplicationService;
-    using Domain.Core.Behaviours.DepartmentApplicationService.DeleteDepartment;
-    using Domain.Core.Behaviours.DepartmentApplicationService.UpdateDepartment;
-    using Domain.Core.Behaviours.DepartmentApplicationService.CreateDepartment;
     using Models;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
@@ -15,7 +12,7 @@
     using System.Web.Mvc;
     using Web.Core.Repository.Projections;
 
-    [GenerateTestFactoryAttribute]
+    [GenerateTestFactory]
     public class DepartmentController : Controller
     {
         private readonly IQueryRepository _QueryRepository;
@@ -31,9 +28,9 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateDepartmentCommandModel commandModel)
+        public async Task<ActionResult> Create(CreateDepartment.CommandModel commandModel)
         {
-            var response = _DepartmentAppService.CreateDepartment(new CreateDepartmentRequest(CurrentPrincipalHelper.Name, commandModel));
+            var response = _DepartmentAppService.CreateDepartment(new CreateDepartment.Request(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -46,9 +43,9 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(DeleteDepartmentCommandModel commandModel)
+        public ActionResult Delete(DeleteDepartment.CommandModel commandModel)
         {
-            var response = _DepartmentAppService.DeleteDepartment(new DeleteDepartmentRequest(CurrentPrincipalHelper.Name, commandModel));
+            var response = _DepartmentAppService.DeleteDepartment(new DeleteDepartment.Request(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -61,9 +58,9 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(UpdateDepartmentCommandModel commandModel)
+        public async Task<ActionResult> Edit(UpdateDepartment.CommandModel commandModel)
         {
-            var response = _DepartmentAppService.UpdateDepartment(new UpdateDepartmentRequest(CurrentPrincipalHelper.Name, commandModel));
+            var response = _DepartmentAppService.UpdateDepartment(new UpdateDepartment.Request(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -109,7 +106,7 @@
 
             var department = await _QueryRepository.GetEntities<Department>(
                 p => p.DepartmentID == id.Value)
-                .Select(p => new UpdateDepartmentCommandModel
+                .Select(p => new UpdateDepartment.CommandModel
                 {
                     Budget = p.Budget,
                     DepartmentID = p.DepartmentID,

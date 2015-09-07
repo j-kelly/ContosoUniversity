@@ -5,7 +5,7 @@ namespace ContosoUniversity.Core.Domain.InvariantValidation
     [ExcludeFromCodeCoverage]
     public class EmptyInvariantValidation : IInvariantValidation
     {
-        public void Assert(params object[] dependentServices)
+        public void StartAsserting(params object[] dependentServices)
         {
         }
     }

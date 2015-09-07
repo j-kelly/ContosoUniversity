@@ -7,8 +7,8 @@
     <ProjectGuid>{6257DFE3-FCFB-4E59-BA98-B7C17D0595F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContosoUniversity.Domain.Services</RootNamespace>
-    <AssemblyName>ContosoUniversity.Domain.Services</AssemblyName>
+    <RootNamespace>ContosoUniversity.Domain.AppServices</RootNamespace>
+    <AssemblyName>ContosoUniversity.Domain.AppServices</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -74,25 +74,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CourseApplicationService\CourseApplicationService.cs" />
-    <Compile Include="CourseApplicationService\Handlers\DeleteCourseHandler.cs" />
-    <Compile Include="CourseApplicationService\Handlers\CreateCourseHandler.cs" />
-    <Compile Include="CourseApplicationService\Handlers\UpdateCourseCreditsHandler.cs" />
-    <Compile Include="CourseApplicationService\Handlers\UpdateCourseHandler.cs" />
-    <Compile Include="DepartmentApplicationService\Handlers\DeleteDepartmentHandler.cs" />
-    <Compile Include="DepartmentApplicationService\Handlers\CreateDepartmentHandler.cs" />
-    <Compile Include="DepartmentApplicationService\Handlers\UpdateDepartmentHandler.cs" />
-    <Compile Include="DepartmentApplicationService\DepartmentApplicationService.cs" />
+    <Compile Include="Services\CourseApplicationService.cs" />
+    <Compile Include="Services\CourseHandlers\DeleteCourseHandler.cs" />
+    <Compile Include="Services\CourseHandlers\CreateCourseHandler.cs" />
+    <Compile Include="Services\CourseHandlers\UpdateCourseCreditsHandler.cs" />
+    <Compile Include="Services\CourseHandlers\UpdateCourseHandler.cs" />
+    <Compile Include="Services\DepartmentHandlers\DeleteDepartmentHandler.cs" />
+    <Compile Include="Services\DepartmentHandlers\CreateDepartmentHandler.cs" />
+    <Compile Include="Services\DepartmentHandlers\UpdateDepartmentHandler.cs" />
+    <Compile Include="Services\DepartmentApplicationService.cs" />
     <Compile Include="_Infrastructure\Extensions\IRepositoryExtension.cs" />
-    <Compile Include="InstructorApplicationService\Handlers\CreateInstructorWithCoursesHandler.cs" />
-    <Compile Include="InstructorApplicationService\Handlers\DeleteInstructorHandler.cs" />
-    <Compile Include="InstructorApplicationService\Handlers\ModifyInstructorAndCoursesHandler.cs" />
-    <Compile Include="InstructorApplicationService\InstructorApplicationService.cs" />
+    <Compile Include="Services\InstructorHandlers\CreateInstructorWithCoursesHandler.cs" />
+    <Compile Include="Services\InstructorHandlers\DeleteInstructorHandler.cs" />
+    <Compile Include="Services\InstructorHandlers\ModifyInstructorAndCoursesHandler.cs" />
+    <Compile Include="Services\InstructorApplicationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentApplicationService\Handlers\CreateStudentHandler.cs" />
-    <Compile Include="StudentApplicationService\Handlers\DeleteStudentHandler.cs" />
-    <Compile Include="StudentApplicationService\Handlers\ModifyStudentHandler.cs" />
-    <Compile Include="StudentApplicationService\StudentApplicationService.cs" />
+    <Compile Include="Services\StudentHandlers\CreateStudentHandler.cs" />
+    <Compile Include="Services\StudentHandlers\DeleteStudentHandler.cs" />
+    <Compile Include="Services\StudentHandlers\ModifyStudentHandler.cs" />
+    <Compile Include="Services\StudentApplicationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContosoUniversity.Core\ContosoUniversity.Core.csproj">

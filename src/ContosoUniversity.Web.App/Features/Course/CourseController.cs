@@ -2,10 +2,6 @@
 {
     using ContosoUniversity.Core.Annotations;
     using Domain.Core.Behaviours.CourseApplicationService;
-    using Domain.Core.Behaviours.CourseApplicationService.CreateCourse;
-    using Domain.Core.Behaviours.CourseApplicationService.DeleteCourse;
-    using Domain.Core.Behaviours.CourseApplicationService.UpdateCourse;
-    using Domain.Core.Behaviours.CourseApplicationService.UpdateCourseCredits;
     using Models;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
@@ -14,7 +10,7 @@
     using System.Web.Mvc;
     using Web.Core.Repository.Projections;
 
-    [GenerateTestFactoryAttribute]
+    [GenerateTestFactory]
     public class CourseController : Controller
     {
         private readonly IQueryRepository _QueryRepository;
@@ -30,9 +26,9 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateCourseCommandModel commandModel)
+        public async Task<ActionResult> Create(CreateCourse.CommandModel commandModel)
         {
-            var response = _CourseAppService.CreateCourse(new CreateCourseRequest(CurrentPrincipalHelper.Name, commandModel));
+            var response = _CourseAppService.CreateCourse(new CreateCourse.Request(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -42,9 +38,9 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(UpdateCourseCommandModel commandModel)
+        public async Task<ActionResult> Edit(UpdateCourse.CommandModel commandModel)
         {
-            var response = _CourseAppService.UpdateCourse(new UpdateCourseRequest(CurrentPrincipalHelper.Name, commandModel));
+            var response = _CourseAppService.UpdateCourse(new UpdateCourse.Request(CurrentPrincipalHelper.Name, commandModel));
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -57,9 +53,9 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _CourseAppService.DeleteCourse(new DeleteCourseRequest(
+            _CourseAppService.DeleteCourse(new DeleteCourse.Request(
                 CurrentPrincipalHelper.Name,
-                new DeleteCourseCommandModel { CourseId = id }));
+                new DeleteCourse.CommandModel { CourseId = id }));
 
             return RedirectToAction("Index");
         }
@@ -69,9 +65,9 @@
         {
             if (multiplier != null)
             {
-                var response = _CourseAppService.UpdateCourseCredits(new UpdateCourseCreditsRequest(
+                var response = _CourseAppService.UpdateCourseCredits(new UpdateCourseCredits.Request(
                     CurrentPrincipalHelper.Name,
-                    new UpdateCourseCreditsCommandModel { Multiplier = multiplier.Value }));
+                    new UpdateCourseCredits.CommandModel { Multiplier = multiplier.Value }));
 
                 ViewBag.RowsAffected = response.RowsEffected;
             }
@@ -117,7 +113,7 @@
                 return HttpNotFound();
 
             ViewBag.DepartmentID = await CreateDepartmentSelectList(course.DepartmentID);
-            return View(new UpdateCourseCommandModel
+            return View(new UpdateCourse.CommandModel
             {
                 CourseID = course.CourseID,
                 Credits = course.Credits,

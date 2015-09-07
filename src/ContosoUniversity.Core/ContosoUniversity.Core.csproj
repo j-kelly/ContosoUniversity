@@ -33,10 +33,6 @@
     <CodeAnalysisRuleSet>NRepository.Samples.Core.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NRepository.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NRepository.Core.3.3.1.0\lib\net45\NRepository.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -85,6 +81,8 @@
     <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\InvariantValidation\UserDomainRequestInvariantValidation.cs" />
+    <Compile Include="Utilities\Check.cs" />
+    <Compile Include="Utilities\DebugCheck.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NRepository.Samples.Core.ruleset" />

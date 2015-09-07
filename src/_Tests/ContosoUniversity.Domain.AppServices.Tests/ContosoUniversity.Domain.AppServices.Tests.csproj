@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NRepository.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NRepository.TestKit, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NRepository.TestKit.3.2.0.0\lib\net45\NRepository.TestKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,13 +52,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CourseApplicationService\UpdateCourseCreditsHandlerTests.cs" />
+    <Compile Include="CourseApplicationService\UpdateCourseHandlerTests.cs" />
+    <Compile Include="CourseApplicationService\DeleteCourseHandlerTests.cs" />
+    <Compile Include="CourseApplicationService\CreateCourseHandlerTests.cs" />
+    <Compile Include="DepartmentApplicationService\CreateDepartmentHandlerTests.cs" />
+    <Compile Include="DepartmentApplicationService\DeleteDepartmentHandlerTests.cs" />
+    <Compile Include="DepartmentApplicationService\UpdateDepartmentHandlerTests.cs" />
+    <Compile Include="InstructorApplicationService\CreateInstructorWithCoursesHandlerTests.cs" />
+    <Compile Include="InstructorApplicationService\CreateStudentHandlerTests.cs" />
+    <Compile Include="InstructorApplicationService\DeleteInstructorHandlerTests.cs" />
+    <Compile Include="InstructorApplicationService\ModifyStudentHandlerTests.cs" />
+    <Compile Include="InstructorApplicationService\Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StudentApplicationService\DeleteStudentHandlerTests.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CourseApplicationService\" />
-    <Folder Include="DepartmentApplicationService\" />
-    <Folder Include="InstructorApplicationService\" />
-    <Folder Include="StudentApplicationService\" />
+    <ProjectReference Include="..\..\ContosoUniversity.Core\ContosoUniversity.Core.csproj">
+      <Project>{fb76888d-92a9-492b-9297-43969b590219}</Project>
+      <Name>ContosoUniversity.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ContosoUniversity.Domain.AppServices\ContosoUniversity.Domain.AppServices.csproj">
+      <Project>{6257dfe3-fcfb-4e59-ba98-b7c17d0595f2}</Project>
+      <Name>ContosoUniversity.Domain.AppServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ContosoUniversity.Domain.Core\ContosoUniversity.Domain.Core.csproj">
+      <Project>{d0ffc052-cd52-4bb8-8908-9ae3cc5fcafd}</Project>
+      <Name>ContosoUniversity.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContosoUniversity.TestKit\ContosoUniversity._TestKit.csproj">
+      <Project>{5dbe222c-ddb6-48fe-928e-8226851036a4}</Project>
+      <Name>ContosoUniversity._TestKit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

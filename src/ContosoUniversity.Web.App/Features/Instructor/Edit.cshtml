@@ -1,4 +1,4 @@
-﻿@model ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService.ModifyInstructorAndCourses.ModifyInstructorAndCoursesCommandModel
+﻿@model  ContosoUniversity.Web.App.Features.Instructor.ModifyInstructorAndCoursesViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -55,7 +55,7 @@
                     <tr>
                         @{
                             int cnt = 0;
-                            List<ContosoUniversity.Web.App.Features.Instructor.AssignedCourseData> courses = ViewBag.Courses;
+                            List<ContosoUniversity.Web.App.Features.Instructor.AssignedCourseDataViewModel> courses = ViewBag.Courses;
 
                             foreach (var course in courses)
                             {

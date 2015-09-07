@@ -54,10 +54,10 @@
                     serviceUnderTest.$behaviour$(request);
                 };
 
-                Assert2.CheckInvariants("Command cannot be null", () => CallSut(CreateValidRequest(p => p.CommandModel = null)));
-                Assert2.CheckInvariants("ProductId must be > 0", () => CallSut(CreateValidRequest(p => p.CommandModel.ProductId = 0)));
-                // Assert2.CheckInvariants("", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
-                // Assert2.CheckInvariants("", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
+                Assert2.CheckInvariantValidation("Command cannot be null", () => CallSut(CreateValidRequest(p => p.CommandModel = null)));
+                Assert2.CheckInvariantValidation("ProductId must be > 0", () => CallSut(CreateValidRequest(p => p.CommandModel.ProductId = 0)));
+                // Assert2.CheckInvariantValidation("", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
+                // Assert2.CheckInvariantValidation("", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
             }
 
             [Test]

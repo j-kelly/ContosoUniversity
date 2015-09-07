@@ -1,11 +1,9 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Instructor
 {
     using ContosoUniversity.Core.Annotations;
+    using ViewModels;
     using ContosoUniversity.Web.Core.Repository.Projections;
     using Domain.Core.Behaviours.InstructorApplicationService;
-    using Domain.Core.Behaviours.InstructorApplicationService.CreateInstructorWithCourses;
-    using Domain.Core.Behaviours.InstructorApplicationService.DeleteInstructor;
-    using Domain.Core.Behaviours.InstructorApplicationService.ModifyInstructorAndCourses;
     using Models;
     using NRepository.Core.Query;
     using System;
@@ -16,7 +14,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
-    [GenerateTestFactoryAttribute]
+    [GenerateTestFactory]
     public class InstructorController : Controller
     {
         private readonly IInstructorApplicationService _InstructorAppService;
@@ -34,26 +32,26 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _InstructorAppService.DeleteInstructor(new DeleteInstructorRequest(
+            _InstructorAppService.DeleteInstructor(new DeleteInstructor.Request(
                 CurrentPrincipalHelper.Name,
-                new DeleteInstructorCommandModel { InstructorId = id }));
+                new DeleteInstructor.CommandModel { InstructorId = id }));
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateInstructorWithCoursesCommandModel commandModel)
+        public async Task<ActionResult> Create(CreateInstructorWithCoursesViewModel viewModel)
         {
-            var response = _InstructorAppService.CreateInstructorWithCourses(new CreateInstructorWithCoursesRequest(
+            var response = _InstructorAppService.CreateInstructorWithCourses(new CreateInstructorWithCourses.Request(
                CurrentPrincipalHelper.Name,
-               commandModel));
+               viewModel.CommandModel));
 
             if (response.HasValidationIssues)
             {
                 ModelState.AddRange(response.ValidationDetails);
-                await PopulateAssignedCourseData(commandModel.SelectedCourses);
-                return View(commandModel);
+                await PopulateAssignedCourseData(viewModel.SelectedCourses);
+                return View(viewModel);
             }
 
             return RedirectToAction("Index");
@@ -61,17 +59,17 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ModifyInstructorAndCoursesCommandModel commandModel)
+        public async Task<ActionResult> Edit(ModifyInstructorAndCoursesViewModel viewModel)
         {
-            var response = _InstructorAppService.ModifyInstructorAndCourses(new ModifyInstructorAndCoursesRequest(
+            var response = _InstructorAppService.ModifyInstructorAndCourses(new ModifyInstructorAndCourses.Request(
                CurrentPrincipalHelper.Name,
-               commandModel));
+               viewModel.CommandModel));
 
             if (response.HasValidationIssues)
             {
                 ModelState.AddRange(response.ValidationDetails);
-                await PopulateAssignedCourseData(commandModel.SelectedCourses);
-                return View(commandModel);
+                await PopulateAssignedCourseData(viewModel.SelectedCourses);
+                return View(viewModel);
             }
 
             return RedirectToAction("Index");
@@ -79,7 +77,7 @@
 
         public async Task<ActionResult> Index(int? id, int? courseID)
         {
-            var viewModel = new InstructorIndexData();
+            var viewModel = new InstructorIndexDataViewModel();
             viewModel.Instructors = GetInstructorDetails().ToArray();
 
             if (id != null)
@@ -93,7 +91,7 @@
                 ViewBag.CourseID = courseID.Value;
                 viewModel.Enrollments = await _QueryRepository.GetEntities<Enrollment>(
                     p => p.CourseID == courseID)
-                    .Select(p => new EnrollmentDetail
+                    .Select(p => new EnrollmentDetailViewModel
                     {
                         FirstMidName = p.Student.FirstMidName,
                         LastName = p.Student.LastName,
@@ -118,7 +116,7 @@
 
         public async Task<ActionResult> Create()
         {
-            var commandModel = new CreateInstructorWithCoursesCommandModel();
+            var commandModel = new CreateInstructorWithCoursesViewModel();
             await PopulateAssignedCourseData(new int[0]);
             return View(commandModel);
         }
@@ -130,7 +128,7 @@
 
             var instructor = await _QueryRepository.GetEntities<Instructor>(
                 p => p.ID == id.Value)
-                .Select(ins => new ModifyInstructorAndCoursesCommandModel
+                .Select(ins => new ModifyInstructorAndCoursesViewModel
                 {
                     FirstMidName = ins.FirstMidName,
                     HireDate = ins.HireDate,
@@ -163,10 +161,10 @@
         {
             var allCourses = await _QueryRepository.GetEntitiesAsync<Course>();
             var instructorCourses = new HashSet<int>(courseIds);
-            var viewModel = new List<AssignedCourseData>();
+            var viewModel = new List<AssignedCourseDataViewModel>();
             foreach (var course in allCourses)
             {
-                viewModel.Add(new AssignedCourseData
+                viewModel.Add(new AssignedCourseDataViewModel
                 {
                     CourseID = course.CourseID,
                     Title = course.Title,
@@ -177,11 +175,11 @@
             ViewBag.Courses = viewModel;
         }
 
-        private IQueryable<InstructorDetail> GetInstructorDetails(Expression<Func<InstructorDetail, bool>> expression = null)
+        private IQueryable<InstructorDetailViewModel> GetInstructorDetails(Expression<Func<InstructorDetailViewModel, bool>> expression = null)
         {
             var instructors = _QueryRepository.GetEntities<Instructor>(
                 new OrderByQueryStrategy<Instructor>(p => p.LastName))
-                  .Select(p => new InstructorDetail
+                  .Select(p => new InstructorDetailViewModel
                   {
                       FirstMidName = p.FirstMidName,
                       HireDate = p.HireDate,

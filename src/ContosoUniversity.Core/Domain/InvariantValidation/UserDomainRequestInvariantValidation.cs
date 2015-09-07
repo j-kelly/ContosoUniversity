@@ -8,9 +8,9 @@ namespace ContosoUniversity.Core.Domain.InvariantValidation
         {
         }
 
-        public void UserIdCannotBeNullOrZeroLength()
+        public override void Validate()
         {
-            Assert(!string.IsNullOrWhiteSpace(Context.UserId));
+            Assert(!string.IsNullOrWhiteSpace(Context.UserId), "UserId cannot be null or whitespace");
         }
     }
 }

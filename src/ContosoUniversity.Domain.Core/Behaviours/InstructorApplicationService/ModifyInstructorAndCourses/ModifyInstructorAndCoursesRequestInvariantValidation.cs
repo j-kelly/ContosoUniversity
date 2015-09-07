@@ -8,10 +8,5 @@ namespace ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService.
             : base(context)
         {
         }
-
-        public void CommandModelCannotBeNull()
-        {
-            Assert(Context.CommandModel != null);
-        }
     }
 }

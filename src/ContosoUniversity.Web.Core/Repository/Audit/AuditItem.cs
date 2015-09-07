@@ -4,16 +4,16 @@ namespace ContosoUniversity.Web.Core.Repository.Audit
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AuditItem : ContosoUniversity.Web.Core.Repository.Audit.IAuditItem
+    public class AuditItem : IAuditItem
     {
         public AuditItem(Type classType, params string[] isModified)
         {
             ClassType = classType;
 
-            var auditItems = new List<ContosoUniversity.Web.Core.Repository.Audit.AuditPropertyItem>();
+            var auditItems = new List<AuditPropertyItem>();
             isModified.ToList().ForEach(propertyName =>
             {
-                var item = new ContosoUniversity.Web.Core.Repository.Audit.AuditPropertyItem(propertyName, false);
+                var item = new AuditPropertyItem(propertyName, false);
                 item.SetPropertyInfo(ClassType);
                 auditItems.Add(item);
             });
@@ -21,11 +21,11 @@ namespace ContosoUniversity.Web.Core.Repository.Audit
             AuditPropertyItems = auditItems;
         }
 
-        public AuditItem(Type classType, params ContosoUniversity.Web.Core.Repository.Audit.AuditPropertyItem[] propertyItems)
+        public AuditItem(Type classType, params AuditPropertyItem[] propertyItems)
         {
             ClassType = classType;
 
-            var propInfos = new List<ContosoUniversity.Web.Core.Repository.Audit.AuditPropertyItem>();
+            var propInfos = new List<AuditPropertyItem>();
             propertyItems.ToList().ForEach(item =>
             {
                 item.SetPropertyInfo(ClassType);
@@ -35,16 +35,14 @@ namespace ContosoUniversity.Web.Core.Repository.Audit
             AuditPropertyItems = propInfos;
         }
 
-        public IEnumerable<ContosoUniversity.Web.Core.Repository.Audit.AuditPropertyItem> AuditPropertyItems
+        public IEnumerable<AuditPropertyItem> AuditPropertyItems
         {
             get;
-            private set;
         }
 
         public Type ClassType
         {
             get;
-            private set;
         }
     }
 }

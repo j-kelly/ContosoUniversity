@@ -4,8 +4,15 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Check
+    public class Check
     {
+        // Hackky
+        public static void IsGreaterThan(int value, int minValue, string parameterName)
+        {
+            if (value < minValue)
+                throw new ContosoUniversityException($"Parameter '{parameterName}' must be greater than {minValue}");
+        }
+
         public static T NotNull<T>(T value, string parameterName) where T : class
         {
             if (value == null)

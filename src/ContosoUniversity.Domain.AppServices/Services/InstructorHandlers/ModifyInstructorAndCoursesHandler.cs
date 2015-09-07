@@ -2,12 +2,10 @@
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using DAL;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using InstructorApplicationService;
-    using Models;
     using NRepository.Core;
     using NRepository.EntityFramework.Query;
-    using System.Linq;
 
     [GenerateTestFactory]
     public class ModifyInstructorAndCoursesHandler
@@ -32,26 +30,8 @@
                     p => p.Courses,
                     p => p.OfficeAssignment));
 
-            // Removals first
-            instructor.Courses.Clear();
-            if (instructor.OfficeAssignment != null && commandModel.OfficeLocation == null)
-                _Repository.Delete(instructor.OfficeAssignment);
-
-            // Update properties
-            instructor.FirstMidName = commandModel.FirstMidName;
-            instructor.LastName = commandModel.LastName;
-            instructor.HireDate = commandModel.HireDate;
-            instructor.OfficeAssignment = new OfficeAssignment { Location = commandModel.OfficeLocation };
-
-            if (commandModel.SelectedCourses != null)
-            {
-                instructor.Courses = _Repository.GetEntities<Course>(
-                    new FindByIdsSpecificationStrategy<Course>(p => p.CourseID, commandModel.SelectedCourses))
-                    .ToList();
-            }
-
-            _Repository.Modify(instructor);
-            validationDetails = _Repository.SaveWithValidation();
+            var container = instructor.Modify(_Repository, request.CommandModel);
+            validationDetails = _Repository.Save(container);
 
             return new ModifyInstructorAndCourses.Response(validationDetails);
         }

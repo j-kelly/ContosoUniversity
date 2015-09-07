@@ -1,6 +1,5 @@
 namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
-    using Models;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -31,5 +30,10 @@ namespace ContosoUniversity.Domain.Core.Repository.Entities
         [MaxLength(128)]
         [Required]
         public string PropertyName { get; set; }
+
+        public void SetID(int id)
+        {
+            ID = id;
+        }
     }
 }

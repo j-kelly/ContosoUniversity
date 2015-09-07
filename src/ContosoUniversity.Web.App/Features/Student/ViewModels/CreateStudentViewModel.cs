@@ -12,7 +12,7 @@
         }
 
         public CreateStudentViewModel(CreateStudent.CommandModel commandModel)
-            :base(commandModel)
+            : base(commandModel)
         {
         }
 

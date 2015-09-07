@@ -1,8 +1,8 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Student
 {
     using ContosoUniversity.Core.Annotations;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using Domain.Core.Behaviours.StudentApplicationService;
-    using Models;
     using NRepository.Core.Query;
     using PagedList;
     using System;

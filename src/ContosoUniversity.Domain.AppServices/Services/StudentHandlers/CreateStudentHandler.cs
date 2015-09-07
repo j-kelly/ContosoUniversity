@@ -2,7 +2,7 @@
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using Models;
+    using Factories;
     using NRepository.Core;
     using StudentApplicationService;
 
@@ -22,16 +22,8 @@
             if (validationDetails.HasValidationIssues)
                 return new CreateStudent.Response(validationDetails);
 
-            var commandModel = request.CommandModel;
-            var student = new Student
-            {
-                EnrollmentDate = commandModel.EnrollmentDate,
-                FirstMidName = commandModel.FirstMidName,
-                LastName = commandModel.LastName,
-            };
-
-            _Repository.Add(student);
-            validationDetails = _Repository.SaveWithValidation();
+            var container = StudentFactory.Create(request.CommandModel);
+            validationDetails = _Repository.Save(container);
 
             return new CreateStudent.Response(validationDetails);
         }

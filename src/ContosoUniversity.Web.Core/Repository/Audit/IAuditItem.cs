@@ -5,7 +5,7 @@ namespace ContosoUniversity.Web.Core.Repository.Audit
 
     public interface IAuditItem
     {
-        IEnumerable<ContosoUniversity.Web.Core.Repository.Audit.AuditPropertyItem> AuditPropertyItems { get; }
+        IEnumerable<AuditPropertyItem> AuditPropertyItems { get; }
         Type ClassType { get; }
     }
 }

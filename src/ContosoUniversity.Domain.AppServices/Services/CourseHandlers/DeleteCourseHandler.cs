@@ -2,7 +2,7 @@ namespace ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using Models;
+    using Factories;
     using NRepository.Core;
 
     [GenerateTestFactory]
@@ -21,9 +21,9 @@ namespace ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService
             if (validationDetails.HasValidationIssues)
                 return new DeleteCourse.Response(validationDetails);
 
-            var course = new Course { CourseID = request.CommandModel.CourseId };
-            _Repository.Delete(course);
-            _Repository.Save();
+            var course = CourseFactory.CreatePartial(request.CommandModel.CourseId);
+            var container = course.Delete();
+            _Repository.Save(container);
 
             return new DeleteCourse.Response();
         }

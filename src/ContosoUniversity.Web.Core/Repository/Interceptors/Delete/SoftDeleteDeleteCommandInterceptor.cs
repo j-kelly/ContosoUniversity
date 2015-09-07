@@ -11,7 +11,7 @@ namespace ContosoUniversity.Web.Core.Repository.Interceptors
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(T)))
             {
                 // modify it instead of deleting it
-                ((ISoftDelete)entity).IsDeleted = true;
+                ((ISoftDelete)entity).SetSoftDelete();
                 repository.Modify(entity);
                 return;
             };

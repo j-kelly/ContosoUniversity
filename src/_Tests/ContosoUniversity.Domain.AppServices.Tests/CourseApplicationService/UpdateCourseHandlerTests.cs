@@ -65,7 +65,7 @@
             response.HasValidationIssues.ShouldEqual(false);
 
             var events = repository.CommandRepository.CommandEvents;
-            var course = (Course)events.ModifiedEvents.First().Entity;
+            var course = (ContosoUniversity.Domain.Core.Repository.Entities.Course)events.ModifiedEvents.First().Entity;
             course.CourseID.ShouldEqual(request.CommandModel.CourseID);
             course.Credits.ShouldEqual(request.CommandModel.Credits);
             course.DepartmentID.ShouldEqual(request.CommandModel.DepartmentID);

@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ContosoUniversity.Models
+﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
+    using ContosoUniversity.Models;
+    using System.ComponentModel.DataAnnotations;
+
+    // TODO - move to internal setters
     public class Enrollment
     {
         public int EnrollmentID { get; set; }

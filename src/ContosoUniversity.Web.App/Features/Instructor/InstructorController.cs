@@ -1,11 +1,11 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Instructor
 {
     using ContosoUniversity.Core.Annotations;
-    using ViewModels;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using ContosoUniversity.Web.Core.Repository.Projections;
     using Domain.Core.Behaviours.InstructorApplicationService;
-    using Models;
     using NRepository.Core.Query;
+    using NRepository.EntityFramework.Query;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,7 +13,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using NRepository.EntityFramework.Query;
+    using ViewModels;
 
     [GenerateTestFactory]
     public class InstructorController : Controller

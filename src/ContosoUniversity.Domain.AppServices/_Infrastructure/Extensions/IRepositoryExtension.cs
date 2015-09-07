@@ -1,22 +1,31 @@
 ﻿namespace NRepository.Core
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Domain.Core.Repository.Containers;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity.Infrastructure;
+    using System.Linq;
     using Utility.Logging;
 
     internal static class IRepositoryExtensions
     {
         private static readonly ILogger Logger = ContosoUniversity.Core.Logging.LogManager.CreateLogger(typeof(IRepositoryExtensions));
 
-        public static ValidationMessageCollection SaveWithValidation(
+        public static ValidationMessageCollection Save(
             this IRepository repository,
+            EntityStateWrapperContainer entityContainer,
             Func<DbUpdateConcurrencyException, ValidationMessageCollection> dbUpdateConcurrencyExceptionFunc = null,
             Func<RetryLimitExceededException, ValidationMessageCollection> retryLimitExceededExceptionFunc = null)
         {
             try
             {
-                repository.Save();
+                entityContainer.UnitsOfWork().ToList().ForEach(uow =>
+                {
+                    UpdateStates(repository, uow);
+                    repository.Save();
+                });
+
                 return new ValidationMessageCollection();
             }
             catch (DbUpdateConcurrencyException dbUpdateEx)
@@ -45,6 +54,17 @@
             {
                 Logger.Error(ex, ex.Message);
                 throw;
+            }
+        }
+
+        private static void UpdateStates<T>(IRepository repository, IEnumerable<EntityStateWrapper<T>> entities) where T : class
+        {
+            if (entities.Any())
+            {
+                entities.Where(p => p.State == State.Added).ToList().ForEach(p => repository.Add(p.Entity));
+                entities.Where(p => p.State == State.Deleted).ToList().ForEach(p => repository.Delete(p.Entity));
+                entities.Where(p => p.State == State.Modified).ToList().ForEach(p => repository.Modify(p.Entity));
+                //       entities.Where(p => p.State == State.Unchanged).ToList().ForEach(p => repository.UpdateEntityState(p.Entity, EntityState.Unchanged));
             }
         }
     }

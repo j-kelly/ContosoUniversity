@@ -2,7 +2,7 @@
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using Models;
+    using Factories;
     using NRepository.Core;
     using StudentApplicationService;
 
@@ -22,9 +22,11 @@
             if (validationDetails.HasValidationIssues)
                 return new DeleteStudent.Response(validationDetails);
 
-            var student = _Repository.GetEntity<Student>(p => p.ID == request.CommandModel.StudentId);
-            _Repository.Delete(student);
-            validationDetails = _Repository.SaveWithValidation();
+            var container = StudentFactory
+                .CreatePartial(request.CommandModel.StudentId)
+                .Delete();
+
+            validationDetails = _Repository.Save(container);
 
             return new DeleteStudent.Response(validationDetails);
         }

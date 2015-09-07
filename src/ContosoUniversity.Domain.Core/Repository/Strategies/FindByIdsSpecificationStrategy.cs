@@ -1,11 +1,11 @@
-namespace ContosoUniversity.DAL
+namespace ContosoUniversity.Domain.Core.Repository.Strategies
 {
+    using NRepository.Core;
+    using NRepository.Core.Query;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using NRepository.Core;
-    using NRepository.Core.Query;
 
     public class FindByIdsSpecificationStrategy<TEntity> : QueryStrategy where TEntity : class
     {

@@ -4,9 +4,12 @@ namespace ContosoUniversity.Domain.Core.Repository
 
     public interface ITrackedEntity
     {
-        string CreatedBy { get; set; }
-        DateTime CreatedOn { get; set; }
-        string ModifiedBy { get; set; }
-        DateTime ModifiedOn { get; set; }
+        string CreatedBy { get; }
+        DateTime CreatedOn { get; }
+        string ModifiedBy { get; }
+        DateTime ModifiedOn { get; }
+
+        void SetModifedFields(string name);
+        void SetCreateAndModifiedFields(string name);
     }
 }

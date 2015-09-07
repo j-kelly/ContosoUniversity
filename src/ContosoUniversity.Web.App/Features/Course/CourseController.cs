@@ -1,15 +1,14 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Course
 {
     using ContosoUniversity.Core.Annotations;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using Domain.Core.Behaviours.CourseApplicationService;
-    using Models;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
     using System;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Web.Core.Repository.Projections;
-
     [GenerateTestFactory]
     public class CourseController : Controller
     {

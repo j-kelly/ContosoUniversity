@@ -1,8 +1,9 @@
-﻿namespace ContosoUniversity.Models
+﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    // TODO - move to internal setters
     public class OfficeAssignment
     {
         [Key]

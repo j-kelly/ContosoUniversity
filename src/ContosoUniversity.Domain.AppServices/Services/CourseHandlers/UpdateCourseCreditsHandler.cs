@@ -2,7 +2,6 @@ namespace ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using CourseApplicationService;
     using NRepository.Core;
     using NRepository.EntityFramework;
 

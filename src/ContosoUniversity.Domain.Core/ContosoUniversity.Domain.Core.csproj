@@ -76,6 +76,15 @@
     <Compile Include="Behaviours\StudentApplicationService\DeleteStudent.cs" />
     <Compile Include="Behaviours\IStudentApplicationService.cs" />
     <Compile Include="Behaviours\StudentApplicationService\ModifyStudent.cs" />
+    <Compile Include="Factories\CourseFactory.cs" />
+    <Compile Include="Factories\DepartmentFactory.cs" />
+    <Compile Include="Factories\InstructorFactory.cs" />
+    <Compile Include="Factories\StudentFactory.cs" />
+    <Compile Include="Migrations\201509072025460_SettersToInternal.cs" />
+    <Compile Include="Migrations\201509072025460_SettersToInternal.Designer.cs">
+      <DependentUpon>201509072025460_SettersToInternal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\TrackedEntity.cs" />
     <Compile Include="Repository\Migrations\201509041250073_TrackedEntities.cs" />
     <Compile Include="Repository\Migrations\201509041250073_TrackedEntities.Designer.cs">
       <DependentUpon>201509041250073_TrackedEntities.cs</DependentUpon>
@@ -130,15 +139,23 @@
       <DependentUpon>201402251853267_Inheritance.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\Migrations\Configuration.cs" />
+    <Compile Include="Repository\Containers\EntityStateWrapper.cs" />
+    <Compile Include="Repository\Containers\EntityStateWrapper1.cs" />
+    <Compile Include="Repository\Containers\EntityStateWrapperContainer.cs" />
+    <Compile Include="Repository\Containers\IState.cs" />
+    <Compile Include="Repository\Containers\State.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="_Infrastructure\Extensions\" />
+    <Folder Include="_Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201509072025460_SettersToInternal.resx">
+      <DependentUpon>201509072025460_SettersToInternal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Repository\Migrations\201509041250073_TrackedEntities.resx">
       <DependentUpon>201509041250073_TrackedEntities.cs</DependentUpon>
     </EmbeddedResource>

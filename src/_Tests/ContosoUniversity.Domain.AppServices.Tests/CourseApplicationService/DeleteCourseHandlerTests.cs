@@ -50,7 +50,7 @@
             response.HasValidationIssues.ShouldEqual(false);
 
             var events = repository.CommandRepository.CommandEvents;
-            var course = (Course)events.DeletedEvents.First().Entity;
+            var course = (ContosoUniversity.Domain.Core.Repository.Entities.Course)events.DeletedEvents.First().Entity;
             course.CourseID.ShouldEqual(request.CommandModel.CourseId);
 
             events.SavedEvents.Count.ShouldEqual(1);

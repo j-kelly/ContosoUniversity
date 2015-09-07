@@ -2,8 +2,8 @@
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using DepartmentApplicationService;
-    using Models;
     using NRepository.Core;
     using NRepository.EntityFramework.Query;
     using System.Data.Entity.Infrastructure;
@@ -29,23 +29,10 @@
             var currentDept = _Repository.GetEntity<Department>(
                 p => p.DepartmentID == commandModel.DepartmentID,
                 new AsNoTrackingQueryStrategy());
-
-            var dept = new Department
-            {
-                DepartmentID = commandModel.DepartmentID,
-                Budget = commandModel.Budget,
-                InstructorID = commandModel.InstructorID,
-                Name = commandModel.Name,
-                RowVersion = commandModel.RowVersion,
-                StartDate = commandModel.StartDate,
-                CreatedBy = currentDept.CreatedBy,
-                CreatedOn = currentDept.CreatedOn
-            };
-
+            
             var rowVersion = default(byte[]);
-
-            _Repository.Modify(dept);
-            validationDetails = _Repository.SaveWithValidation(dbUpdateEx => OnUpdateFailedFunc(dbUpdateEx, commandModel, ref rowVersion));
+            var container = currentDept.Modify(request.CommandModel);
+            validationDetails = _Repository.Save(container, dbUpdateEx => OnUpdateFailedFunc(dbUpdateEx, commandModel, ref rowVersion));
 
             return new UpdateDepartment.Response(validationDetails, rowVersion);
         }

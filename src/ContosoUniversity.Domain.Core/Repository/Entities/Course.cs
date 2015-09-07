@@ -1,5 +1,7 @@
-﻿namespace ContosoUniversity.Models
+﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
+    using ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService;
+    using Domain.Core.Repository.Containers;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -8,20 +10,35 @@
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Number")]
-        public int CourseID { get; set; }
+        public int CourseID { get; internal set; }
 
         [StringLength(50, MinimumLength = 3)]
-        public string Title { get; set; }
+        public string Title { get; internal set; }
 
         [Range(0, 5)]
-        public int Credits { get; set; }
+        public int Credits { get; internal set; }
 
-        public int DepartmentID { get; set; }
+        public int DepartmentID { get; internal set; }
 
-        public virtual Department Department { get; set; }
+        public virtual Department Department { get; internal set; }
 
-        public virtual ICollection<Enrollment> Enrollments { get; set; }
+        public virtual ICollection<Enrollment> Enrollments { get; internal set; }
 
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<Instructor> Instructors { get; internal set; }
+
+        public EntityStateWrapperContainer Modify(UpdateCourse.CommandModel commandModel)
+        {
+            CourseID = commandModel.CourseID;
+            DepartmentID = commandModel.DepartmentID;
+            Credits = commandModel.Credits;
+            Title = commandModel.Title;
+
+            return new EntityStateWrapperContainer().ModifyEntity(this);
+        }
+
+        public EntityStateWrapperContainer Delete()
+        {
+            return new EntityStateWrapperContainer().DeleteEntity(this);
+        }
     }
 }

@@ -2,8 +2,8 @@
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using DepartmentApplicationService;
-    using Models;
     using NRepository.Core;
     using NRepository.EntityFramework.Query;
 
@@ -28,11 +28,9 @@
                 new EagerLoadingQueryStrategy<Department>(
                     p => p.Administrator));
 
-            department.Administrator = null;
-            _Repository.Delete(department);
-
             var hasConcurrencyError = false;
-            validationDetails = _Repository.SaveWithValidation(dbUpdateConcurrencyExceptionFunc: dbUpdateEx =>
+            var container = department.Delete();
+            validationDetails = _Repository.Save(container, dbUpdateConcurrencyExceptionFunc: dbUpdateEx =>
             {
                 hasConcurrencyError = true;
                 return new ValidationMessageCollection(new ValidationMessage(string.Empty, dbUpdateEx.ToString()));

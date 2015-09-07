@@ -1,6 +1,5 @@
 ﻿namespace ContosoUniversity.Domain.Core.Behaviours.StudentApplicationService
 {
-
     using ContosoUniversity.Core.Domain;
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.InvariantValidation;
@@ -65,5 +64,4 @@
             }
         }
     }
-
 }

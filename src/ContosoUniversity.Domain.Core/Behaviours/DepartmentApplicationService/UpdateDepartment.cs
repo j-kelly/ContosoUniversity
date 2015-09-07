@@ -1,15 +1,13 @@
 ﻿namespace ContosoUniversity.Domain.Core.Behaviours.DepartmentApplicationService
 {
-
     using ContosoUniversity.Core.Domain;
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.InvariantValidation;
-    using Models;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
     using System;
     using System.ComponentModel.DataAnnotations;
-
     public class UpdateDepartment
     {
         // UpdateDepartment.CommandModel

@@ -1,11 +1,10 @@
 namespace ContosoUniversity.Web.Core.Repository.Interceptors
 {
     using Audit;
-    using Models;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using NRepository.Core;
     using NRepository.Core.Command;
     using System.Collections.Generic;
-
     public class ContosoUniversitySaveCommandInterceptor : AuditSaveCommandInterceptorBase
     {
         public override bool ThrowOriginalException { get; } = true;

@@ -11,8 +11,7 @@ namespace ContosoUniversity.Web.Core.Repository.Interceptors
             if (typeof(ITrackedEntity).IsAssignableFrom(typeof(T)))
             {
                 var trackedEntity = (ITrackedEntity)entity;
-                trackedEntity.ModifiedBy = CurrentPrincipalHelper.Name;
-                trackedEntity.ModifiedOn = DateTime.Now;
+                trackedEntity.SetModifedFields(CurrentPrincipalHelper.Name);
             }
 
             modifyAction(entity);

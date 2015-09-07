@@ -3,7 +3,7 @@
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using DepartmentApplicationService;
-    using Models;
+    using Factories;
     using NRepository.Core;
 
     [GenerateTestFactory]
@@ -22,17 +22,8 @@
             if (validationDetails.HasValidationIssues)
                 return new CreateDepartment.Response(validationDetails);
 
-            var commandModel = request.CommandModel;
-            var dept = new Department
-            {
-                Budget = commandModel.Budget,
-                InstructorID = commandModel.InstructorID,
-                Name = commandModel.Name,
-                StartDate = commandModel.StartDate
-            };
-
-            _Repository.Add(dept);
-            validationDetails = _Repository.SaveWithValidation();
+            var container = DepartmentFactory.Create(request.CommandModel);
+            validationDetails = _Repository.Save(container);
 
             return new CreateDepartment.Response(validationDetails);
         }

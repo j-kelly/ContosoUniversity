@@ -1,5 +1,6 @@
 namespace ContosoUniversity.Web.Core.Repository.Projections
 {
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using ContosoUniversity.Models;
     using NRepository.Core.Query;
     using NRepository.Core.Query.Interceptors.Factories;

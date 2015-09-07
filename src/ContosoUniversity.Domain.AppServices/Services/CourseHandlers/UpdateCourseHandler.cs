@@ -3,7 +3,7 @@
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using Core.Behaviours.CourseApplicationService;
-    using Models;
+    using Core.Factories;
     using NRepository.Core;
 
     [GenerateTestFactory]
@@ -22,16 +22,8 @@
             if (validationDetails.HasValidationIssues)
                 return new UpdateCourse.Response(validationDetails);
 
-            var course = new Course
-            {
-                CourseID = request.CommandModel.CourseID,
-                DepartmentID = request.CommandModel.DepartmentID,
-                Credits = request.CommandModel.Credits,
-                Title = request.CommandModel.Title,
-            };
-
-            _Repository.Modify(course);
-            validationDetails = _Repository.SaveWithValidation();
+            var container = CourseFactory.CreatePartial(request.CommandModel.CourseID).Modify(request.CommandModel);
+            validationDetails = _Repository.Save(container);
 
             return new UpdateCourse.Response(validationDetails);
         }

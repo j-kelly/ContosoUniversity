@@ -1,8 +1,8 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Department
 {
     using ContosoUniversity.Core.Annotations;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using Domain.Core.Behaviours.DepartmentApplicationService;
-    using Models;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
     using System;

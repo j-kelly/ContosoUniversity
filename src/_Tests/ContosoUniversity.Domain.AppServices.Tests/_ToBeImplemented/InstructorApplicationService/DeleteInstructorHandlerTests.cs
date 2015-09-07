@@ -1,32 +1,32 @@
-namespace ContosoUniversity.Domain.AppServices.Tests.DepartmentApplicationService
+namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationService
 {
-    using ContosoUniversity.Core.Domain.ContextualValidation;
-    using Core.Behaviours.DepartmentApplicationService;
-    using NRepository.TestKit;
-    using NUnit.Framework;
     using System;
     using System.Linq;
+    using ContosoUniversity.Core.Domain.ContextualValidation;
+    using NRepository.TestKit;
+    using NUnit.Framework;
     using TestKit.Factories;
+    using Core.Behaviours.InstructorApplicationService;
 
     [TestFixture]
-    public class DeleteDepartmentHandlerTests
+    public class DeleteInstructorHandlerTests
     {
         // Prefer to leave this class at the top so easy to see what contistutes a valid command object
-        public DeleteDepartment.Request CreateValidRequest(params Action<DeleteDepartment.Request>[] updates)
+        public DeleteInstructor.Request CreateValidRequest(params Action<DeleteInstructor.Request>[] updates)
         {
-            var commandModel = EntityGenerator.Create<DeleteDepartment.CommandModel>();
+            var commandModel = EntityGenerator.Create<DeleteInstructor.CommandModel>();
 
-            var request = new DeleteDepartment.Request("UserId", commandModel);
+            var request = new DeleteInstructor.Request("UserId", commandModel);
             updates.ToList().ForEach(func => func(request));
             return request;
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
-            Action<DeleteDepartment.Request> CallSut = request =>
+            Action<DeleteInstructor.Request> CallSut = request =>
             {
-                var serviceUnderTest = new DeleteDepartmentHandlerFactory().Object;
+                var serviceUnderTest = new DeleteInstructorHandlerFactory().Object;
                 serviceUnderTest.Handle(request);
             };
 
@@ -34,11 +34,11 @@ namespace ContosoUniversity.Domain.AppServices.Tests.DepartmentApplicationServic
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
-            Func<DeleteDepartment.Request, ValidationMessageCollection> CallSut = request =>
+            Func<DeleteInstructor.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var serviceUnderTest = new DeleteDepartmentHandlerFactory().Object;
+                var serviceUnderTest = new DeleteInstructorHandlerFactory().Object;
                 var reponse = serviceUnderTest.Handle(request);
                 return reponse.ValidationDetails;
             };
@@ -47,7 +47,7 @@ namespace ContosoUniversity.Domain.AppServices.Tests.DepartmentApplicationServic
         }
 
         [Test]
-        public void WhenDeleteDepartmentIsCalledThenIExpectItToDoSomething()
+        public void WhenDeleteInstructorIsCalledThenIExpectItToDoSomething()
         {
         }
     }

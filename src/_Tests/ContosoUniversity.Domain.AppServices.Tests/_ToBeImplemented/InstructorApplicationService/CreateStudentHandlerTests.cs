@@ -1,7 +1,7 @@
 namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationService
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using Core.Behaviours.InstructorApplicationService;
+    using Core.Behaviours.StudentApplicationService;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
@@ -9,24 +9,24 @@ namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationServic
     using TestKit.Factories;
 
     [TestFixture]
-    public class CreateInstructorWithCoursesHandlerTests
+    public class CreateStudentHandlerTests
     {
         // Prefer to leave this class at the top so easy to see what contistutes a valid command object
-        public CreateInstructorWithCourses.Request CreateValidRequest(params Action<CreateInstructorWithCourses.Request>[] updates)
+        public CreateStudent.Request CreateValidRequest(params Action<CreateStudent.Request>[] updates)
         {
-            var commandModel = EntityGenerator.Create<CreateInstructorWithCourses.CommandModel>();
+            var commandModel = EntityGenerator.Create<CreateStudent.CommandModel>();
 
-            var request = new CreateInstructorWithCourses.Request("UserId", commandModel);
+            var request = new CreateStudent.Request("UserId", commandModel);
             updates.ToList().ForEach(func => func(request));
             return request;
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
-            Action<CreateInstructorWithCourses.Request> CallSut = request =>
+            Action<CreateStudent.Request> CallSut = request =>
             {
-                var serviceUnderTest = new CreateInstructorWithCoursesHandlerFactory().Object;
+                var serviceUnderTest = new CreateStudentHandlerFactory().Object;
                 serviceUnderTest.Handle(request);
             };
 
@@ -34,11 +34,11 @@ namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationServic
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
-            Func<CreateInstructorWithCourses.Request, ValidationMessageCollection> CallSut = request =>
+            Func<CreateStudent.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var serviceUnderTest = new CreateInstructorWithCoursesHandlerFactory().Object;
+                var serviceUnderTest = new CreateStudentHandlerFactory().Object;
                 var reponse = serviceUnderTest.Handle(request);
                 return reponse.ValidationDetails;
             };
@@ -47,7 +47,7 @@ namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationServic
         }
 
         [Test]
-        public void WhenCreateInstructorWithCoursesIsCalledThenIExpectItToDoSomething()
+        public void WhenCreateStudentIsCalledThenIExpectItToDoSomething()
         {
         }
     }

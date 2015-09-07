@@ -2,6 +2,7 @@
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using Core.Behaviours.CourseApplicationService;
+    using Models;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
@@ -21,19 +22,7 @@
         }
 
         [Test]
-        public void CheckInvariantValidation()
-        {
-            Action<CreateCourse.Request> CallSut = request =>
-            {
-                var serviceUnderTest = new CreateCourseHandlerFactory().Object;
-                serviceUnderTest.Handle(request);
-            };
-
-            // Assert2.CheckInvariantValidation("[ErrorMessage]", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
-        }
-
-        [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
             Func<CreateCourse.Request, ValidationMessageCollection> CallSut = request =>
             {
@@ -42,12 +31,36 @@
                 return reponse.ValidationDetails;
             };
 
-            // Assert2.CheckValidation( "[ExpectedMessage]", "[PropertyName]", () => CallSut(CreateValidRequest(p => p.CommandModel.DummyValue = "1")));           
+            Assert2.CheckContextualValidation("Title", "The field Title must be a string with a minimum length of 3 and a maximum length of 50.", () => CallSut(CreateValidRequest(p => p.CommandModel.Title = "X")));
+            Assert2.CheckContextualValidation("Credits", "The field Credits must be between 1 and 5.", () => CallSut(CreateValidRequest(p => p.CommandModel.Credits = 0)));
         }
 
         [Test]
         public void WhenCreateCourseIsCalledThenIExpectItToDoSomething()
         {
+            // Arrange
+            var repository = new InMemoryRecordedRepository();
+            var factory = new CreateCourseHandlerFactory();
+            factory._SetRepository(repository);
+
+            // Act
+            var request = CreateValidRequest();
+            var response = factory.Object.Handle(request);
+
+            // Assert
+            response.HasValidationIssues.ShouldEqual(false);
+
+            var events = repository.CommandRepository.CommandEvents;
+            var course = (Course)events.AddedEvents.First().Entity;
+            course.CourseID.ShouldEqual(request.CommandModel.CourseID);
+            course.Credits.ShouldEqual(request.CommandModel.Credits);
+            course.DepartmentID.ShouldEqual(request.CommandModel.DepartmentID);
+            course.Title.ShouldEqual(request.CommandModel.Title);
+
+            events.SavedEvents.Count.ShouldEqual(1);
+            events.ModifiedEvents.Count.ShouldEqual(0);
+            events.DeletedEvents.Count.ShouldEqual(0);
+            events.AddedEvents.Count.ShouldEqual(1);
         }
     }
 }

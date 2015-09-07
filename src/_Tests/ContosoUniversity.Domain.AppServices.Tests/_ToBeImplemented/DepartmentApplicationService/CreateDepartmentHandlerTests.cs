@@ -22,7 +22,7 @@
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
             Action<CreateDepartment.Request> CallSut = request =>
           {
@@ -34,7 +34,7 @@
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
             Func<CreateDepartment.Request, ValidationMessageCollection> CallSut = request =>
           {

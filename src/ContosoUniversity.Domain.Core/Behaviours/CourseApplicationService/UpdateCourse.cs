@@ -11,14 +11,15 @@
         public class CommandModel
         {
             public int CourseID { get; set; }
+            public int DepartmentID { get; set; }
 
+            // [Required] 
             [StringLength(50, MinimumLength = 3)]
             public string Title { get; set; }
 
             [Range(1, 5)]
             public int Credits { get; set; }
 
-            public int DepartmentID { get; set; }
         }
 
         // UpdateCourse.Request
@@ -55,8 +56,8 @@
 
             public override void ValidateCommandModel()
             {
-                Assert(Context.CommandModel.CourseID > 0, "CourseId cannot be less than 1");
-                Assert(Context.CommandModel.DepartmentID > 0, "DepartmentId cannot be less than 1");
+                Assert(Context.CommandModel.Title != null, "Title cannot be null");
+                Assert(Context.CommandModel.Title != "Title", "Title cannot be set to Title");
             }
         }
 
@@ -66,6 +67,12 @@
             public ContextualValidation(Request context)
                 : base(context)
             {
+            }
+
+            public override void Validate()
+            {
+                Validate(Context.CommandModel.CourseID > 0, "CourseId", "CourseId cannot be less than 1");
+                Validate(Context.CommandModel.DepartmentID > 0, "DepartmentId", "DepartmentId cannot be less than 1");
             }
         }
     }

@@ -22,7 +22,6 @@ namespace ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService
                 return new DeleteCourse.Response(validationDetails);
 
             var course = new Course { CourseID = request.CommandModel.CourseId };
-            _Repository.Modify(course);
             _Repository.Delete(course);
             _Repository.Save();
 

@@ -1,7 +1,7 @@
-namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationService
+namespace ContosoUniversity.Domain.AppServices.Tests.DepartmentApplicationService
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
-    using Core.Behaviours.StudentApplicationService;
+    using Core.Behaviours.DepartmentApplicationService;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
@@ -9,24 +9,24 @@ namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationServic
     using TestKit.Factories;
 
     [TestFixture]
-    public class ModifyStudentHandlerTests
+    public class DeleteDepartmentHandlerTests
     {
         // Prefer to leave this class at the top so easy to see what contistutes a valid command object
-        public ModifyStudent.Request CreateValidRequest(params Action<ModifyStudent.Request>[] updates)
+        public DeleteDepartment.Request CreateValidRequest(params Action<DeleteDepartment.Request>[] updates)
         {
-            var commandModel = EntityGenerator.Create<ModifyStudent.CommandModel>();
+            var commandModel = EntityGenerator.Create<DeleteDepartment.CommandModel>();
 
-            var request = new ModifyStudent.Request("UserId", commandModel);
+            var request = new DeleteDepartment.Request("UserId", commandModel);
             updates.ToList().ForEach(func => func(request));
             return request;
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
-            Action<ModifyStudent.Request> CallSut = request =>
+            Action<DeleteDepartment.Request> CallSut = request =>
             {
-                var serviceUnderTest = new ModifyStudentHandlerFactory().Object;
+                var serviceUnderTest = new DeleteDepartmentHandlerFactory().Object;
                 serviceUnderTest.Handle(request);
             };
 
@@ -34,11 +34,11 @@ namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationServic
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
-            Func<ModifyStudent.Request, ValidationMessageCollection> CallSut = request =>
+            Func<DeleteDepartment.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var serviceUnderTest = new ModifyStudentHandlerFactory().Object;
+                var serviceUnderTest = new DeleteDepartmentHandlerFactory().Object;
                 var reponse = serviceUnderTest.Handle(request);
                 return reponse.ValidationDetails;
             };
@@ -47,7 +47,7 @@ namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationServic
         }
 
         [Test]
-        public void WhenModifyStudentIsCalledThenIExpectItToDoSomething()
+        public void WhenDeleteDepartmentIsCalledThenIExpectItToDoSomething()
         {
         }
     }

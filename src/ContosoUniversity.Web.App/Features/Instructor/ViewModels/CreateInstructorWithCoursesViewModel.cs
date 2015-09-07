@@ -1,24 +1,19 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Instructor.ViewModels
 {
     using ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService;
+    using Core;
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateInstructorWithCoursesViewModel
+    public class CreateInstructorWithCoursesViewModel : CommandToViewModelBase<CreateInstructorWithCourses.CommandModel>
     {
         public CreateInstructorWithCoursesViewModel()
         {
-            CommandModel = new CreateInstructorWithCourses.CommandModel();
         }
 
         public CreateInstructorWithCoursesViewModel(CreateInstructorWithCourses.CommandModel commandModel)
+            : base(commandModel)
         {
-            CommandModel = commandModel;
-        }
-
-        public CreateInstructorWithCourses.CommandModel CommandModel
-        {
-            get;
         }
 
         [Display(Name = "Last Name")]

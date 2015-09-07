@@ -2,6 +2,7 @@
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using Core.Behaviours.CourseApplicationService;
+    using Models;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
@@ -21,7 +22,7 @@
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
             Action<UpdateCourse.Request> CallSut = request =>
             {
@@ -29,11 +30,13 @@
                 serviceUnderTest.Handle(request);
             };
 
-            // Assert2.CheckInvariantValidation("[ErrorMessage]", () => CallSut(CreateValidRequest(p => p.CommandModel.DummyValue = null )));
+            // Example (not really an invariant rule)
+            Assert2.CheckInvariantValidation("Title cannot be null", () => CallSut(CreateValidRequest(p => p.CommandModel.Title = null)));
+            Assert2.CheckInvariantValidation("Title cannot be set to Title", () => CallSut(CreateValidRequest(p => p.CommandModel.Title = "Title")));
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
             Func<UpdateCourse.Request, ValidationMessageCollection> CallSut = request =>
             {
@@ -42,12 +45,36 @@
                 return reponse.ValidationDetails;
             };
 
-            // Assert2.CheckValidation( "[ExpectedMessage]", "[PropertyName]", () => CallSut(CreateValidRequest(p => p.CommandModel.DummyValue = "1")));           
+            Assert2.CheckContextualValidation("CourseId", "CourseId cannot be less than 1", () => CallSut(CreateValidRequest(p => p.CommandModel.CourseID = 0)));
+            Assert2.CheckContextualValidation("DepartmentId", "DepartmentId cannot be less than 1", () => CallSut(CreateValidRequest(p => p.CommandModel.DepartmentID = 0)));
         }
 
         [Test]
         public void WhenUpdateCourseIsCalledThenIExpectItToDoSomething()
         {
+            // Arrange
+            var repository = new InMemoryRecordedRepository();
+            var factory = new UpdateCourseHandlerFactory();
+            factory._SetRepository(repository);
+
+            // Act
+            var request = CreateValidRequest();
+            var response = factory.Object.Handle(request);
+
+            // Assert
+            response.HasValidationIssues.ShouldEqual(false);
+
+            var events = repository.CommandRepository.CommandEvents;
+            var course = (Course)events.ModifiedEvents.First().Entity;
+            course.CourseID.ShouldEqual(request.CommandModel.CourseID);
+            course.Credits.ShouldEqual(request.CommandModel.Credits);
+            course.DepartmentID.ShouldEqual(request.CommandModel.DepartmentID);
+            course.Title.ShouldEqual(request.CommandModel.Title);
+
+            events.SavedEvents.Count.ShouldEqual(1);
+            events.ModifiedEvents.Count.ShouldEqual(1);
+            events.DeletedEvents.Count.ShouldEqual(0);
+            events.AddedEvents.Count.ShouldEqual(0);
         }
     }
 }

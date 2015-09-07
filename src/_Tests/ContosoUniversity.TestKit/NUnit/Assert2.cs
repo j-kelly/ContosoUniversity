@@ -29,18 +29,18 @@ namespace NUnit.Framework
             catch { Assert.Fail(string.Format("Missing validation: {0}", errorMessage)); }
         }
 
-        public static void CheckContextualValidation(string validationErrorMessage, string propertyName, Func<ValidationMessageCollection> func)
+        public static void CheckContextualValidation(string propertyName, string errorMessage,  Func<ValidationMessageCollection> func)
         {
             try
             {
                 var validationaction = func();
 
-                var msg = validationaction.Errors.SingleOrDefault(p => p.ErrorMessage == validationErrorMessage && p.PropertyName == propertyName);
-                msg.ShouldNotEqual(null, string.Format("Missing validation check: {0}", validationErrorMessage));
+                var msg = validationaction.Errors.SingleOrDefault(p => p.ErrorMessage == errorMessage && p.PropertyName == propertyName);
+                msg.ShouldNotEqual(null, string.Format("Missing validation check: {0}", errorMessage));
             }
             catch (InvariantValidationException) { throw; }
             catch (AssertionException aEx) { Assert.Fail(aEx.Message); }
-            catch { Assert.Fail(string.Format("Missing validation: {0}", validationErrorMessage)); }
+            catch { Assert.Fail(string.Format("Missing validation: {0}", errorMessage)); }
         }
     }
 }

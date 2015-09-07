@@ -76,12 +76,12 @@
             {
             }
 
-            public override void Validate(ValidationMessageCollection validationMessages)
+            public override void Validate()
             {
-                ValidateOneAdministratorAssignmentPerInstructor(validationMessages);
+                ValidateOneAdministratorAssignmentPerInstructor();
             }
 
-            private void ValidateOneAdministratorAssignmentPerInstructor(ValidationMessageCollection validationMessages)
+            private void ValidateOneAdministratorAssignmentPerInstructor()
             {
                 if (Context.CommandModel.InstructorID == null)
                     return;
@@ -99,7 +99,7 @@
                         $"Instructor {duplicateDepartment.Administrator.FirstMidName} {duplicateDepartment.Administrator.LastName} " +
                         $"is already administrator of the {duplicateDepartment.Name} department.";
 
-                    validationMessages.Add(string.Empty, errorMessage);
+                    ValidationMessageCollection.Add(string.Empty, errorMessage);
                 }
             }
         }

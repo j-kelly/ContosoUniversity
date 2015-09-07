@@ -1,24 +1,19 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Student.ViewModels
 {
+    using Core;
     using Domain.Core.Behaviours.StudentApplicationService;
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateStudentViewModel
+    public class CreateStudentViewModel : CommandToViewModelBase<CreateStudent.CommandModel>
     {
-        public CreateStudentViewModel(CreateStudent.CommandModel commandModel)
-        {
-            CommandModel = commandModel;
-        }
-
         public CreateStudentViewModel()
         {
-            CommandModel = new CreateStudent.CommandModel();
         }
 
-        public CreateStudent.CommandModel CommandModel
+        public CreateStudentViewModel(CreateStudent.CommandModel commandModel)
+            :base(commandModel)
         {
-            get;
         }
 
         [Display(Name = "Last Name")]

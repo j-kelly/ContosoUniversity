@@ -1,25 +1,20 @@
 namespace ContosoUniversity.Web.App.Features.Instructor
 {
+    using Core;
     using Domain.Core.Behaviours.InstructorApplicationService;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class ModifyInstructorAndCoursesViewModel
+    public class ModifyInstructorAndCoursesViewModel : CommandToViewModelBase<ModifyInstructorAndCourses.CommandModel>
     {
-        public ModifyInstructorAndCoursesViewModel(ModifyInstructorAndCourses.CommandModel commandModel)
-        {
-            CommandModel = commandModel;
-        }
-
         public ModifyInstructorAndCoursesViewModel()
         {
-            CommandModel = new ModifyInstructorAndCourses.CommandModel();
         }
 
-        public ModifyInstructorAndCourses.CommandModel CommandModel
+        public ModifyInstructorAndCoursesViewModel(ModifyInstructorAndCourses.CommandModel commandModel)
+            : base(commandModel)
         {
-            get;
         }
 
         public int InstructorId
@@ -63,7 +58,5 @@ namespace ContosoUniversity.Web.App.Features.Instructor
             get { return CommandModel.SelectedCourses; }
             set { CommandModel.SelectedCourses = value; }
         }
-
-
     }
 }

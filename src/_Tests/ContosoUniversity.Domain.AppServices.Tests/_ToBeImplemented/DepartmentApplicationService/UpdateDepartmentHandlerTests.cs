@@ -22,7 +22,7 @@ namespace ContosoUniversity.Domain.AppServices.Tests.DepartmentApplicationServic
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
             Action<UpdateDepartment.Request> CallSut = request =>
             {
@@ -34,7 +34,7 @@ namespace ContosoUniversity.Domain.AppServices.Tests.DepartmentApplicationServic
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
             Func<UpdateDepartment.Request, ValidationMessageCollection> CallSut = request =>
             {

@@ -13,6 +13,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using NRepository.EntityFramework.Query;
 
     [GenerateTestFactory]
     public class InstructorController : Controller
@@ -178,7 +179,8 @@
         private IQueryable<InstructorDetailViewModel> GetInstructorDetails(Expression<Func<InstructorDetailViewModel, bool>> expression = null)
         {
             var instructors = _QueryRepository.GetEntities<Instructor>(
-                new OrderByQueryStrategy<Instructor>(p => p.LastName))
+                new OrderByQueryStrategy<Instructor>(p => p.LastName),
+                new AsNoTrackingQueryStrategy())
                   .Select(p => new InstructorDetailViewModel
                   {
                       FirstMidName = p.FirstMidName,

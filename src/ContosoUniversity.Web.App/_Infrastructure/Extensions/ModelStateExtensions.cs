@@ -13,5 +13,14 @@
                 modelState.AddModelError(msg.PropertyName, msg.ErrorMessage);
             }
         }
+
+        public static void AddRange(this ModelStateDictionary modelState, ValidationMessageCollection messageCollection)
+        {
+            modelState.Clear();
+            foreach (var msg in messageCollection.AllValidationMessages)
+            {
+                modelState.AddModelError(msg.PropertyName, msg.ErrorMessage);
+            }
+        }
     }
 }

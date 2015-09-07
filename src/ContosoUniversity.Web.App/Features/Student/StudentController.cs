@@ -1,7 +1,6 @@
 ﻿namespace ContosoUniversity.Web.App.Features.Student
 {
     using ContosoUniversity.Core.Annotations;
-    using ViewModels;
     using Domain.Core.Behaviours.StudentApplicationService;
     using Models;
     using NRepository.Core.Query;
@@ -10,6 +9,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using ViewModels;
     using Web.Core.Repository.Projections;
 
     [GenerateTestFactory]
@@ -48,7 +48,7 @@
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
-            ModelState.AddRange(response.ValidationDetails.AllValidationMessages);
+            ModelState.AddRange(response.ValidationDetails);
             return View(viewModel);
         }
 
@@ -60,9 +60,14 @@
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
-            ModelState.AddRange(response.ValidationDetails.AllValidationMessages);
+            ModelState.AddRange(response.ValidationDetails);
             return View(commandModel);
 
+        }
+
+        public ActionResult Create()
+        {
+            return View();
         }
 
         public async Task<ViewResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -74,7 +79,7 @@
 
             ViewBag.CurrentFilter = searchString;
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
             var students = await _QueryRepository.GetEntitiesAsync<StudentDetail>(
@@ -119,11 +124,6 @@
                 return HttpNotFound();
 
             return View(student);
-        }
-
-        public ActionResult Create()
-        {
-            return View();
         }
 
         public async Task<ActionResult> Delete(int? id, bool? saveChangesError = false)

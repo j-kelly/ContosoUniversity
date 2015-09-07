@@ -1,4 +1,4 @@
-﻿namespace ContosoUniversity.Domain.AppServices.Tests.StudentApplicationService
+namespace ContosoUniversity.Domain.AppServices.Tests.InstructorApplicationService
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using Core.Behaviours.StudentApplicationService;
@@ -9,24 +9,24 @@
     using TestKit.Factories;
 
     [TestFixture]
-    public class DeleteStudentHandlerTests
+    public class ModifyStudentHandlerTests
     {
         // Prefer to leave this class at the top so easy to see what contistutes a valid command object
-        public DeleteStudent.Request CreateValidRequest(params Action<DeleteStudent.Request>[] updates)
+        public ModifyStudent.Request CreateValidRequest(params Action<ModifyStudent.Request>[] updates)
         {
-            var commandModel = EntityGenerator.Create<DeleteStudent.CommandModel>();
+            var commandModel = EntityGenerator.Create<ModifyStudent.CommandModel>();
 
-            var request = new DeleteStudent.Request("UserId", commandModel);
+            var request = new ModifyStudent.Request("UserId", commandModel);
             updates.ToList().ForEach(func => func(request));
             return request;
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
-            Action<DeleteStudent.Request> CallSut = request =>
+            Action<ModifyStudent.Request> CallSut = request =>
             {
-                var serviceUnderTest = new DeleteStudentHandlerFactory().Object;
+                var serviceUnderTest = new ModifyStudentHandlerFactory().Object;
                 serviceUnderTest.Handle(request);
             };
 
@@ -34,11 +34,11 @@
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
-            Func<DeleteStudent.Request, ValidationMessageCollection> CallSut = request =>
+            Func<ModifyStudent.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var serviceUnderTest = new DeleteStudentHandlerFactory().Object;
+                var serviceUnderTest = new ModifyStudentHandlerFactory().Object;
                 var reponse = serviceUnderTest.Handle(request);
                 return reponse.ValidationDetails;
             };
@@ -47,7 +47,7 @@
         }
 
         [Test]
-        public void WhenDeleteStudentIsCalledThenIExpectItToDoSomething()
+        public void WhenModifyStudentIsCalledThenIExpectItToDoSomething()
         {
         }
     }

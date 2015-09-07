@@ -13,6 +13,7 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
         protected ContextualValidation(T context)
         {
             Context = context;
+            ValidationMessageCollection = new ValidationMessageCollection();
         }
 
         public T Context
@@ -20,17 +21,24 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
             get;
         }
 
-        public virtual void Validate(ValidationMessageCollection validationMessages) { }
+        protected ValidationMessageCollection ValidationMessageCollection
+        {
+            get;
+        }
+
+        public virtual void Validate()
+        {
+            // No Op
+        }
 
         public ValidationMessageCollection Validate(params object[] dependentServices)
         {
             _DependentServices = dependentServices;
 
-            var messages = new ValidationMessageCollection();
-            CheckAttributes(messages);
-            Validate(messages);
+            CheckAttributes();
+            Validate();
 
-            return messages;
+            return ValidationMessageCollection;
         }
 
         protected TInterface ResolveService<TInterface>()
@@ -38,7 +46,19 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
             return _DependentServices.OfType<TInterface>().Single();
         }
 
-        private void CheckAttributes(ValidationMessageCollection messages)
+        protected void Validate(bool predicate, string propertyName, string errorMessage)
+        {
+            if (!predicate)
+                ValidationMessageCollection.Add(propertyName, errorMessage);
+        }
+
+        protected void Validate(bool predicate, ValidationMessage validationMessage)
+        {
+            if (!predicate)
+                ValidationMessageCollection.Add(validationMessage);
+        }
+
+        private void CheckAttributes()
         {
             var properties = Context.CommandModel.GetType().GetProperties();
             foreach (var pi in properties)
@@ -49,7 +69,7 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
                     if (!attrb.IsValid(value))
                     {
                         var msg = attrb.FormatErrorMessage(pi.Name);
-                        messages.Add(pi.Name, msg);
+                        ValidationMessageCollection.Add(pi.Name, msg);
                     }
                 });
             }

@@ -1,12 +1,8 @@
 ﻿namespace ContosoUniversity.Domain.AppServices.Tests
 {
-
-    // ************************************************************************************************
-    // * Place this in the ContosoUniversity.Domain.AppServices.Tests/xxxxxApplicationServiceTests folder 
-    // * **********************************************************************************************
-
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService;
+    using Models;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
@@ -26,19 +22,7 @@
         }
 
         [Test]
-        public void CheckInvariantValidation()
-        {
-            Action<DeleteCourse.Request> CallSut = request =>
-            {
-                var serviceUnderTest = new DeleteCourseHandlerFactory().Object;
-                serviceUnderTest.Handle(request);
-            };
-
-            // Assert2.CheckInvariantValidation("[ErrorMessage]", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
-        }
-
-        [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
             Func<DeleteCourse.Request, ValidationMessageCollection> CallSut = request =>
             {
@@ -47,15 +31,32 @@
                 return reponse.ValidationDetails;
             };
 
-            // Assert2.CheckValidation(
-            //     "The effective date must not be before today",
-            //     "EffectiveFrom",
-            //     () => CallSut(CreateValidRequest(p => p.CommandModel.DummyValue = "1")));           
+            Assert2.CheckContextualValidation("CourseId", "CourseId must have a minimum value of 1", () => CallSut(CreateValidRequest(p => p.CommandModel.CourseId = 0)));
         }
 
         [Test]
-        public void WhenDeleteCourseIsCalledThnIExpectItToDoSomething()
+        public void WhenDeleteCourseIsCalledThenIExpectItToDoSomething()
         {
+            // Arrange
+            var repository = new InMemoryRecordedRepository();
+            var factory = new DeleteCourseHandlerFactory();
+            factory._SetRepository(repository);
+
+            // Act
+            var request = CreateValidRequest();
+            var response = factory.Object.Handle(request);
+
+            // Assert
+            response.HasValidationIssues.ShouldEqual(false);
+
+            var events = repository.CommandRepository.CommandEvents;
+            var course = (Course)events.DeletedEvents.First().Entity;
+            course.CourseID.ShouldEqual(request.CommandModel.CourseId);
+
+            events.SavedEvents.Count.ShouldEqual(1);
+            events.ModifiedEvents.Count.ShouldEqual(0);
+            events.DeletedEvents.Count.ShouldEqual(1);
+            events.AddedEvents.Count.ShouldEqual(0);
         }
     }
 }

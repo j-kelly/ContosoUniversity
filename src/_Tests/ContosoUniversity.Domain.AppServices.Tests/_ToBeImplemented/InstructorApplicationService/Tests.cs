@@ -22,7 +22,7 @@
         }
 
         [Test]
-        public void CheckInvariantValidation()
+        public void CheckInvariantValidationRules()
         {
             Action<ModifyInstructorAndCourses.Request> CallSut = request =>
             {
@@ -34,7 +34,7 @@
         }
 
         [Test]
-        public void CheckValidationRules()
+        public void CheckContextualValidationRules()
         {
             Func<ModifyInstructorAndCourses.Request, ValidationMessageCollection> CallSut = request =>
             {

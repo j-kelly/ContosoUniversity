@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandToViewModelBase`1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Audit\AuditItem.cs" />
     <Compile Include="Repository\Audit\AuditPropertyItem.cs" />

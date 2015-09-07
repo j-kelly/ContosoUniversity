@@ -46,7 +46,7 @@
 	        }
 
             [Test]
-            public void CheckInvariantValidation()
+            public void CheckInvariantValidationRules()
             {
                 Action<$behaviour$Request> CallSut = request =>
                 {
@@ -61,7 +61,7 @@
             }
 
             [Test]
-            public void CheckValidationRules()
+            public void CheckContextualValidationRules()
             {
                Func<$behaviour$Request, ValidationDetails> CallSut = request =>
                {

@@ -25,7 +25,7 @@
             students.ForEach(s => context.Students.Add(s));
             context.SaveChanges();
 
-            var department = new ContosoUniversity.Domain.Core.Repository.Entities.Department { DepartmentID = 1, Name = "MainDepartment", StartDate = DateTime.Parse("2000-01-01") };
+            var department = new ContosoUniversity.Domain.Core.Repository.Entities.Department { DepartmentID = 1, Name = "MainDepartment", StartDate = DateTime.Parse("2000-01-01"), CreatedBy = "Anon", ModifiedBy = "Anon", CreatedOn = DateTimeHelper.Now, ModifiedOn = DateTimeHelper.Now };
 
             var courses = new List<ContosoUniversity.Domain.Core.Repository.Entities.Course>
             {

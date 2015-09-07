@@ -80,8 +80,8 @@
     <Compile Include="Factories\DepartmentFactory.cs" />
     <Compile Include="Factories\InstructorFactory.cs" />
     <Compile Include="Factories\StudentFactory.cs" />
-    <Compile Include="Migrations\201509072025460_SettersToInternal.cs" />
-    <Compile Include="Migrations\201509072025460_SettersToInternal.Designer.cs">
+    <Compile Include="Repository\Migrations\201509072025460_SettersToInternal.cs" />
+    <Compile Include="Repository\Migrations\201509072025460_SettersToInternal.Designer.cs">
       <DependentUpon>201509072025460_SettersToInternal.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\Entities\TrackedEntity.cs" />
@@ -145,15 +145,13 @@
     <Compile Include="Repository\Containers\IState.cs" />
     <Compile Include="Repository\Containers\State.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_Infrastructure\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509072025460_SettersToInternal.resx">
+    <EmbeddedResource Include="Repository\Migrations\201509072025460_SettersToInternal.resx">
       <DependentUpon>201509072025460_SettersToInternal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Repository\Migrations\201509041250073_TrackedEntities.resx">

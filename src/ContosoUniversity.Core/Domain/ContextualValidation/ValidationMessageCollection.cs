@@ -5,6 +5,10 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
 
     public class ValidationMessageCollection : List<ValidationMessage>
     {
+        public ValidationMessageCollection()
+        {
+        }
+
         public ValidationMessageCollection(params ValidationMessage[] validationMesssages)
         {
             AddRange(validationMesssages);

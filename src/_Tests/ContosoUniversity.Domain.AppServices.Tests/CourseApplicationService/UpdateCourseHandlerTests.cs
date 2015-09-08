@@ -1,14 +1,13 @@
 ﻿namespace ContosoUniversity.Domain.AppServices.Tests.CourseApplicationService
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using Core.Behaviours.CourseApplicationService;
-    using Models;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
     using System.Linq;
     using TestKit.Factories;
-
     [TestFixture]
     public class UpdateCourseHandlerTests
     {
@@ -31,8 +30,8 @@
             };
 
             // Example (not really an invariant rule)
-            Assert2.CheckInvariantValidation("Title cannot be null", () => CallSut(CreateValidRequest(p => p.CommandModel.Title = null)));
             Assert2.CheckInvariantValidation("Title cannot be set to Title", () => CallSut(CreateValidRequest(p => p.CommandModel.Title = "Title")));
+            Assert2.CheckInvariantValidation("Title cannot be null", () => CallSut(CreateValidRequest(p => p.CommandModel.Title = null)));
         }
 
         [Test]
@@ -64,8 +63,9 @@
             // Assert
             response.HasValidationIssues.ShouldEqual(false);
 
+            // Check modified entity
             var events = repository.CommandRepository.CommandEvents;
-            var course = (ContosoUniversity.Domain.Core.Repository.Entities.Course)events.ModifiedEvents.First().Entity;
+            var course = (Course)events.ModifiedEvents.First().Entity;
             course.CourseID.ShouldEqual(request.CommandModel.CourseID);
             course.Credits.ShouldEqual(request.CommandModel.Credits);
             course.DepartmentID.ShouldEqual(request.CommandModel.DepartmentID);

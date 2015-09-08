@@ -293,6 +293,7 @@
     <ProjectReference Include="..\ContosoUniversity.Web.Core\ContosoUniversity.Web.Core.csproj">
       <Project>{0f18c304-499b-4427-866e-976733dcf783}</Project>
       <Name>ContosoUniversity.Web.Core</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -338,4 +339,27 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="AfterBuild">
+    <CallTarget Targets="Publish" />
+  </Target>
+  <!--<Target Name="Publish WebProject1">
+ <RemoveDir Directories="$(OutputFolder)"
+       ContinueOnError="true" />
+ <MSBuild Projects="WebProject1\WebProject1.csproj"
+      Targets="ResolveReferences;_CopyWebApplication"
+      Properties="WebProjectOutputDir=$(OutputDir)\WebProject1\;
+      OutDir=$(OutputDir)\WebProject1\;Configuration=MSBuildRelease;Platform=AnyCPU" />
+</Target>-->
+
+<ItemGroup>
+	<ContosoFiles Include="$(ProjectDir)\Bin\ContosoUniversity*.*"/>
+</ItemGroup>
+
+  <Target Name="Publish">
+    <RemoveDir Directories="$(ProjectDir)\obj\publish\" ContinueOnError="true" />
+
+	<Copy SourceFiles="@(ContosoFiles)" DestinationFolder="$(ProjectDir)\obj\publish\bin\" />
+
+	<MSBuild Projects="$(ProjectDir)\ContosoUniversity.Web.App.csproj" Targets="ResolveReferences;_CopyWebApplication" Properties="BuildingProject=true;WebProjectOutputDir=$(ProjectDir)\obj\publish\;OutDir=$(ProjectDir)\obj\publish\bin\" />
+  </Target>
 </Project>

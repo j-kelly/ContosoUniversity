@@ -1,7 +1,6 @@
 ﻿namespace ContosoUniversity.Domain.Core.Repository
 {
     using Domain.Core.Repository.Entities;
-    using Models;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -9,7 +8,7 @@
     {
         static ContosoDbContext()
         {
-            Database.SetInitializer(new ContosoUniversity.Domain.Core.Repository.ContosoDbInitializer());
+            Database.SetInitializer(new ContosoDbInitializer());
         }
 
         public ContosoDbContext()
@@ -19,24 +18,24 @@
         }
 
         public DbSet<AuditPropertyTrail> AuditPropertyTrails { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.Course> Courses { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.Department> Departments { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.Enrollment> Enrollments { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.Instructor> Instructors { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.Student> Students { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.Person> People { get; set; }
-        public DbSet<ContosoUniversity.Domain.Core.Repository.Entities.OfficeAssignment> OfficeAssignments { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<ContosoUniversity.Domain.Core.Repository.Entities.Course>()
+            modelBuilder.Entity<Course>()
                 .HasMany(c => c.Instructors).WithMany(i => i.Courses)
                 .Map(t => t.MapLeftKey("CourseID")
                     .MapRightKey("InstructorID")
                     .ToTable("CourseInstructor"));
-            modelBuilder.Entity<ContosoUniversity.Domain.Core.Repository.Entities.Department>().MapToStoredProcedures();
+            modelBuilder.Entity<Department>().MapToStoredProcedures();
         }
     }
 }

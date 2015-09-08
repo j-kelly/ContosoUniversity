@@ -2,13 +2,12 @@
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService;
-    using Models;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
     using System.Linq;
     using TestKit.Factories;
-
     [TestFixture]
     public class DeleteCourseHandlerTests
     {
@@ -50,7 +49,7 @@
             response.HasValidationIssues.ShouldEqual(false);
 
             var events = repository.CommandRepository.CommandEvents;
-            var course = (ContosoUniversity.Domain.Core.Repository.Entities.Course)events.DeletedEvents.First().Entity;
+            var course = (Course)events.DeletedEvents.First().Entity;
             course.CourseID.ShouldEqual(request.CommandModel.CourseId);
 
             events.SavedEvents.Count.ShouldEqual(1);

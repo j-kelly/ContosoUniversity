@@ -2,8 +2,10 @@
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Domain.Core.Repository.Containers;
+    using EntityFramework;
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Linq;
     using Utility.Logging;
@@ -64,7 +66,7 @@
                 entities.Where(p => p.State == State.Added).ToList().ForEach(p => repository.Add(p.Entity));
                 entities.Where(p => p.State == State.Deleted).ToList().ForEach(p => repository.Delete(p.Entity));
                 entities.Where(p => p.State == State.Modified).ToList().ForEach(p => repository.Modify(p.Entity));
-                //       entities.Where(p => p.State == State.Unchanged).ToList().ForEach(p => repository.UpdateEntityState(p.Entity, EntityState.Unchanged));
+                entities.Where(p => p.State == State.Unchanged).ToList().ForEach(p => repository.UpdateEntityState(p.Entity, EntityState.Unchanged));
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace ContosoUniversity.Domain.AppServices.Tests.CourseApplicationService
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using Core.Behaviours.CourseApplicationService;
-    using Models;
     using NRepository.TestKit;
     using NUnit.Framework;
     using System;
@@ -51,7 +51,7 @@
             response.HasValidationIssues.ShouldEqual(false);
 
             var events = repository.CommandRepository.CommandEvents;
-            var course = (ContosoUniversity.Domain.Core.Repository.Entities.Course)events.AddedEvents.First().Entity;
+            var course = (Course)events.AddedEvents.First().Entity;
             course.CourseID.ShouldEqual(request.CommandModel.CourseID);
             course.Credits.ShouldEqual(request.CommandModel.Credits);
             course.DepartmentID.ShouldEqual(request.CommandModel.DepartmentID);

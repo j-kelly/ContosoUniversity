@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Web.Core.Repository.Projections;
+
     [GenerateTestFactory]
     public class CourseController : Controller
     {

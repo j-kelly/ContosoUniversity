@@ -68,6 +68,7 @@
     <Compile Include="Repository\Cache\EfCacheableFactoryQuery.cs" />
     <Compile Include="Repository\Cache\ICacheableProjection.cs" />
     <Compile Include="Repository\Cache\CacheableProjectionFactoryQuery.cs" />
+    <Compile Include="Repository\ContosoUniversityEntityFrameworkRepository.cs" />
     <Compile Include="Repository\Interceptors\ContosoFactoryQueryInterceptor.cs" />
     <Compile Include="Repository\Interceptors\ContosoUniversityRepositoryInterceptors.cs" />
     <Compile Include="Repository\Interceptors\Delete\SoftDeleteDeleteCommandInterceptor.cs" />

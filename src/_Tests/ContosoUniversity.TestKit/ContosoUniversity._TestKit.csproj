@@ -129,13 +129,13 @@
       <Project>{d0ffc052-cd52-4bb8-8908-9ae3cc5fcafd}</Project>
       <Name>ContosoUniversity.Domain.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ContosoUniversity.Web.App\ContosoUniversity.Web.App.csproj">
-      <Project>{563a9765-bff7-4f54-abea-a11127007a3c}</Project>
-      <Name>ContosoUniversity.Web.App</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ContosoUniversity.Web.Core\ContosoUniversity.Web.Core.csproj">
       <Project>{0f18c304-499b-4427-866e-976733dcf783}</Project>
       <Name>ContosoUniversity.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ContosoUniversity.Web.Mvc\ContosoUniversity.Web.Mvc.csproj">
+      <Project>{563a9765-bff7-4f54-abea-a11127007a3c}</Project>
+      <Name>ContosoUniversity.Web.Mvc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using Core.Behaviours.CourseApplicationService;
     using Core.Factories;
+    using Core.Repository.Entities;
     using NRepository.Core;
 
     [GenerateTestFactory]
@@ -25,7 +26,11 @@
             var container = CourseFactory.Create(request.CommandModel);
             validationDetails = _Repository.Save(container);
 
-            return new CreateCourse.Response(validationDetails);
+            var courseId = default(int?);
+            if (!validationDetails.HasValidationIssues)
+                courseId = container.FindEntity<Course>().CourseID;
+
+            return new CreateCourse.Response(validationDetails, courseId);
         }
     }
 }

@@ -15,10 +15,10 @@ namespace ContosoUniversity.TestKit.Factories
 	using ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService;
 	using ContosoUniversity.Domain.Core.Behaviours.StudentApplicationService;
 	using ContosoUniversity.Domain.Services.CourseApplicationService;
-	using ContosoUniversity.Web.App.Features.Course;
-	using ContosoUniversity.Web.App.Features.Department;
-	using ContosoUniversity.Web.App.Features.Instructor;
-	using ContosoUniversity.Web.App.Features.Student;
+	using ContosoUniversity.Web.Mvc.Features.Course;
+	using ContosoUniversity.Web.Mvc.Features.Department;
+	using ContosoUniversity.Web.Mvc.Features.Instructor;
+	using ContosoUniversity.Web.Mvc.Features.Student;
 	using NRepository.Core;
 	using NRepository.Core.Query;
 

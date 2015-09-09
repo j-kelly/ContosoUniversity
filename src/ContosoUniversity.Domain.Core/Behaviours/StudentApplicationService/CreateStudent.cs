@@ -36,14 +36,13 @@
         // CreateStudent.Response
         public class Response : DomainResponse
         {
-            public Response()
-            {
-            }
-
-            public Response(ValidationMessageCollection validationDetails)
+            public Response(ValidationMessageCollection validationDetails, int? studentId = null)
                 : base(validationDetails)
             {
+                StudentId = studentId;
             }
+
+            public int? StudentId { get; set; }
         }
 
         // CreateStudent.InvariantValidation

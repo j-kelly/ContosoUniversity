@@ -5,6 +5,7 @@
     using Factories;
     using InstructorApplicationService;
     using NRepository.Core;
+    using Repository.Entities;
 
     [GenerateTestFactory]
     public class CreateInstructorWithCoursesHandler
@@ -25,7 +26,11 @@
             var container = InstructorFactory.Create(_Repository, request.CommandModel);
             validationDetails = _Repository.Save(container);
 
-            return new CreateInstructorWithCourses.Response(validationDetails);
+            var instructorId = default(int?);
+            if (!validationDetails.HasValidationIssues)
+                instructorId = container.FindEntity<Instructor>().ID;
+
+            return new CreateInstructorWithCourses.Response(validationDetails, instructorId);
         }
     }
 }

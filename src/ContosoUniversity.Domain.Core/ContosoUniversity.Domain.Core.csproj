@@ -111,7 +111,7 @@
     <Compile Include="Repository\Entities\Student.cs" />
     <Compile Include="Repository\ContosoDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ContosoDbInitializer.cs" />
+    <Compile Include="Repository\ContosoDbInitializer_Old.cs" />
     <Compile Include="Repository\ISoftDelete.cs" />
     <Compile Include="Repository\Strategies\FindByIdsSpecificationStrategy.cs" />
     <Compile Include="Repository\Migrations\201402242126344_InitialCreate.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="Repository\Migrations\201402251853267_Inheritance.Designer.cs">
       <DependentUpon>201402251853267_Inheritance.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Migrations\Configuration.cs" />
+    <Compile Include="Repository\ContosoDbInitializer.cs" />
     <Compile Include="Repository\Containers\EntityStateWrapper.cs" />
     <Compile Include="Repository\Containers\EntityStateWrapper1.cs" />
     <Compile Include="Repository\Containers\EntityStateWrapperContainer.cs" />

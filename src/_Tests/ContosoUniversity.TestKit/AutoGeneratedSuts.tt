@@ -2,7 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(ProjectDir)\bin\debug\ContosoUniversity.Core.dll" #>
 <#@ assembly name="$(ProjectDir)\bin\debug\ContosoUniversity.Web.Core.dll" #>
-<#@ assembly name="$(ProjectDir)\bin\debug\ContosoUniversity.Web.App.dll" #>
+<#@ assembly name="$(ProjectDir)\bin\debug\ContosoUniversity.Web.Mvc.dll" #>
 <#@ assembly name="$(ProjectDir)\bin\debug\ContosoUniversity.Domain.Core.dll" #>
 <#@ assembly name="$(ProjectDir)\bin\debug\ContosoUniversity.Domain.AppServices.dll" #>
 <#@ assembly name="$(ProjectDir)..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll" #>
@@ -17,7 +17,7 @@
 	var assemblies = new []
 	{
 		typeof(ContosoUniversity.Domain.AppServices.CourseApplicationService).Assembly,
-		typeof(ContosoUniversity.Web.App.Features.Course.CourseController).Assembly,
+		typeof(ContosoUniversity.Web.Mvc.Features.Course.CourseController).Assembly,
 	};
 try
 {

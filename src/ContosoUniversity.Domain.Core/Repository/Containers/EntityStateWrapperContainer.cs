@@ -75,5 +75,15 @@
         {
             _Entities.AddRange(container.Entities);
         }
+
+        public T FindEntity<T>() where T : class
+        {
+            return _Entities.Select(p => p.Entity).OfType<T>().Single();
+        }
+
+        public IEnumerable<T> FindEntities<T>() where T : class
+        {
+            return _Entities.Select(p => p.Entity).OfType<T>();
+        }
     }
 }

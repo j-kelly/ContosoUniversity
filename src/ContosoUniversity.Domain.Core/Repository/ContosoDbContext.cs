@@ -1,6 +1,7 @@
 ﻿namespace ContosoUniversity.Domain.Core.Repository
 {
     using Domain.Core.Repository.Entities;
+    using Migrations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -8,7 +9,7 @@
     {
         static ContosoDbContext()
         {
-            Database.SetInitializer(new ContosoDbInitializer());
+            Database.SetInitializer(new ContosoUniversity.Domain.Core.Repository.ContosoDbInitializer());
         }
 
         public ContosoDbContext()

@@ -5,6 +5,7 @@
     using DepartmentApplicationService;
     using Factories;
     using NRepository.Core;
+    using Repository.Entities;
 
     [GenerateTestFactory]
     public class CreateDepartmentHandler
@@ -25,7 +26,11 @@
             var container = DepartmentFactory.Create(request.CommandModel);
             validationDetails = _Repository.Save(container);
 
-            return new CreateDepartment.Response(validationDetails);
+            var deptId = default(int?);
+            if (!validationDetails.HasValidationIssues)
+                deptId = container.FindEntity<Department>().DepartmentID;
+
+            return new CreateDepartment.Response(validationDetails, deptId);
         }
     }
 }

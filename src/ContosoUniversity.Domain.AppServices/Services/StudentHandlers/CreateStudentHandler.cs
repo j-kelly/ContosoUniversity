@@ -2,6 +2,7 @@
 {
     using ContosoUniversity.Core.Annotations;
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using Repository.Entities;
     using Factories;
     using NRepository.Core;
     using StudentApplicationService;
@@ -25,7 +26,11 @@
             var container = StudentFactory.Create(request.CommandModel);
             validationDetails = _Repository.Save(container);
 
-            return new CreateStudent.Response(validationDetails);
+            var studentId = default(int?);
+            if (!validationDetails.HasValidationIssues)
+                studentId = container.FindEntity<Student>().ID;
+
+            return new CreateStudent.Response(validationDetails, studentId);
         }
     }
 }

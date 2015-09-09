@@ -28,11 +28,7 @@
         // DeleteCourse.Response
         public class Response : DomainResponse
         {
-            public Response()
-            {
-            }
-
-            public Response(ValidationMessageCollection validationDetails)
+            public Response(ValidationMessageCollection validationDetails = null)
                : base(validationDetails)
             {
             }

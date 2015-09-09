@@ -3,6 +3,7 @@
     using ContosoUniversity.Core.Domain;
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.InvariantValidation;
+    using ContosoUniversity.Domain.Core.Repository.Entities;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
     using System;
@@ -42,14 +43,13 @@
         // CreateDepartment.Response
         public class Response : DomainResponse
         {
-            public Response()
-            {
-            }
-
-            public Response(ValidationMessageCollection validationDetails)
+            public Response(ValidationMessageCollection validationDetails, int? departmentId = null)
                 : base(validationDetails)
             {
+                DepartmentId = departmentId;
             }
+
+            public int? DepartmentId { get; }
         }
 
         // CreateDepartment.InvariantValidation
@@ -80,10 +80,10 @@
                     return;
 
                 var queryRepository = ResolveService<IQueryRepository>();
-                var duplicateDepartment = queryRepository.GetEntity<ContosoUniversity.Domain.Core.Repository.Entities.Department>(
+                var duplicateDepartment = queryRepository.GetEntity<Department>(
                     p => p.InstructorID == Context.CommandModel.InstructorID.Value,
                     new AsNoTrackingQueryStrategy(),
-                    new EagerLoadingQueryStrategy<ContosoUniversity.Domain.Core.Repository.Entities.Department>(p => p.Administrator),
+                    new EagerLoadingQueryStrategy<Department>(p => p.Administrator),
                     false);
 
                 if (duplicateDepartment != null)
@@ -97,5 +97,4 @@
             }
         }
     }
-
 }

@@ -41,14 +41,13 @@
         // CreateInstructorWithCourses.Response
         public class Response : DomainResponse
         {
-            public Response()
-            {
-            }
-
-            public Response(ValidationMessageCollection validationDetails)
+            public Response(ValidationMessageCollection validationDetails, int? instructorId = null)
                 : base(validationDetails)
             {
+                InstructorId = instructorId;
             }
+
+            public int? InstructorId { get; set; }
         }
 
         // CreateInstructorWithCourses.InvariantValidation

@@ -6,6 +6,9 @@ namespace ContosoUniversity.Core.Domain
     {
         protected DomainResponse(ValidationMessageCollection validationDetails)
         {
+            if (validationDetails == null)
+                validationDetails = new ValidationMessageCollection();
+
             ValidationDetails = validationDetails;
         }
 

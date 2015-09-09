@@ -4,7 +4,6 @@
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.InvariantValidation;
     using System.ComponentModel.DataAnnotations;
-
     public class CreateCourse
     {
         // CreateCourse.CommandModel
@@ -35,10 +34,13 @@
         // CreateCourse.Response
         public class Response : DomainResponse
         {
-            public Response(ValidationMessageCollection validationDetails)
+            public Response(ValidationMessageCollection validationDetails, int? courseId = null)
                 : base(validationDetails)
             {
+                CourseId = courseId;
             }
+
+            public int? CourseId { get; }
         }
 
         // CreateCourse.InvariantValidation
@@ -56,6 +58,12 @@
             public ContextualValidation(Request context)
                 : base(context)
             {
+            }
+
+            public override void Validate()
+            {
+                var deptId = Context.CommandModel.DepartmentID;
+                Validate(deptId > 0, "DepartmentID", "Missing Department");
             }
         }
     }

@@ -154,6 +154,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Students.feature.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
     <None Include="Scaffolding\packages.config" />
     <None Include="Scaffolding\WebDriver\MicrosoftFixit50642.msi" />
   </ItemGroup>

@@ -5,6 +5,7 @@
     using Domain.Core.Repository.Entities;
     using System.Configuration;
     using System.Data.Entity;
+    using System.Data.SqlClient;
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
@@ -45,7 +46,17 @@
             var sw = Stopwatch.StartNew();
             var conString = ConfigurationManager.ConnectionStrings["NRepository_Contoso"].ConnectionString;
             if (Database.Exists(conString))
-                Database.Delete(conString);
+            {
+                using (var con = new SqlConnection(conString))
+                {
+                    con.Open();
+                    new SqlCommand("ALTER DATABASE [NRepository_Contoso_Test] SET OFFLINE  WITH ROLLBACK IMMEDIATE", con).ExecuteNonQuery();
+                    new SqlCommand("ALTER DATABASE [NRepository_Contoso_Test] SET ONLINE", con).ExecuteNonQuery();
+                    new SqlCommand("DROP DATABASE [NRepository_Contoso_Test]", con).ExecuteNonQuery();
+                }
+
+                //      Database.Delete(conString);
+            }
 
             // Now force the database recreation
             ContosoDbInitializer.AllowDatabaseSeed = false;

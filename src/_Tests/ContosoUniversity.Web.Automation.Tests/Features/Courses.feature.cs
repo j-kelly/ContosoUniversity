@@ -172,34 +172,49 @@ this.ScenarioSetup(scenarioInfo);
                         "Value"});
             table6.AddRow(new string[] {
                         "Title",
-                        "New Title"});
+                        "My Course"});
             table6.AddRow(new string[] {
                         "Credits",
-                        "3"});
+                        "1"});
             table6.AddRow(new string[] {
                         "DepartmentID",
-                        "AnotherDepartment"});
+                        "MyDepartment"});
 #line 41
- testRunner.And("I enter the following details", ((string)(null)), table6, "And ");
-#line 46
- testRunner.And("I press the \"Save\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I expect to see the following values", ((string)(null)), table6, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "PropertyName",
+                        "Value"});
+            table7.AddRow(new string[] {
+                        "Title",
+                        "New Title"});
+            table7.AddRow(new string[] {
+                        "Credits",
+                        "3"});
+            table7.AddRow(new string[] {
+                        "DepartmentID",
+                        "AnotherDepartment"});
+#line 46
+ testRunner.And("I enter the following details", ((string)(null)), table7, "And ");
+#line 51
+ testRunner.And("I press the \"Save\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Row",
                         "Column1",
                         "Column2",
                         "Column3",
                         "Column4",
                         "Column5"});
-            table7.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "1",
                         "100",
                         "New Title",
                         "3",
                         "AnotherDepartment",
                         "Edit ! Details ! Delete"});
-#line 47
- testRunner.Then("I expect the following info displayed in the \"courses\" table", ((string)(null)), table7, "Then ");
+#line 52
+ testRunner.Then("I expect the following info displayed in the \"courses\" table", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -209,43 +224,43 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CheckCourseDelete()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check course delete", ((string[])(null)));
-#line 57
+#line 62
 this.ScenarioSetup(scenarioInfo);
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "Budget",
                         "StartDate"});
-            table8.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "MyDepartment",
                         "123.1",
                         "01-Oct-2010"});
-#line 58
- testRunner.Given("I have the following departments", ((string)(null)), table8, "Given ");
+#line 63
+ testRunner.Given("I have the following departments", ((string)(null)), table9, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "CourseID",
                         "Title",
                         "Credits",
                         "Department Name"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "100",
                         "My Course",
                         "1",
                         "MyDepartment"});
-#line 61
- testRunner.And("I have the following courses", ((string)(null)), table9, "And ");
-#line 64
- testRunner.And("I\'m at at the \"Course\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 65
- testRunner.When("I select the \"Delete\" link on the \"courses\" table on row \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 66
- testRunner.And("I select the \"Back to List\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 67
- testRunner.And("I select the \"Delete\" link on the \"courses\" table on row \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 68
- testRunner.And("I press the \"Delete\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have the following courses", ((string)(null)), table10, "And ");
 #line 69
+ testRunner.And("I\'m at at the \"Course\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 70
+ testRunner.When("I select the \"Delete\" link on the \"courses\" table on row \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 71
+ testRunner.And("I select the \"Back to List\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 72
+ testRunner.And("I select the \"Delete\" link on the \"courses\" table on row \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 73
+ testRunner.And("I press the \"Delete\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 74
  testRunner.Then("I expect the \"courses\" table to be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

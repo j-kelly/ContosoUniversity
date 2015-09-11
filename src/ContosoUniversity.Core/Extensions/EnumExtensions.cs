@@ -31,6 +31,9 @@
             return ToEnum<T>(value.ToString(CultureInfo.InvariantCulture));
         }
 
+        // ***********************************************************************************************
+        // If you are building this and get an error here it's because you are running this in VS2013 or below
+        // Please use VS 2015 for this sample code
         public static T ToEnum<T>(this short value) where T : struct, IConvertible => ToEnum<T>((int)value);
     }
 }

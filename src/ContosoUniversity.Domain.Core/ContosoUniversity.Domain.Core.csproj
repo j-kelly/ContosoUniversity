@@ -111,7 +111,6 @@
     <Compile Include="Repository\Entities\Student.cs" />
     <Compile Include="Repository\ContosoDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ContosoDbInitializer_Old.cs" />
     <Compile Include="Repository\ISoftDelete.cs" />
     <Compile Include="Repository\Strategies\FindByIdsSpecificationStrategy.cs" />
     <Compile Include="Repository\Migrations\201402242126344_InitialCreate.cs" />

@@ -38,6 +38,11 @@ Scenario: Check course edit
 		| 100      | My Course | 1       | MyDepartment |
 	And I'm at at the "Course" page
 	When I select the "Edit" link on the "courses" table on row "1" 
+	Then I expect to see the following values 
+		| PropertyName | Value        |
+		| Title        | My Course    |
+		| Credits      | 1            |
+		| DepartmentID | MyDepartment | 
 	And I enter the following details
 		| PropertyName | Value             |
 		| Title        | New Title         |

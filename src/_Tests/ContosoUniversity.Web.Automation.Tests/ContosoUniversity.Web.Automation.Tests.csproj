@@ -113,10 +113,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\_Examples.feature.cs">
+    <Compile Include="Features\DataSetup.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_Examples.feature</DependentUpon>
+      <DependentUpon>DataSetup.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Departments.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Departments.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Students.feature.cs">
       <AutoGen>True</AutoGen>
@@ -130,8 +135,8 @@
     <Compile Include="Scaffolding\HostManager.cs" />
     <Compile Include="Scaffolding\Page.cs" />
     <Compile Include="Steps\CreationSteps.cs" />
-    <Compile Include="Steps\CommonSteps.cs" />
-    <Compile Include="Steps\ViewingSteps.cs" />
+    <Compile Include="Steps\ActionSteps.cs" />
+    <Compile Include="Steps\ExpectationSteps.cs" />
     <Compile Include="Features\Courses.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -146,9 +151,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Courses.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\_Examples.feature">
+    <None Include="Features\DataSetup.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>_Examples.feature.cs</LastGenOutput>
+      <LastGenOutput>DataSetup.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Departments.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Departments.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Students.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

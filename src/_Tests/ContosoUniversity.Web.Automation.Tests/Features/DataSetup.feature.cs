@@ -19,22 +19,20 @@ namespace ContosoUniversity.Web.Automation.Tests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("_Example_")]
-    [NUnit.Framework.IgnoreAttribute()]
-    public partial class _Example_Feature
+    [NUnit.Framework.DescriptionAttribute("DataSetup")]
+    public partial class DataSetupFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "_Examples.feature"
+#line 1 "DataSetup.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "_Example_", "", ProgrammingLanguage.CSharp, new string[] {
-                        "ignore"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DataSetup", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,7 +69,7 @@ namespace ContosoUniversity.Web.Automation.Tests.Features
         public virtual void ExampleStepsForSettingUpTestDataInTheDatabase()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Example steps for setting up test data in the database", ((string[])(null)));
-#line 9
+#line 8
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -94,7 +92,11 @@ this.ScenarioSetup(scenarioInfo);
                         "JKDepartment",
                         "13323.1",
                         "01-Oct-2040"});
-#line 12
+            table1.AddRow(new string[] {
+                        "Mums Department",
+                        "123.1",
+                        "01-Oct-2040"});
+#line 11
  testRunner.Given("I have the following departments", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -176,53 +178,22 @@ this.ScenarioSetup(scenarioInfo);
                         "Your Course"});
 #line 35
  testRunner.And("I have the following instructors", ((string)(null)), table4, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Example steps")]
-        public virtual void ExampleSteps()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Example steps", ((string[])(null)));
+#line 42
+ testRunner.When("I\'m at at the \"Course\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 43
+ testRunner.Then("I expect the \"courses\" table to contain \"4\" rows", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 45
+ testRunner.And("I\'m at at the \"Student\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+ testRunner.And("I expect the \"students\" table to contain \"3\" rows", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 48
-this.ScenarioSetup(scenarioInfo);
+ testRunner.When("I\'m at at the \"Instructor\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 49
+ testRunner.Then("I expect the \"instructors\" table to contain \"4\" rows", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 51
- testRunner.Given("I\'m at at the \"Instructor\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 54
- testRunner.When("I select the \"Create New\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 55
- testRunner.And("I press the \"Create\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
- testRunner.And("I select the \"Edit\" link on the \"students\" table on row \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "PropertyId",
-                        "Value"});
-            table5.AddRow(new string[] {
-                        "Title",
-                        "Your title"});
-#line 59
- testRunner.And("I enter the following details", ((string)(null)), table5, "And ");
-#line 64
- testRunner.Then("I expect the \"students\" table to be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Row",
-                        "Column1",
-                        "Column2",
-                        "Column3",
-                        "Column4",
-                        "Column5"});
-            table6.AddRow(new string[] {
-                        "1",
-                        "1234",
-                        "Course Title",
-                        "1",
-                        "XDepartment",
-                        "Edit ! Details ! Delete"});
-#line 65
- testRunner.And("I expect the following info displayed in the \"students\" table", ((string)(null)), table6, "And ");
+ testRunner.When("I\'m at at the \"Department\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
+ testRunner.Then("I expect the \"departments\" table to contain \"5\" rows", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

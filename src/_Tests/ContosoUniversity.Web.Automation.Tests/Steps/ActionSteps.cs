@@ -5,11 +5,13 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class CommonSteps
+    public class ActionSteps
     {
         public Page Page { get; } = HostManager.Page;
 
         [Given(@"I'm at at the ""(.*)"" page")]
+        [When(@"I'm at at the ""(.*)"" page")]
+        [Then(@"I'm at at the ""(.*)"" page")]
         public void GivenIMAtAtThePage(string page)
         {
             Page.GotoUrl(page);
@@ -38,7 +40,7 @@
         }
 
         [When(@"I select the ""(.*)"" link on the ""(.*)"" table on row ""(.*)""")]
-        [Then(@"I select the ""(.*)"" link on the ""(.*)"" table in row ""(.*)""")]
+        [Then(@"I select the ""(.*)"" link on the ""(.*)"" table on row ""(.*)""")]
         public void WhenISelectTheLinkInTheTableOnRow(string linkText, string tableId, int row)
         {
             var element = Page.WebDriver.FindElement(By.Id(tableId));

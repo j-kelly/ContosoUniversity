@@ -19,7 +19,7 @@
 
         public UpdateCourse.Response UpdateCourse(UpdateCourse.Request request)
         {
-            var retVal = Logger.TraceCall(1, () =>
+            var retVal = Logger.TraceCall(() =>
             {
                 var requestHandler = new UpdateCourseHandler(_Repository);
                 var response = requestHandler.Handle(request);

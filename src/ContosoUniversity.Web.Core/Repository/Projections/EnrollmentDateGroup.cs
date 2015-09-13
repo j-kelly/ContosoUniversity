@@ -10,7 +10,7 @@
 
     public class EnrollmentDateGroup : ICacheableProjection
     {
-        public class EnrollmentDateGroupFactoryQuery : FactoryQuery<EnrollmentDateGroup>
+        public class FactoryQuery : FactoryQuery<EnrollmentDateGroup>
         {
             public override IQueryable<object> Query<T>(IQueryRepository repository, object additionalQueryData)
             {

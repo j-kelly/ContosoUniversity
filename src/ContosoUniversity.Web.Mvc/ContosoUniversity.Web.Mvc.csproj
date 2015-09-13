@@ -181,8 +181,8 @@
     <Compile Include="Features\Course\CourseController.cs" />
     <Compile Include="Features\Department\DepartmentController.cs" />
     <Compile Include="Features\Home\HomeController.cs" />
-    <Compile Include="Features\Instructor\ViewModels\AssignedCourseDataViewModel.cs" />
     <Compile Include="Features\Instructor\InstructorController.cs" />
+    <Compile Include="Features\Instructor\ViewModels\AssignedCourseDataViewModel.cs" />
     <Compile Include="Features\Instructor\ViewModels\CreateInstructorWithCoursesViewModel.cs" />
     <Compile Include="Features\Instructor\ViewModels\EnrollmentDetailViewModel.cs" />
     <Compile Include="Features\Instructor\ViewModels\InstructorDetailViewModel.cs" />

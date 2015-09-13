@@ -9,7 +9,7 @@ namespace ContosoUniversity.Web.Core.Repository.Projections
 
     public class DepartmentDetail
     {
-        public class DepartmentDetailFactoryQuery : FactoryQuery<DepartmentDetail>
+        public class FactoryQuery : FactoryQuery<DepartmentDetail>
         {
             public override IQueryable<object> Query<T>(IQueryRepository repository, object additionalQueryData)
             {

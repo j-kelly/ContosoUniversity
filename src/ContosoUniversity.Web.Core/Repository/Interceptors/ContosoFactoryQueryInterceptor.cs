@@ -15,10 +15,10 @@
             new CacheableProjectionFactoryQuery(),
 
             // Projections
-            new CourseDetail.CourseDetailFactoryQuery(),
-            new EnrollmentDateGroup.EnrollmentDateGroupFactoryQuery(),
-            new DepartmentDetail.DepartmentDetailFactoryQuery(),
-            new StudentDetail.StudentDetailFactoryQuery(),
+            new CourseDetail.FactoryQuery(),
+            new EnrollmentDateGroup.FactoryQuery(),
+            new DepartmentDetail.FactoryQuery(),
+            new StudentDetail.FactoryQuery(),
 
             // Filters
             new SoftDeleteFilterFactoryQuery(),

@@ -7,7 +7,7 @@ namespace ContosoUniversity.Web.Core.Repository.Projections
     using System.Linq;
     public class CourseDetail
     {
-        public class CourseDetailFactoryQuery : FactoryQuery<CourseDetail>
+        public class FactoryQuery : FactoryQuery<CourseDetail>
         {
             public override IQueryable<object> Query<T>(IQueryRepository repository, object additionalQueryData)
             {

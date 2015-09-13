@@ -11,7 +11,7 @@ namespace ContosoUniversity.Web.Core.Repository.Projections
 
     public class StudentDetail
     {
-        public class StudentDetailFactoryQuery : FactoryQuery<StudentDetail>
+        public class FactoryQuery : FactoryQuery<StudentDetail>
         {
             public override IQueryable<object> Query<T>(IQueryRepository repository, object additionalQueryData)
             {

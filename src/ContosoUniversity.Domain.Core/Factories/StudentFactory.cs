@@ -1,6 +1,6 @@
 namespace ContosoUniversity.Domain.Core.Factories
 {
-    using Behaviours.StudentApplicationService;
+    
     using Repository.Containers;
     using Repository.Entities;
 
@@ -11,7 +11,7 @@ namespace ContosoUniversity.Domain.Core.Factories
             return new Student { ID = studentId };
         }
 
-        public static EntityStateWrapperContainer Create(CreateStudent.CommandModel commandModel)
+        public static EntityStateWrapperContainer Create(ContosoUniversity.Domain.Core.Behaviours.Students.StudentCreate.CommandModel commandModel)
         {
             var student = new Student
             {

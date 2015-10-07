@@ -1,17 +1,17 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Instructor.ViewModels
 {
-    using ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService;
+    
     using Core;
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateInstructorWithCoursesViewModel : CommandToViewModelBase<CreateInstructorWithCourses.CommandModel>
+    public class CreateInstructorWithCoursesViewModel : CommandToViewModelBase<ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorCreateWithCourses.CommandModel>
     {
         public CreateInstructorWithCoursesViewModel()
         {
         }
 
-        public CreateInstructorWithCoursesViewModel(CreateInstructorWithCourses.CommandModel commandModel)
+        public CreateInstructorWithCoursesViewModel(ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorCreateWithCourses.CommandModel commandModel)
             : base(commandModel)
         {
         }

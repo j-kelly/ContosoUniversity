@@ -1,5 +1,6 @@
 ﻿namespace ContosoUniversity.Web.Automation.Tests.Scaffolding
 {
+    using Mvc.App_Start;
     using Core.Repository;
     using Domain.Core.Repository;
     using Domain.Core.Repository.Entities;
@@ -28,6 +29,9 @@
 
             IisExpressHelper.StartIis();
             Host = new Host();
+
+            // Sets up all our domain services
+            DomainBootstrapper.SetUp();
 
             task.Wait();
         }

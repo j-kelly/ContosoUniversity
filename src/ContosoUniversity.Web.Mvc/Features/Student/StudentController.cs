@@ -1,8 +1,9 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Student
 {
     using ContosoUniversity.Core.Annotations;
+    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Domain.Core.Behaviours.Students;
     using ContosoUniversity.Domain.Core.Repository.Entities;
-    using Domain.Core.Behaviours.StudentApplicationService;
     using NRepository.Core.Query;
     using PagedList;
     using System;
@@ -16,13 +17,9 @@
     public class StudentController : Controller
     {
         private readonly IQueryRepository _QueryRepository;
-        private readonly IStudentApplicationService _StudentApplicationService;
 
-        public StudentController(
-            IStudentApplicationService studentApplicationService,
-            IQueryRepository queryRepository)
+        public StudentController(IQueryRepository queryRepository)
         {
-            _StudentApplicationService = studentApplicationService;
             _QueryRepository = queryRepository;
         }
 
@@ -30,9 +27,8 @@
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var response = _StudentApplicationService.DeleteStudent(new DeleteStudent.Request(
-                CurrentPrincipalHelper.Name,
-                new DeleteStudent.CommandModel { StudentId = id }));
+            var request = new StudentDelete.Request(CurrentPrincipalHelper.Name, new StudentDelete.CommandModel { StudentId = id });
+            var response = DomainServices.CallService(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -44,7 +40,9 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateStudentViewModel viewModel)
         {
-            var response = _StudentApplicationService.CreateStudent(new CreateStudent.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel));
+            var request = new StudentCreate.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel);
+            var response = DomainServices.CallService(request);
+
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -54,9 +52,11 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModifyStudent.CommandModel commandModel)
+        public ActionResult Edit(StudentModify.CommandModel commandModel)
         {
-            var response = _StudentApplicationService.ModifyStudent(new ModifyStudent.Request(CurrentPrincipalHelper.Name, commandModel));
+            var request = new StudentModify.Request(CurrentPrincipalHelper.Name, commandModel);
+            var response = DomainServices.CallService(request);
+
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -105,7 +105,7 @@
             if (student == null)
                 return HttpNotFound();
 
-            return View(new ModifyStudent.CommandModel
+            return View(new StudentModify.CommandModel
             {
                 EnrollmentDate = student.EnrollmentDate,
                 FirstMidName = student.FirstMidName,

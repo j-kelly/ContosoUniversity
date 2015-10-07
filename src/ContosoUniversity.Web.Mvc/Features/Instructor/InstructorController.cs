@@ -1,9 +1,10 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Instructor
 {
     using ContosoUniversity.Core.Annotations;
+    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Domain.Core.Behaviours.Instructors;
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using ContosoUniversity.Web.Core.Repository.Projections;
-    using Domain.Core.Behaviours.InstructorApplicationService;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
     using System;
@@ -18,25 +19,22 @@
     [GenerateTestFactory]
     public class InstructorController : Controller
     {
-        private readonly IInstructorApplicationService _InstructorAppService;
         private readonly IQueryRepository _QueryRepository;
 
-        public InstructorController(
-            IInstructorApplicationService instructorAppService,
-            IQueryRepository queryRepository)
+        public InstructorController(IQueryRepository queryRepository)
         {
             _QueryRepository = queryRepository;
-            _InstructorAppService = instructorAppService;
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            _InstructorAppService.DeleteInstructor(new DeleteInstructor.Request(
+            var request = new InstructorDelete.Request(
                 CurrentPrincipalHelper.Name,
-                new DeleteInstructor.CommandModel { InstructorId = id }));
+                new InstructorDelete.CommandModel { InstructorId = id });
 
+            await DomainServices.CallServiceAsync(request);
             return RedirectToAction("Index");
         }
 
@@ -44,9 +42,8 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateInstructorWithCoursesViewModel viewModel)
         {
-            var response = _InstructorAppService.CreateInstructorWithCourses(new CreateInstructorWithCourses.Request(
-               CurrentPrincipalHelper.Name,
-               viewModel.CommandModel));
+            var request = new InstructorCreateWithCourses.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel);
+            var response = DomainServices.CallService(request);
 
             if (response.HasValidationIssues)
             {
@@ -62,9 +59,8 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ModifyInstructorAndCoursesViewModel viewModel)
         {
-            var response = _InstructorAppService.ModifyInstructorAndCourses(new ModifyInstructorAndCourses.Request(
-               CurrentPrincipalHelper.Name,
-               viewModel.CommandModel));
+            var request = new InstructorModifyAndCourses.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel);
+            var response = DomainServices.CallService(request);
 
             if (response.HasValidationIssues)
             {

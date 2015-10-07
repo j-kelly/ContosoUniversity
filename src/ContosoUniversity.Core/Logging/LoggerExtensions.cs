@@ -52,12 +52,6 @@ namespace ContosoUniversity.Core.Logging
         public static void TraceCall(this ILogger logger, object methodCall, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            if (TimerLogger.IsInfoEnabled)
-            {
-                var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
-                int.TryParse(thresholdSetting, out timerThreshold);
-            }
-
             WriteObjectDetails(Guid.NewGuid(), methodCall);
             TraceCall(logger, memberName, methodCall, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
         }
@@ -66,12 +60,6 @@ namespace ContosoUniversity.Core.Logging
         public static void TraceCall(this ILogger logger, string codeName, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            if (TimerLogger.IsInfoEnabled)
-            {
-                var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
-                int.TryParse(thresholdSetting, out timerThreshold);
-            }
-
             TraceCall(logger, codeName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
         }
 
@@ -112,7 +100,13 @@ namespace ContosoUniversity.Core.Logging
             }
             finally
             {
-                if (sw.ElapsedMilliseconds >= timerThreshold || alwaysLog)
+                if (TimerLogger.IsInfoEnabled)
+                {
+                    var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
+                    int.TryParse(thresholdSetting, out timerThreshold);
+                }
+
+                if (TimerLogger.IsTraceEnabled || sw.ElapsedMilliseconds >= timerThreshold || alwaysLog)
                 {
                     var msg2 = string.Format(
                          MessageFormat,
@@ -133,12 +127,6 @@ namespace ContosoUniversity.Core.Logging
         public static T TraceCall<T>(this ILogger logger, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            if (TimerLogger.IsInfoEnabled)
-            {
-                var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
-                int.TryParse(thresholdSetting, out timerThreshold);
-            }
-
             return TraceCall(logger, memberName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
         }
 
@@ -148,12 +136,6 @@ namespace ContosoUniversity.Core.Logging
         {
             var response = default(T);
             var timerThreshold = DefaultTimerThreshold;
-            if (TimerLogger.IsInfoEnabled)
-            {
-                var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
-                int.TryParse(thresholdSetting, out timerThreshold);
-            }
-
             var id = Guid.NewGuid();
             WriteObjectDetails(id, methodCall);
             try
@@ -187,12 +169,6 @@ namespace ContosoUniversity.Core.Logging
         public static T TraceCall<T>(this ILogger logger, string codeName, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            if (TimerLogger.IsInfoEnabled)
-            {
-                var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
-                int.TryParse(thresholdSetting, out timerThreshold);
-            }
-
             return TraceCall(logger, codeName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
         }
 
@@ -233,7 +209,13 @@ namespace ContosoUniversity.Core.Logging
             }
             finally
             {
-                if (sw.ElapsedMilliseconds >= timerThreshold || alwaysLog)
+                if (TimerLogger.IsInfoEnabled)
+                {
+                    var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
+                    int.TryParse(thresholdSetting, out timerThreshold);
+                }
+
+                if (TimerLogger.IsTraceEnabled || sw.ElapsedMilliseconds >= timerThreshold || alwaysLog)
                 {
                     var msg2 = string.Format(
                          MessageFormat,

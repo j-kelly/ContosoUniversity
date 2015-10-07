@@ -65,20 +65,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CourseApplicationService\UpdateCourseCreditsHandlerTests.cs" />
-    <Compile Include="CourseApplicationService\UpdateCourseHandlerTests.cs" />
-    <Compile Include="CourseApplicationService\DeleteCourseHandlerTests.cs" />
-    <Compile Include="CourseApplicationService\CreateCourseHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\DepartmentApplicationService\CreateDepartmentHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\DepartmentApplicationService\DeleteDepartmentHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\DepartmentApplicationService\UpdateDepartmentHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\InstructorApplicationService\CreateInstructorWithCoursesHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\InstructorApplicationService\CreateStudentHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\InstructorApplicationService\DeleteInstructorHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\InstructorApplicationService\ModifyStudentHandlerTests.cs" />
-    <Compile Include="_ToBeImplemented\InstructorApplicationService\Tests.cs" />
+    <Compile Include="Courses\UpdateCourseCreditsHandlerTests.cs" />
+    <Compile Include="Courses\UpdateCourseHandlerTests.cs" />
+    <Compile Include="Courses\CourseDeleteTests.cs" />
+    <Compile Include="Courses\CourseCreateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_ToBeImplemented\StudentApplicationService\DeleteStudentHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

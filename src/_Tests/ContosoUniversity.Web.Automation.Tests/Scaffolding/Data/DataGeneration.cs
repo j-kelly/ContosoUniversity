@@ -1,13 +1,12 @@
 ﻿namespace ContosoUniversity.Web.Automation.Tests.Scaffolding.Data
 {
+    using ContosoUniversity.Core.Domain;
     using Core.Repository;
-    using Domain.AppServices;
-    using Domain.Core.Behaviours.CourseApplicationService;
-    using Domain.Core.Behaviours.DepartmentApplicationService;
-    using Domain.Core.Behaviours.InstructorApplicationService;
-    using Domain.Core.Behaviours.StudentApplicationService;
+    using Domain.Core.Behaviours.Courses;
+    using Domain.Core.Behaviours.Departments;
+    using Domain.Core.Behaviours.Instructors;
+    using Domain.Core.Behaviours.Students;
     using Domain.Core.Repository.Entities;
-    using Domain.Services.DepartmentApplicationService;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -28,35 +27,31 @@
         [AfterScenario]
         public static void AfterScenario()
         {
-            using (var repository = new ContosoUniversityEntityFrameworkRepository())
+            foreach (var entity in _AddedEntities)
             {
-                foreach (var entity in _AddedEntities)
+                switch (entity.Type)
                 {
-                    switch (entity.Type)
-                    {
-                        case (EntityType.Department):
-                            var commandModel = new DeleteDepartment.CommandModel { DepartmentID = (int)entity.Id };
-                            new DepartmentApplicationService(repository).DeleteDepartment(new DeleteDepartment.Request("test", commandModel));
-                            break;
-                        case (EntityType.Student):
-                            var commandModel1 = new DeleteStudent.CommandModel { StudentId = (int)entity.Id };
-                            new StudentApplicationService(repository).DeleteStudent(new DeleteStudent.Request("test", commandModel1));
-                            break;
-                        case (EntityType.Instructor):
-                            var commandModel2 = new DeleteInstructor.CommandModel { InstructorId = (int)entity.Id };
-                            new InstructorApplicationService(repository).DeleteInstructor(new DeleteInstructor.Request("test", commandModel2));
-                            break;
-                        case (EntityType.Course):
-                            var commandModel3 = new DeleteCourse.CommandModel { CourseId = (int)entity.Id };
-                            new CourseApplicationService(repository).DeleteCourse(new DeleteCourse.Request("test", commandModel3));
-                            break;
-                        default:
-                            throw new ApplicationException($"Missing entity removal for type {entity.Type}");
-                    }
+                    case (EntityType.Department):
+                        var commandModel = new DepartmentDelete.CommandModel { DepartmentID = (int)entity.Id };
+                        DomainServices.CallService(new DepartmentDelete.Request("test", commandModel));
+                        break;
+                    case (EntityType.Student):
+                        var commandModel1 = new StudentDelete.CommandModel { StudentId = (int)entity.Id };
+                        DomainServices.CallService(new StudentDelete.Request("test", commandModel1));
+                        break;
+                    case (EntityType.Instructor):
+                        var commandModel2 = new InstructorDelete.CommandModel { InstructorId = (int)entity.Id };
+                        DomainServices.CallService(new InstructorDelete.Request("test", commandModel2));
+                        break;
+                    case (EntityType.Course):
+                        var commandModel3 = new CourseDelete.CommandModel { CourseId = (int)entity.Id };
+                        DomainServices.CallService(new CourseDelete.Request("test", commandModel3));
+                        break;
+                    default:
+                        throw new ApplicationException($"Missing entity removal for type {entity.Type}");
                 }
             }
         }
-
         public static void AddEntityToRemove(EntityType type, object id)
         {
             _AddedEntities.Add(new AddedEntityInfo(type, id));

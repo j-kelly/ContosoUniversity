@@ -2,7 +2,7 @@ namespace ContosoUniversity.Core.Domain
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
 
-    public abstract class DomainResponse
+    public abstract class DomainResponse : IDomainResponse
     {
         protected DomainResponse(ValidationMessageCollection validationDetails)
         {

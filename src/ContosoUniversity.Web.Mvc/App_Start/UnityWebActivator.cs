@@ -7,6 +7,7 @@ namespace ContosoUniversity.App_Start
     using System.Linq;
     using System.Web.Mvc;
     using Utility.Logging.NLog;
+    using Web.Mvc.App_Start;
 
     /// <summary>Provides the bootstrapping for integrating Unity with ASP.NET MVC.</summary>
     public static class UnityWebActivator
@@ -15,6 +16,9 @@ namespace ContosoUniversity.App_Start
         public static void Start()
         {
             ContosoUniversity.Core.Logging.LogManager.SetFactory(new NLogLoggerFactory());
+
+            // Set up domain functions
+            DomainBootstrapper.SetUp();
 
             var container = UnityConfig.GetConfiguredContainer();
 

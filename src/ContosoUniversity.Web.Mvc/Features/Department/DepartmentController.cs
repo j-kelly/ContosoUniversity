@@ -1,8 +1,9 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Department
 {
     using ContosoUniversity.Core.Annotations;
+    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Domain.Core.Behaviours.Departments;
     using ContosoUniversity.Domain.Core.Repository.Entities;
-    using Domain.Core.Behaviours.DepartmentApplicationService;
     using NRepository.Core.Query;
     using NRepository.EntityFramework.Query;
     using System;
@@ -16,21 +17,18 @@
     public class DepartmentController : Controller
     {
         private readonly IQueryRepository _QueryRepository;
-        private readonly IDepartmentApplicationService _DepartmentAppService;
 
-        public DepartmentController(
-            IDepartmentApplicationService departmentAppService,
-            IQueryRepository queryRepository)
+        public DepartmentController(IQueryRepository queryRepository)
         {
-            _DepartmentAppService = departmentAppService;
             _QueryRepository = queryRepository;
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateDepartment.CommandModel commandModel)
+        public async Task<ActionResult> Create(DepartmentCreate.CommandModel commandModel)
         {
-            var response = _DepartmentAppService.CreateDepartment(new CreateDepartment.Request(CurrentPrincipalHelper.Name, commandModel));
+            var request = new DepartmentCreate.Request(CurrentPrincipalHelper.Name, commandModel);
+            var response = await DomainServices.CallServiceAsync<DepartmentCreate.Response>(request);
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -43,9 +41,11 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(DeleteDepartment.CommandModel commandModel)
+        public async Task<ActionResult> Delete(DepartmentDelete.CommandModel commandModel)
         {
-            var response = _DepartmentAppService.DeleteDepartment(new DeleteDepartment.Request(CurrentPrincipalHelper.Name, commandModel));
+            var request = new DepartmentDelete.Request(CurrentPrincipalHelper.Name, commandModel);
+            var response = await DomainServices.CallServiceAsync<DepartmentDelete.Response>(request);
+
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -58,9 +58,10 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(UpdateDepartment.CommandModel commandModel)
+        public async Task<ActionResult> Edit(DepartmentUpdate.CommandModel commandModel)
         {
-            var response = _DepartmentAppService.UpdateDepartment(new UpdateDepartment.Request(CurrentPrincipalHelper.Name, commandModel));
+            var request = new DepartmentUpdate.Request(CurrentPrincipalHelper.Name, commandModel);
+            var response = await DomainServices.CallServiceAsync<DepartmentUpdate.Response>(request);
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -106,7 +107,7 @@
 
             var department = await _QueryRepository.GetEntities<Department>(
                 p => p.DepartmentID == id.Value)
-                .Select(p => new UpdateDepartment.CommandModel
+                .Select(p => new DepartmentUpdate.CommandModel
                 {
                     Budget = p.Budget,
                     DepartmentID = p.DepartmentID,

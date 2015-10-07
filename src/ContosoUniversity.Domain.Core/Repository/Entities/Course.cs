@@ -1,6 +1,6 @@
 ﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
-    using ContosoUniversity.Domain.Core.Behaviours.CourseApplicationService;
+    using Behaviours.Courses;
     using Domain.Core.Repository.Containers;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -26,7 +26,7 @@
 
         public virtual ICollection<Instructor> Instructors { get; internal set; }
 
-        public EntityStateWrapperContainer Modify(UpdateCourse.CommandModel commandModel)
+        public EntityStateWrapperContainer Modify(CourseUpdate.CommandModel commandModel)
         {
             CourseID = commandModel.CourseID;
             DepartmentID = commandModel.DepartmentID;

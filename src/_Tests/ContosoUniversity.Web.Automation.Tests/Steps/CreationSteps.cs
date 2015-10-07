@@ -1,17 +1,17 @@
 ﻿namespace ContosoUniversity.Web.Automation.Tests.Steps.Behaviours
 {
+    using Domain.AppServices.ServiceBehaviours;
     using ContosoUniversity.Web.Automation.Tests.Scaffolding;
     using ContosoUniversity.Web.Automation.Tests.Scaffolding.Data;
     using Core.Repository;
-    using Domain.AppServices;
-    using Domain.Core.Behaviours.CourseApplicationService;
-    using Domain.Core.Behaviours.DepartmentApplicationService;
-    using Domain.Core.Behaviours.InstructorApplicationService;
-    using Domain.Core.Behaviours.StudentApplicationService;
-    using Domain.Services.DepartmentApplicationService;
     using System;
     using System.Linq;
     using TechTalk.SpecFlow;
+    using Domain.Core.Behaviours.Departments;
+    using Domain.Core.Behaviours.Students;
+    using Domain.Core.Behaviours.Instructors;
+    using Domain.Core.Behaviours.Courses;
+    using ContosoUniversity.Core.Domain;
 
     [Binding]
     public class CreationSteps
@@ -23,12 +23,8 @@
             {
                 foreach (var row in table.Rows)
                 {
-                    var commandModel = DataHelper.CreateCommandModelFromTable<CreateDepartment.CommandModel>(table, row);
-                    var response = new DepartmentApplicationService(repository).CreateDepartment(
-                        new CreateDepartment.Request(
-                        "test",
-                        commandModel));
-
+                    var commandModel = DataHelper.CreateCommandModelFromTable<DepartmentCreate.CommandModel>(table, row);
+                    var response = DomainServices.CallService<DepartmentCreate.Response>(new DepartmentCreate.Request("test", commandModel));
                     if (response.HasValidationIssues)
                         throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
 
@@ -40,63 +36,47 @@
         [Given(@"I have the following students")]
         public void GivenIHaveTheFollowingStudents(Table table)
         {
-            using (var repository = new ContosoUniversityEntityFrameworkRepository())
+            foreach (var row in table.Rows)
             {
-                foreach (var row in table.Rows)
-                {
-                    var commandModel = DataHelper.CreateCommandModelFromTable<CreateStudent.CommandModel>(table, row);
-                    var response = new StudentApplicationService(repository).CreateStudent(
-                        new CreateStudent.Request(
-                        "test",
-                        commandModel));
+                var commandModel = DataHelper.CreateCommandModelFromTable<StudentCreate.CommandModel>(table, row);
+                var response = DomainServices.CallService<StudentCreate.Response>(new StudentCreate.Request("test", commandModel));
 
-                    if (response.HasValidationIssues)
-                        throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
+                if (response.HasValidationIssues)
+                    throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
 
-                    DataHelper.AddEntityToRemove(EntityType.Student, response.StudentId);
-                }
+                DataHelper.AddEntityToRemove(EntityType.Student, response.StudentId);
             }
         }
 
         [Given(@"I have the following instructors")]
         public void GivenIHaveTheFollowingInstructors(Table table)
         {
-            using (var repository = new ContosoUniversityEntityFrameworkRepository())
+            foreach (var row in table.Rows)
             {
-                foreach (var row in table.Rows)
-                {
-                    var commandModel = DataHelper.CreateCommandModelFromTable<CreateInstructorWithCourses.CommandModel>(table, row);
-                    var response = new InstructorApplicationService(repository).CreateInstructorWithCourses(
-                        new CreateInstructorWithCourses.Request(
-                        "test",
-                        commandModel));
+                var commandModel = DataHelper.CreateCommandModelFromTable<InstructorCreateWithCourses.CommandModel>(table, row);
+                var response = DomainServices.CallService<InstructorCreateWithCourses.Response>(new InstructorCreateWithCourses.Request(
+                    "test",
+                    commandModel));
 
-                    if (response.HasValidationIssues)
-                        throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
+                if (response.HasValidationIssues)
+                    throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
 
-                    DataHelper.AddEntityToRemove(EntityType.Instructor, response.InstructorId);
-                }
+                DataHelper.AddEntityToRemove(EntityType.Instructor, response.InstructorId);
             }
         }
 
         [Given(@"I have the following courses")]
         public void GivenIHaveTheFollowingCourses(Table table)
         {
-            using (var repository = new ContosoUniversityEntityFrameworkRepository())
+            foreach (var row in table.Rows)
             {
-                foreach (var row in table.Rows)
-                {
-                    var commandModel = DataHelper.CreateCommandModelFromTable<CreateCourse.CommandModel>(table, row);
-                    var response = new CourseApplicationService(repository).CreateCourse(
-                        new CreateCourse.Request(
-                        "test",
-                        commandModel));
+                var commandModel = DataHelper.CreateCommandModelFromTable<CourseCreate.CommandModel>(table, row);
+                var response = DomainServices.CallService<CourseCreate.Response>(new CourseCreate.Request("test", commandModel));
 
-                    if (response.HasValidationIssues)
-                        throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
+                if (response.HasValidationIssues)
+                    throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
 
-                    DataHelper.AddEntityToRemove(EntityType.Course, response.CourseId);
-                }
+                DataHelper.AddEntityToRemove(EntityType.Course, response.CourseId);
             }
         }
     }

@@ -4,7 +4,7 @@ namespace ContosoUniversity.Core.Domain
     using ContosoUniversity.Core.Domain.InvariantValidation;
     using Utilities;
 
-    public abstract class DomainRequest<TCommandModel> : IDomainAssertable, IDomainValidatable<TCommandModel> where TCommandModel : class
+    public abstract class DomainRequest<TCommandModel> : IDomainRequest, IDomainAssertable, IDomainValidatable<TCommandModel> where TCommandModel : class
     {
         protected DomainRequest(string userId, TCommandModel commandModel)
         {

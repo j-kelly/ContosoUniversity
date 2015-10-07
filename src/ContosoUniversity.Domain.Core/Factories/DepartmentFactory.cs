@@ -1,6 +1,6 @@
 namespace ContosoUniversity.Domain.Core.Factories
 {
-    using Behaviours.DepartmentApplicationService;
+    
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using Repository.Containers;
 
@@ -11,7 +11,7 @@ namespace ContosoUniversity.Domain.Core.Factories
             return new Department { DepartmentID = departmentId };
         }
 
-        public static EntityStateWrapperContainer Create(CreateDepartment.CommandModel commandModel)
+        public static EntityStateWrapperContainer Create(ContosoUniversity.Domain.Core.Behaviours.Departments.DepartmentCreate.CommandModel commandModel)
         {
             var dept = new Department
             {

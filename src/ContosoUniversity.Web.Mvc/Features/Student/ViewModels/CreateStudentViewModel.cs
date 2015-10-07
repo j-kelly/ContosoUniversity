@@ -1,17 +1,17 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Student.ViewModels
 {
     using Core;
-    using Domain.Core.Behaviours.StudentApplicationService;
+    
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateStudentViewModel : CommandToViewModelBase<CreateStudent.CommandModel>
+    public class CreateStudentViewModel : CommandToViewModelBase<ContosoUniversity.Domain.Core.Behaviours.Students.StudentCreate.CommandModel>
     {
         public CreateStudentViewModel()
         {
         }
 
-        public CreateStudentViewModel(CreateStudent.CommandModel commandModel)
+        public CreateStudentViewModel(ContosoUniversity.Domain.Core.Behaviours.Students.StudentCreate.CommandModel commandModel)
             : base(commandModel)
         {
         }

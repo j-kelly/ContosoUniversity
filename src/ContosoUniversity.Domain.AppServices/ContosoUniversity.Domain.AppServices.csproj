@@ -63,24 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="_Infrastructure\Extensions\IRepositoryExtension.cs" />
-    <Compile Include="Services\CourseApplicationService.cs" />
-    <Compile Include="Services\CourseHandlers\DeleteCourseHandler.cs" />
-    <Compile Include="Services\CourseHandlers\CreateCourseHandler.cs" />
-    <Compile Include="Services\CourseHandlers\UpdateCourseCreditsHandler.cs" />
-    <Compile Include="Services\CourseHandlers\UpdateCourseHandler.cs" />
-    <Compile Include="Services\DepartmentHandlers\DeleteDepartmentHandler.cs" />
-    <Compile Include="Services\DepartmentHandlers\CreateDepartmentHandler.cs" />
-    <Compile Include="Services\DepartmentHandlers\UpdateDepartmentHandler.cs" />
-    <Compile Include="Services\DepartmentApplicationService.cs" />
-    <Compile Include="Services\InstructorHandlers\CreateInstructorWithCoursesHandler.cs" />
-    <Compile Include="Services\InstructorHandlers\DeleteInstructorHandler.cs" />
-    <Compile Include="Services\InstructorHandlers\ModifyInstructorAndCoursesHandler.cs" />
-    <Compile Include="Services\InstructorApplicationService.cs" />
+    <Compile Include="ServiceBehaviours\CourseHandlers.cs" />
+    <Compile Include="ServiceBehaviours\DepartmentHandlers.cs" />
+    <Compile Include="ServiceBehaviours\InstructorHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\StudentHandlers\CreateStudentHandler.cs" />
-    <Compile Include="Services\StudentHandlers\DeleteStudentHandler.cs" />
-    <Compile Include="Services\StudentHandlers\ModifyStudentHandler.cs" />
-    <Compile Include="Services\StudentApplicationService.cs" />
+    <Compile Include="ServiceBehaviours\StudentHandlers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContosoUniversity.Core\ContosoUniversity.Core.csproj">

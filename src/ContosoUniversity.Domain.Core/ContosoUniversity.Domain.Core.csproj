@@ -59,23 +59,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourseCredits.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\UpdateCourse.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\DeleteCourse.cs" />
-    <Compile Include="Behaviours\CourseApplicationService\CreateCourse.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\CreateDepartment.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\DeleteDepartment.cs" />
-    <Compile Include="Behaviours\DepartmentApplicationService\UpdateDepartment.cs" />
-    <Compile Include="Behaviours\IDepartmentApplicationService.cs" />
-    <Compile Include="Behaviours\ICourseApplicationService.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\DeleteInstructor.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\ModifyInstructorAndCourses.cs" />
-    <Compile Include="Behaviours\InstructorApplicationService\CreateInstructorWithCourses.cs" />
-    <Compile Include="Behaviours\IInstructorApplicationService.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\CreateStudent.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\DeleteStudent.cs" />
-    <Compile Include="Behaviours\IStudentApplicationService.cs" />
-    <Compile Include="Behaviours\StudentApplicationService\ModifyStudent.cs" />
+    <Compile Include="Behaviours\Courses\CourseUpdateCredits.cs" />
+    <Compile Include="Behaviours\Courses\CourseUpdate.cs" />
+    <Compile Include="Behaviours\Courses\CourseDelete.cs" />
+    <Compile Include="Behaviours\Courses\CourseCreate.cs" />
+    <Compile Include="Behaviours\Departments\DepartmentCreate.cs" />
+    <Compile Include="Behaviours\Departments\DepartmentDelete.cs" />
+    <Compile Include="Behaviours\Departments\DepartmentUpdate.cs" />
+    <Compile Include="Behaviours\Instructors\InstructorDelete.cs" />
+    <Compile Include="Behaviours\Instructors\InstructorModifyAndCourses.cs" />
+    <Compile Include="Behaviours\Instructors\InstructorCreateWithCourses.cs" />
+    <Compile Include="Behaviours\Students\StudentCreate.cs" />
+    <Compile Include="Behaviours\Students\StudentDelete.cs" />
+    <Compile Include="Behaviours\Students\StudentModify.cs" />
     <Compile Include="Factories\CourseFactory.cs" />
     <Compile Include="Factories\DepartmentFactory.cs" />
     <Compile Include="Factories\InstructorFactory.cs" />

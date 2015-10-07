@@ -1,7 +1,6 @@
 ﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
     using Containers;
-    using ContosoUniversity.Domain.Core.Behaviours.InstructorApplicationService;
     using NRepository.Core.Query;
     using Strategies;
     using System;
@@ -31,7 +30,7 @@
             return new EntityStateWrapperContainer().DeleteEntity(this);
         }
 
-        public EntityStateWrapperContainer Modify(IQueryRepository queryRepository, ModifyInstructorAndCourses.CommandModel commandModel)
+        public EntityStateWrapperContainer Modify(IQueryRepository queryRepository, ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorModifyAndCourses.CommandModel commandModel)
         {
             var retVal = new EntityStateWrapperContainer();
 

@@ -1,18 +1,18 @@
 namespace ContosoUniversity.Web.Mvc.Features.Instructor
 {
     using Core;
-    using Domain.Core.Behaviours.InstructorApplicationService;
+    
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class ModifyInstructorAndCoursesViewModel : CommandToViewModelBase<ModifyInstructorAndCourses.CommandModel>
+    public class ModifyInstructorAndCoursesViewModel : CommandToViewModelBase<ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorModifyAndCourses.CommandModel>
     {
         public ModifyInstructorAndCoursesViewModel()
         {
         }
 
-        public ModifyInstructorAndCoursesViewModel(ModifyInstructorAndCourses.CommandModel commandModel)
+        public ModifyInstructorAndCoursesViewModel(ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorModifyAndCourses.CommandModel commandModel)
             : base(commandModel)
         {
         }

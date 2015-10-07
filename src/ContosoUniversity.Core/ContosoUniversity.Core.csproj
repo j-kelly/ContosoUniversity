@@ -69,6 +69,9 @@
     <Compile Include="Domain\DomainEvents\ISubscribe.cs" />
     <Compile Include="Domain\DomainRequest.cs" />
     <Compile Include="Domain\DomainResponse.cs" />
+    <Compile Include="Domain\DomainServices.cs" />
+    <Compile Include="Domain\IDomainRequest.cs" />
+    <Compile Include="Domain\IDomainResponse.cs" />
     <Compile Include="Domain\InvariantValidation\EmptyInvariantValidation.cs" />
     <Compile Include="Domain\InvariantValidation\IDomainAssertable.cs" />
     <Compile Include="Domain\InvariantValidation\IInvariantValidation.cs" />

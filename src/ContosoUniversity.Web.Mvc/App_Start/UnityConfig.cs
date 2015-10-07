@@ -1,15 +1,8 @@
 namespace ContosoUniversity.App_Start
 {
     using ContosoUniversity.Web.Core.Repository.Interceptors;
-    using Domain.AppServices;
-    using Domain.Core.Behaviours.CourseApplicationService;
-    using Domain.Core.Behaviours.DepartmentApplicationService;
-    using Domain.Core.Behaviours.InstructorApplicationService;
-    using Domain.Core.Behaviours.StudentApplicationService;
     using Domain.Core.Repository;
-    using Domain.Services.DepartmentApplicationService;
     using Microsoft.Practices.Unity;
-    using NRepository.Core;
     using NRepository.Core.Query;
     using NRepository.EntityFramework;
     using System;
@@ -35,18 +28,6 @@ namespace ContosoUniversity.App_Start
             container.RegisterType<EntityFrameworkQueryRepository>(new InjectionConstructor(
                 typeof(ContosoDbContext),
                 typeof(ContosoFactoryQueryInterceptor)));
-
-            // Queries and commands
-            container.RegisterType<IRepository, EntityFrameworkRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<EntityFrameworkRepository>(new InjectionConstructor(
-                typeof(ContosoDbContext),
-                typeof(ContosoUniversityRepositoryInterceptors)));
-
-            // Domain application services
-            container.RegisterType<ICourseApplicationService, CourseApplicationService>();
-            container.RegisterType<IDepartmentApplicationService, DepartmentApplicationService>();
-            container.RegisterType<IStudentApplicationService, StudentApplicationService>();
-            container.RegisterType<IInstructorApplicationService, InstructorApplicationService>();
         }
     }
 }

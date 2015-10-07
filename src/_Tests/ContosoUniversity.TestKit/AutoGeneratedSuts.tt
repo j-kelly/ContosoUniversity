@@ -16,7 +16,7 @@
 <#
 	var assemblies = new []
 	{
-		typeof(ContosoUniversity.Domain.AppServices.CourseApplicationService).Assembly,
+		typeof(ContosoUniversity.Domain.AppServices.ServiceBehaviours.CourseHandlers).Assembly,
 		typeof(ContosoUniversity.Web.Mvc.Features.Course.CourseController).Assembly,
 	};
 try

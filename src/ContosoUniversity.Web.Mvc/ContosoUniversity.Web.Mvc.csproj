@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="App_Start\DomainBootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FeatureViewLocationRazorViewEngine.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

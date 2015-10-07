@@ -1,6 +1,6 @@
 ﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
-    using ContosoUniversity.Domain.Core.Behaviours.StudentApplicationService;
+    
     using ContosoUniversity.Domain.Core.Repository.Containers;
     using System;
     using System.Collections.Generic;
@@ -23,7 +23,7 @@
             IsDeleted = true;
         }
 
-        public EntityStateWrapperContainer Modify(ModifyStudent.CommandModel commandModel)
+        public EntityStateWrapperContainer Modify(ContosoUniversity.Domain.Core.Behaviours.Students.StudentModify.CommandModel commandModel)
         {
             EnrollmentDate = commandModel.EnrollmentDate;
             FirstMidName = commandModel.FirstMidName;

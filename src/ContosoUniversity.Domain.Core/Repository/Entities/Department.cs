@@ -1,6 +1,6 @@
 ﻿namespace ContosoUniversity.Domain.Core.Repository.Entities
 {
-    using ContosoUniversity.Domain.Core.Behaviours.DepartmentApplicationService;
+    
     using ContosoUniversity.Domain.Core.Repository.Containers;
     using System;
     using System.Collections.Generic;
@@ -34,7 +34,7 @@
             return new EntityStateWrapperContainer().DeleteEntity(this);
         }
 
-        public EntityStateWrapperContainer Modify(UpdateDepartment.CommandModel commandModel)
+        public EntityStateWrapperContainer Modify(ContosoUniversity.Domain.Core.Behaviours.Departments.DepartmentUpdate.CommandModel commandModel)
         {
             DepartmentID = commandModel.DepartmentID;
             Budget = commandModel.Budget;

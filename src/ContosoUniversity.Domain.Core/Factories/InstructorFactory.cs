@@ -1,6 +1,6 @@
 namespace ContosoUniversity.Domain.Core.Factories
 {
-    using Behaviours.InstructorApplicationService;
+    
     using ContosoUniversity.Domain.Core.Repository.Strategies;
     using NRepository.Core.Query;
     using Repository.Containers;
@@ -9,7 +9,7 @@ namespace ContosoUniversity.Domain.Core.Factories
 
     public static class InstructorFactory
     {
-        public static EntityStateWrapperContainer Create(IQueryRepository queryRepository, CreateInstructorWithCourses.CommandModel commandModel)
+        public static EntityStateWrapperContainer Create(IQueryRepository queryRepository, ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorCreateWithCourses.CommandModel commandModel)
         {
             // could use Course.CreatePartial here and attachEntities using EntityStateWrapperContainer
             var courses = commandModel.SelectedCourses == null

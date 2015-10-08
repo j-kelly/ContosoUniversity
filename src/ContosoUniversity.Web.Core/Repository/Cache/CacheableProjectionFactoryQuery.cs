@@ -32,7 +32,7 @@ namespace ContosoUniversity.Web.Core.Repository.Cache
                 items = Cache.Get(key);
                 if (items == null)
                 {
-                    items = repository.GetEntities<T2>(this).ToArray().AsQueryable();
+                    items = repository.GetEntities<T2>().ToArray().AsQueryable();
                     Cache.Add(key, items, new CacheItemPolicy());
                 }
 

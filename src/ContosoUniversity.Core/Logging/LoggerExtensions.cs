@@ -174,7 +174,7 @@ namespace ContosoUniversity.Core.Logging
 
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [DebuggerStepThrough]
-        public static T TraceCall<T>(this ILogger logger, int timerThreshold, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string codeName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static T LogTimings<T>(this ILogger logger, int timerThreshold, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string codeName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             return TraceCall(logger, codeName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
         }

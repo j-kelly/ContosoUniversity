@@ -83,7 +83,7 @@
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
             var students = await _QueryRepository.GetEntitiesAsync<StudentDetail>(
-                new MultipleTextSearchSpecificationStrategy<StudentDetail>(
+                new TextSearchSpecificationStrategy<StudentDetail>(
                         searchString,
                         p => p.LastName,
                         p => p.FirstMidName).OnCondition(!string.IsNullOrEmpty(searchString)),

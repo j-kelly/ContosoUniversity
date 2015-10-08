@@ -10,6 +10,7 @@
 
     public static class InstructorHandlers
     {
+        // Update instructor with course 
         public static InstructorCreateWithCourses.Response Handle(IRepository repository, InstructorCreateWithCourses.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -26,6 +27,7 @@
             return new InstructorCreateWithCourses.Response(validationDetails, instructorId);
         }
 
+        // Modify instructor with course 
         public static InstructorModifyAndCourses.Response Handle(IRepository repository, InstructorModifyAndCourses.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -45,6 +47,7 @@
             return new InstructorModifyAndCourses.Response(validationDetails);
         }
 
+        // Delete instructor
         public static InstructorDelete.Response Handle(IRepository repository, InstructorDelete.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);

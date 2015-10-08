@@ -11,6 +11,7 @@
 
     public static class DepartmentHandlers
     {
+        // Create Department
         public static DepartmentCreate.Response Handle(IRepository repository, DepartmentCreate.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request, repository);
@@ -27,6 +28,7 @@
             return new DepartmentCreate.Response(validationDetails, deptId);
         }
 
+        // Delete Department
         public static DepartmentDelete.Response Handle(IRepository repository, DepartmentDelete.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request, repository);
@@ -49,6 +51,8 @@
             return new DepartmentDelete.Response(validationDetails, hasConcurrencyError);
         }
 
+
+        // Update department
         #region UpdateDepartment Handler
         public static DepartmentUpdate.Response Handle(IRepository repository, DepartmentUpdate.Request request)
         {

@@ -8,6 +8,7 @@
 
     public static class StudentHandlers
     {
+        // Create student
         public static StudentCreate.Response Handle(IRepository repository, StudentCreate.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -24,6 +25,7 @@
             return new StudentCreate.Response(validationDetails, studentId);
         }
 
+        // Modify student
         public static StudentModify.Response Handle(IRepository repository, StudentModify.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -37,6 +39,7 @@
             return new StudentModify.Response(validationDetails);
         }
 
+        // Delete studen
         public static StudentDelete.Response Handle(IRepository repository, StudentDelete.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);

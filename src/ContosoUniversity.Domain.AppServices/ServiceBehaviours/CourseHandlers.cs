@@ -9,6 +9,7 @@
 
     public static class CourseHandlers
     {
+        // Create course
         public static CourseCreate.Response Handle(IRepository repository, CourseCreate.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -25,6 +26,7 @@
             return new CourseCreate.Response(validationDetails, courseId);
         }
 
+        // Update course credits
         public static CourseUpdateCredits.Response Handle(IRepository repository, CourseUpdateCredits.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -38,6 +40,7 @@
             return new CourseUpdateCredits.Response(rowsAffected);
         }
 
+        // Update course 
         public static CourseUpdate.Response Handle(IRepository repository, CourseUpdate.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);
@@ -50,6 +53,7 @@
             return new CourseUpdate.Response(validationDetails);
         }
 
+        // Delete course 
         public static CourseDelete.Response Handle(IRepository repository, CourseDelete.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request);

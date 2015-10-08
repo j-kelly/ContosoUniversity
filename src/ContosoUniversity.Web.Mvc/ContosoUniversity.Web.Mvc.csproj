@@ -88,12 +88,12 @@
       <HintPath>..\packages\NLog.4.1.0\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NRepository.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
+    <Reference Include="NRepository.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NRepository.Core.4.0.0.0\lib\net452\NRepository.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NRepository.EntityFramework, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NRepository.EntityFramework.3.3.0.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
+    <Reference Include="NRepository.EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NRepository.EntityFramework.4.0.0.0\lib\net452\NRepository.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">

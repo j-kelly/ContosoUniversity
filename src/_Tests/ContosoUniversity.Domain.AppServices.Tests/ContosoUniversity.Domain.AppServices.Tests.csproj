@@ -38,16 +38,16 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NRepository.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NRepository.Core.3.3.0.0\lib\net45\NRepository.Core.dll</HintPath>
+    <Reference Include="NRepository.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NRepository.Core.4.0.0.0\lib\net452\NRepository.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NRepository.EntityFramework, Version=3.3.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NRepository.EntityFramework.3.3.0.0\lib\net45\NRepository.EntityFramework.dll</HintPath>
+    <Reference Include="NRepository.EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=71ae69dfa47b271c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NRepository.EntityFramework.4.0.0.0\lib\net452\NRepository.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NRepository.TestKit, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NRepository.TestKit.3.3.2.0\lib\net45\NRepository.TestKit.dll</HintPath>
+    <Reference Include="NRepository.TestKit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NRepository.TestKit.4.0.0.0\lib\net452\NRepository.TestKit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">

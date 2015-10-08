@@ -15,42 +15,29 @@ namespace ContosoUniversity.Core.Domain
         public static IDomainResponse Log<T>(T command, Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
             var logger = LogManager.CreateLogger<T>();
-            var retVal = logger.LogTimings(0, () =>
-            {
-                return next.Compile().Invoke(command);
-            });
-
+            var retVal = logger.LogTimings(() => next.Compile().Invoke(command));
             return retVal;
         }
 
         /// <summary>
-        /// Alters the expression so any dependencies are created seperatelywhich  allows them to be disposed
+        /// Alters the expression so any dependencies are created separately which then allows them to be disposed correctly
         /// </summary>
         public static IDomainResponse AutoDispose<T>(Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
-            var arguments = default(IEnumerable<Expression>);
-            var Invoke = default(Func<IEnumerable<object>, IDomainResponse>);
-            switch (next.Body.NodeType)
-            {
-                case (ExpressionType.Call):
-                    var callExpression = (MethodCallExpression)next.Body;
-                    arguments = callExpression.Arguments;
-                    Invoke = p => (IDomainResponse)callExpression.Method.Invoke(null, p.ToArray());
-                    break;
-                default:
-                    throw new NotSupportedException($"{next.NodeType} is not supported");
-            }
+            if (next.Body.NodeType != ExpressionType.Call)
+                throw new NotSupportedException($"{next.NodeType} is not supported");
 
             var parameters = new List<object>();
-            var bodyCallExpression = (MethodCallExpression)next.Body;
+
             try
             {
+                var bodyCallExpression = (MethodCallExpression)next.Body;
                 foreach (var arg in bodyCallExpression.Arguments)
                 {
                     if (arg.NodeType == ExpressionType.MemberAccess)
                     {
-                        var x = (MemberExpression)arg;
-                        var val = Expression.Lambda(x).Compile().DynamicInvoke();
+                        var memberExpression = (MemberExpression)arg;
+                        var val = Expression.Lambda(memberExpression).Compile().DynamicInvoke();
                         parameters.Add(val);
                         continue;
                     }
@@ -71,7 +58,6 @@ namespace ContosoUniversity.Core.Domain
                     }
                 }
 
-                // Execute method
                 var method = bodyCallExpression.Method;
                 var retVal = (IDomainResponse)method.Invoke(null, parameters.ToArray());
                 return retVal;

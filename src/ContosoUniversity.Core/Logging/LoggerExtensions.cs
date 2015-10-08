@@ -3,7 +3,6 @@ namespace ContosoUniversity.Core.Logging
     using System;
     using System.Configuration;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Runtime.CompilerServices;
@@ -20,7 +19,7 @@ namespace ContosoUniversity.Core.Logging
         private static readonly ILogger AuditLogger = LogManager.CreateLogger("Audit");
 
         [DebuggerStepThrough]
-        public static void TraceCall(this ILogger logger, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
+        public static void LogTimings(this ILogger logger, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             if (logger.IsTraceEnabled)
             {
@@ -36,7 +35,7 @@ namespace ContosoUniversity.Core.Logging
         }
 
         [DebuggerStepThrough]
-        public static void TraceCall(this ILogger logger, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static void LogTimings(this ILogger logger, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
             if (TimerLogger.IsInfoEnabled)
@@ -45,34 +44,34 @@ namespace ContosoUniversity.Core.Logging
                 int.TryParse(thresholdSetting, out timerThreshold);
             }
 
-            TraceCall(logger, memberName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
+            LogTimings(logger, memberName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
         }
 
         [DebuggerStepThrough]
-        public static void TraceCall(this ILogger logger, object methodCall, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static void LogTimings(this ILogger logger, object methodCall, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
             WriteObjectDetails(Guid.NewGuid(), methodCall);
-            TraceCall(logger, memberName, methodCall, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
+            LogTimings(logger, memberName, methodCall, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
         }
 
         [DebuggerStepThrough]
-        public static void TraceCall(this ILogger logger, string codeName, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static void LogTimings(this ILogger logger, string codeName, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            TraceCall(logger, codeName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
+            LogTimings(logger, codeName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
         }
 
         [DebuggerStepThrough]
-        public static void TraceCall(this ILogger logger, int timerThreshold, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string codeName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static void LogTimings(this ILogger logger, int timerThreshold, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string codeName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
-            TraceCall(logger, codeName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
+            LogTimings(logger, codeName, null, timerThreshold, action, message, sourceFile, lineNumber, alwaysLog);
         }
 
         [DebuggerStepThrough]
-        public static void TraceCall(this ILogger logger, string codeName, object methodCall, int timerThreshold, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static void LogTimings(this ILogger logger, string codeName, object methodCall, int timerThreshold, Action action, string message = "", [CallerFilePath] string sourceFile = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
-            TraceCall(logger, message, sourceFile, codeName, lineNumber);
+            LogTimings(logger, message, sourceFile, codeName, lineNumber);
 
             if (!TimerLogger.IsInfoEnabled)
             {
@@ -122,17 +121,15 @@ namespace ContosoUniversity.Core.Logging
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [DebuggerStepThrough]
-        public static T TraceCall<T>(this ILogger logger, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static T LogTimings<T>(this ILogger logger, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            return TraceCall(logger, memberName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
+            return LogTimings(logger, memberName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
         }
 
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [DebuggerStepThrough]
-        public static T TraceCall<T>(this ILogger logger, object methodCall, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static T LogTimings<T>(this ILogger logger, object methodCall, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var response = default(T);
             var timerThreshold = DefaultTimerThreshold;
@@ -140,7 +137,7 @@ namespace ContosoUniversity.Core.Logging
             WriteObjectDetails(id, methodCall);
             try
             {
-                response = TraceCall(logger, memberName, methodCall, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
+                response = LogTimings(logger, memberName, methodCall, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
                 WriteObjectDetails(id, response);
             }
             catch (Exception exception)
@@ -164,26 +161,23 @@ namespace ContosoUniversity.Core.Logging
             AuditLogger.Info(string.Format("GUID: {0} {1} ", id, reflectedData));
         }
 
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [DebuggerStepThrough]
-        public static T TraceCall<T>(this ILogger logger, string codeName, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static T LogTimings<T>(this ILogger logger, string codeName, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
             var timerThreshold = DefaultTimerThreshold;
-            return TraceCall(logger, codeName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
+            return LogTimings(logger, codeName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
         }
 
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [DebuggerStepThrough]
         public static T LogTimings<T>(this ILogger logger, int timerThreshold, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerMemberName] string codeName = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
-            return TraceCall(logger, codeName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
+            return LogTimings(logger, codeName, null, timerThreshold, func, message, sourceFile, lineNumber, alwaysLog);
         }
 
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [DebuggerStepThrough]
-        public static T TraceCall<T>(this ILogger logger, string codeName, object methodCall, int timerThreshold, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
+        public static T LogTimings<T>(this ILogger logger, string codeName, object methodCall, int timerThreshold, Func<T> func, string message = "", [CallerFilePath] string sourceFile = "", [CallerLineNumber] int lineNumber = 0, bool alwaysLog = false)
         {
-            TraceCall(logger, message, sourceFile, codeName, lineNumber);
+            LogTimings(logger, message, sourceFile, codeName, lineNumber);
 
             if (!TimerLogger.IsInfoEnabled)
             {

@@ -5,8 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{4235F771-22AF-4E06-9BF5-426ECD2A98DC}"
 	ProjectSection(SolutionItems) = preProject
-		Snippets\ApplicationService SingleClass.snippet = Snippets\ApplicationService SingleClass.snippet
-		Snippets\ApplicationService.snippet = Snippets\ApplicationService.snippet
+		Snippets\DomainBehaviour.snippet = Snippets\DomainBehaviour.snippet
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContosoUniversity.Core", "ContosoUniversity.Core\ContosoUniversity.Core.csproj", "{FB76888D-92A9-492B-9297-43969B590219}"

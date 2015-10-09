@@ -3,7 +3,7 @@
   <CodeSnippet Format="1.0.0">
     <Header>
       <Title>Behaviour implementation boilerplate</Title>
-      <Shortcut>curservice_single_class</Shortcut>
+      <Shortcut>ContosoUniversity_behaviour</Shortcut>
       <Description></Description>
       <Author>JK</Author>
       <SnippetTypes>
@@ -13,23 +13,34 @@
     <Snippet>
       <Declarations>
         <Literal>
+          <ID>handlerName</ID>
+          <ToolTip>type of behaviour</ToolTip>
+          <Default>ObjectCreate</Default>
+        </Literal>
+        <Literal>
           <ID>behaviour</ID>
           <ToolTip>type of behaviour</ToolTip>
-          <Default>CreateObject</Default>
+          <Default>ObjectCreate</Default>
         </Literal>
       </Declarations>
       <Code Language="csharp">
-        <![CDATA[    using ContosoUniversity.Core.Domain;
+        <![CDATA[ 
+        
+        // Handler Name:    $groupId$Handlers$
+        // Behaviour Name:  $behaviour$
+
+    using ContosoUniversity.Core.Domain;
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.InvariantValidation;
     using NRepository.Core;
     using System;
     using System.ComponentModel.DataAnnotations;
 
+ 
     // ************************************************************************************************
-    // * Place this in the ContosoUniversity.Domain.AppServices.Tests/xxxxxApplicationServiceTests folder 
+    // * Place this in the ContosoUniversity.Domain.Services.Tests/$grounpId$ folder 
     // * **********************************************************************************************
-/* 
+    #region Test Class
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using NRepository.TestKit;
     using NUnit.Framework;
@@ -38,7 +49,7 @@
     using TestKit.Factories;
     
     [TestFixture]
-    public class $behaviour$HandlerTests 
+    public class $behaviour$Tests 
     {
         // Prefer to leave this class at the top so easy to see what contistutes a valid command object
         public $behaviour$.Request CreateValidRequest(params Action<$behaviour$.Request>[] updates)
@@ -55,8 +66,7 @@
         {
             Action <$behaviour$.Request> CallSut = request =>
             {
-                var serviceUnderTest = new $behaviour$HandlerFactory().Object;
-                serviceUnderTest.Handle(request);
+                $groupId$Handlers.Handle(request);
             };
 
             // Assert2.CheckInvariantValidation("[ErrorMessage]", () => CallSut(CreateValidRequest(p => p.CommandModel. )));
@@ -67,8 +77,8 @@
         {
             Func <$behaviour$.Request, ValidationMessageCollection > CallSut = request =>
             {
-                var serviceUnderTest = new $behaviour$HandlerFactory().Object;
-                var reponse = serviceUnderTest.Handle(request);
+                var inMemoryRepository = new InMemoryRecordedRepository();
+                var reponse = $groupId$Handlers.Handle(inMemoryRepository, request);
                 return reponse.ValidationDetails;
             };
 
@@ -80,28 +90,18 @@
         {
         }
     }
-*/    
+ 
+  
 
-    // ************************************************************************************************
-    // * Place this in the Domain.AppServices/xxxApplicationService folder
-    // * **********************************************************************************************  
-    // Request Handler
-    [GenerateTestFactory]
-    public class $behaviour$Handler
-    {
-        private readonly IRepository _Repository;
-
-        public $behaviour$Handler(IRepository repository)
+        // ************************************************************************************************
+        // * Place this in the $groupId$Handlers class found in the Services project
+        // * **********************************************************************************************  
+        public static $behaviour$.Response Handle(IRepository repository, $behaviour$.Request request)
         {
-            _Repository = repository;
-        }
-
-        public $behaviour$.Response Handle($behaviour$.Request request)
-        {
+            //Remove me if autovalidation is found in the domainService decorator
             var validationDetails = Validator.ValidateRequest(request);
             if (validationDetails.HasValidationIssues)
                 return new $behaviour$.Response(validationDetails);
-
 
             // ****************************************************************************
             //
@@ -111,28 +111,7 @@
 
             return new $behaviour$.Response();
         }
-    }
 
-    // ************************************************************************************************
-    //   * Place this in the IxxxxApplicationService class
-    //   ***********************************************************************************************
-    //   $behaviour$.Response $behaviour$($behaviour$.Request request);
-
-
-    //  ************************************************************************************************
-    //    * Place this in the xxxxApplicationService class
-    //    ***********************************************************************************************
-    //   public $behaviour$.Response $behaviour$($behaviour$.Request request)
-    //   {
-    //    var retVal = Logger.TraceCall(() =>
-    //    {
-    //        var requestHandler = _UnityContainer.Resolve<$behaviour$Handler > ();
-    //        var response = requestHandler.Handle(request);
-    //        return response;
-    //    });
-
-    //    return retVal;
-    //}
 
     public class $behaviour$
     {

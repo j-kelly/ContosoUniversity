@@ -22,35 +22,45 @@
             Func<IRepository> CreateRepository = () => new EntityFrameworkRepository(new ContosoDbContext(), new ContosoUniversityRepositoryInterceptors());
 
             // Courses
-            DomainServices.AddService<CourseCreate.Request>(request => DefaultDecorator(request, p => CourseHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<CourseDelete.Request>(request => DefaultDecorator(request, p => CourseHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<CourseUpdate.Request>(request => DefaultDecorator(request, p => CourseHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<CourseUpdateCredits.Request>(request => DefaultDecorator(request, p => CourseHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<CourseCreate.Request>(request => Default(request, p => CourseHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<CourseDelete.Request>(request => Default(request, p => CourseHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<CourseUpdate.Request>(request => Default(request, p => CourseHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<CourseUpdateCredits.Request>(request => Default(request, p => CourseHandlers.Handle(CreateRepository(), request)));
 
             // Instructors
-            DomainServices.AddService<InstructorDelete.Request>(request => DefaultDecorator(request, p => InstructorHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<InstructorModifyAndCourses.Request>(request => DefaultDecorator(request, p => InstructorHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<InstructorCreateWithCourses.Request>(request => DefaultDecorator(request, p => InstructorHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<InstructorDelete.Request>(request => Default(request, p => InstructorHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<InstructorModifyAndCourses.Request>(request => Default(request, p => InstructorHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<InstructorCreateWithCourses.Request>(request => Default(request, p => InstructorHandlers.Handle(CreateRepository(), request)));
 
             // Students
-            DomainServices.AddService<StudentDelete.Request>(request => DefaultDecorator(request, p => StudentHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<StudentCreate.Request>(request => DefaultDecorator(request, p => StudentHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<StudentModify.Request>(request => DefaultDecorator(request, p => StudentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<StudentDelete.Request>(request => Default(request, p => StudentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<StudentCreate.Request>(request => Default(request, p => StudentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<StudentModify.Request>(request => Default(request, p => StudentHandlers.Handle(CreateRepository(), request)));
 
             // Departments
-            DomainServices.AddService<DepartmentDelete.Request>(request => DefaultDecorator(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<DepartmentCreate.Request>(request => DefaultDecorator(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<DepartmentUpdate.Request>(request => DefaultDecorator(request, p1 => DepartmentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<DepartmentDelete.Request>(request => AministratorsOnly(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<DepartmentCreate.Request>(request => AministratorsOnly(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<DepartmentUpdate.Request>(request => AministratorsOnly(request, p1 => DepartmentHandlers.Handle(CreateRepository(), request)));
         }
 
-        private static IDomainResponse DefaultDecorator<T>(T command, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
+        // Example on how to add a security decorator
+        public static IDomainResponse AministratorsOnly<T>(T command, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
+        {
+            var isAdministrator = true;
+            if (!isAdministrator)
+                throw new UnauthorizedAccessException("Bad Person alert!");
+
+            return Default(command, handler);
+        }
+
+        private static IDomainResponse Default<T>(T command, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
         {
             // create chain (last to first)
             Expression<Func<T, IDomainResponse>> autoDispose = p => Decorators.AutoDispose(handler);
-            Expression<Func<T, IDomainResponse>> log = p => Decorators.Log(command, autoDispose);
+            Expression<Func<T, IDomainResponse>> logTimings = p => Decorators.Log(command, autoDispose);
 
             // Run it
-            return log.Compile().Invoke(command);
+            return logTimings.Compile().Invoke(command);
         }
     }
 }

@@ -12,6 +12,9 @@ namespace ContosoUniversity.Core.Domain.Services
         public static IDomainResponse Log<T>(T command, Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
             var logger = LogManager.CreateLogger<T>();
+            logger.Debug($"Domain service call for: {command.GetType().Name}");
+
+            // logs to the timings file if over x ms
             var retVal = logger.LogTimings(() => next.Compile().Invoke(command));
             return retVal;
         }

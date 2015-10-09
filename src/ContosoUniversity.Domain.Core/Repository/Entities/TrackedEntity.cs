@@ -21,7 +21,7 @@ namespace ContosoUniversity.Domain.Core.Repository.Entities
         {
             Check.NotNull(name, nameof(name));
 
-            CreatedOn = DateTimeHelper.Now;
+            CreatedOn = SystemDateTime.Now;
             CreatedBy = name;
 
             SetModifedFields(name);
@@ -31,7 +31,7 @@ namespace ContosoUniversity.Domain.Core.Repository.Entities
             Check.NotNull(name, nameof(name));
 
             ModifiedBy = name;
-            ModifiedOn = DateTimeHelper.Now;
+            ModifiedOn = SystemDateTime.Now;
         }
     }
 }

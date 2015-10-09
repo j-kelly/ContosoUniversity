@@ -15,9 +15,9 @@ namespace ContosoUniversity.Domain.Core.Repository.Entities
 
         [MaxLength(128)]
         [Required]
-        public string ModifiedBy { get; set; } = CurrentPrincipalHelper.Name;
+        public string ModifiedBy { get; set; } = SystemPrincipal.Name;
 
-        public DateTime ModifiedDate { get; set; } = DateTimeHelper.Now;
+        public DateTime ModifiedDate { get; set; } = SystemDateTime.Now;
 
         [MaxLength(128)]
         [Required]

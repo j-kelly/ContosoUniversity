@@ -9,7 +9,7 @@
         [SetUp]
         public void ShowSomeTrace()
         {
-            DateTimeHelper.SetAll(DateTime.Now);
+            SystemDateTime.SetAll(DateTime.Now);
         }
     }
 }

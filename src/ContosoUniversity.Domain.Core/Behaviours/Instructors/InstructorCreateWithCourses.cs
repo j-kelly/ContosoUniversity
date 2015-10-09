@@ -19,7 +19,7 @@
             [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
             public string FirstMidName { get; set; }
 
-            public DateTime HireDate { get; set; } = DateTimeHelper.Today;
+            public DateTime HireDate { get; set; } = SystemDateTime.Today;
 
             [StringLength(50)]
             public string OfficeLocation { get; set; }

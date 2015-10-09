@@ -68,8 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\GenerateTestFactoryAttribute.cs" />
-    <Compile Include="CurrentPrincipalHelper.cs" />
-    <Compile Include="DateTimeHelper.cs" />
+    <Compile Include="SystemPrincipal.cs" />
+    <Compile Include="SystemDateTime.cs" />
     <Compile Include="Domain\ContextualValidation\ContextualValidation.cs" />
     <Compile Include="Domain\ContextualValidation\EmptyContextualValidation.cs" />
     <Compile Include="Domain\ContextualValidation\IContextualValidation.cs" />

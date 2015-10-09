@@ -11,7 +11,7 @@ namespace ContosoUniversity.Web.Core.Repository.Interceptors
             if (entity is ITrackedEntity)
             {
                 var trackedEntity = (ITrackedEntity)entity;
-                trackedEntity.SetCreateAndModifiedFields(CurrentPrincipalHelper.Name);
+                trackedEntity.SetCreateAndModifiedFields(SystemPrincipal.Name);
             }
 
             addAction.Invoke(entity);

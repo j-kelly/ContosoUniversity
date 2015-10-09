@@ -27,7 +27,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(DepartmentCreate.CommandModel commandModel)
         {
-            var request = new DepartmentCreate.Request(CurrentPrincipalHelper.Name, commandModel);
+            var request = new DepartmentCreate.Request(SystemPrincipal.Name, commandModel);
             var response = await DomainServices.CallServiceAsync<DepartmentCreate.Response>(request);
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -43,7 +43,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(DepartmentDelete.CommandModel commandModel)
         {
-            var request = new DepartmentDelete.Request(CurrentPrincipalHelper.Name, commandModel);
+            var request = new DepartmentDelete.Request(SystemPrincipal.Name, commandModel);
             var response = await DomainServices.CallServiceAsync<DepartmentDelete.Response>(request);
 
             if (!response.HasValidationIssues)
@@ -60,7 +60,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(DepartmentUpdate.CommandModel commandModel)
         {
-            var request = new DepartmentUpdate.Request(CurrentPrincipalHelper.Name, commandModel);
+            var request = new DepartmentUpdate.Request(SystemPrincipal.Name, commandModel);
             var response = await DomainServices.CallServiceAsync<DepartmentUpdate.Response>(request);
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");

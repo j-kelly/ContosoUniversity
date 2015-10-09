@@ -4,7 +4,7 @@ namespace System
     using Threading;
 
     [ExcludeFromCodeCoverage]
-    public static class CurrentPrincipalHelper
+    public static class SystemPrincipal
     {
         private static readonly Func<string> defaultUserFunction = () =>
         {

@@ -25,7 +25,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CourseCreate.CommandModel commandModel)
         {
-            var request = new CourseCreate.Request(CurrentPrincipalHelper.Name, commandModel);
+            var request = new CourseCreate.Request(SystemPrincipal.Name, commandModel);
             var response = DomainServices.CallService(request);
 
             if (!response.HasValidationIssues)
@@ -39,7 +39,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(CourseUpdate.CommandModel commandModel)
         {
-            var request = new CourseUpdate.Request(CurrentPrincipalHelper.Name, commandModel);
+            var request = new CourseUpdate.Request(SystemPrincipal.Name, commandModel);
             var response = DomainServices.CallService(request);
 
             if (!response.HasValidationIssues)
@@ -54,7 +54,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var request = new CourseDelete.Request(CurrentPrincipalHelper.Name, new CourseDelete.CommandModel { CourseId = id });
+            var request = new CourseDelete.Request(SystemPrincipal.Name, new CourseDelete.CommandModel { CourseId = id });
             DomainServices.CallService(request);
 
             return RedirectToAction("Index");
@@ -65,7 +65,7 @@
         {
             if (multiplier != null)
             {
-                var request = new CourseUpdateCredits.Request(CurrentPrincipalHelper.Name, new CourseUpdateCredits.CommandModel { Multiplier = multiplier.Value });
+                var request = new CourseUpdateCredits.Request(SystemPrincipal.Name, new CourseUpdateCredits.CommandModel { Multiplier = multiplier.Value });
                 var response = DomainServices.CallService<CourseUpdateCredits.Response>(request);
 
                 ViewBag.RowsAffected = response.RowsEffected;

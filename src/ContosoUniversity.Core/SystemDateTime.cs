@@ -3,7 +3,7 @@
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public static class DateTimeHelper
+    public static class SystemDateTime
     {
         private static Func<DateTime> today = () => DateTime.Today;
         private static Func<DateTime> now = () => DateTime.Now;

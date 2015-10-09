@@ -31,7 +31,7 @@
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             var request = new InstructorDelete.Request(
-                CurrentPrincipalHelper.Name,
+                SystemPrincipal.Name,
                 new InstructorDelete.CommandModel { InstructorId = id });
 
             await DomainServices.CallServiceAsync(request);
@@ -42,7 +42,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateInstructorWithCoursesViewModel viewModel)
         {
-            var request = new InstructorCreateWithCourses.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel);
+            var request = new InstructorCreateWithCourses.Request(SystemPrincipal.Name, viewModel.CommandModel);
             var response = DomainServices.CallService(request);
 
             if (response.HasValidationIssues)
@@ -59,7 +59,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ModifyInstructorAndCoursesViewModel viewModel)
         {
-            var request = new InstructorModifyAndCourses.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel);
+            var request = new InstructorModifyAndCourses.Request(SystemPrincipal.Name, viewModel.CommandModel);
             var response = DomainServices.CallService(request);
 
             if (response.HasValidationIssues)

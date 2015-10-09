@@ -27,7 +27,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var request = new StudentDelete.Request(CurrentPrincipalHelper.Name, new StudentDelete.CommandModel { StudentId = id });
+            var request = new StudentDelete.Request(SystemPrincipal.Name, new StudentDelete.CommandModel { StudentId = id });
             var response = DomainServices.CallService(request);
 
             if (!response.HasValidationIssues)
@@ -40,7 +40,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateStudentViewModel viewModel)
         {
-            var request = new StudentCreate.Request(CurrentPrincipalHelper.Name, viewModel.CommandModel);
+            var request = new StudentCreate.Request(SystemPrincipal.Name, viewModel.CommandModel);
             var response = DomainServices.CallService(request);
 
             if (!response.HasValidationIssues)
@@ -54,7 +54,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(StudentModify.CommandModel commandModel)
         {
-            var request = new StudentModify.Request(CurrentPrincipalHelper.Name, commandModel);
+            var request = new StudentModify.Request(SystemPrincipal.Name, commandModel);
             var response = DomainServices.CallService(request);
 
             if (!response.HasValidationIssues)

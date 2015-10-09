@@ -5,6 +5,7 @@ namespace ContosoUniversity.Web.Core.Repository.Projections
     using NRepository.Core.Query.Interceptors.Factories;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+
     public class CourseDetail
     {
         public class FactoryQuery : FactoryQuery<CourseDetail>

@@ -80,19 +80,14 @@
 
             int departmentID = selectedDepartment.GetValueOrDefault();
             var courseDetails = await _QueryRepository.GetEntitiesAsync<CourseDetail>(
-                c => !selectedDepartment.HasValue || c.DepartmentID == departmentID,
-                new AsNoTrackingQueryStrategy());
+                c => !selectedDepartment.HasValue || c.DepartmentID == departmentID);
 
             return View(courseDetails);
         }
 
         public async Task<ActionResult> Details(int id)
         {
-            var course = await _QueryRepository.GetEntityAsync<CourseDetail>(
-                p => p.CourseID == id,
-                new AsNoTrackingQueryStrategy(),
-                false);
-
+            var course = await _QueryRepository.GetEntityAsync<CourseDetail>(p => p.CourseID == id, false);
             if (course == null)
                 return HttpNotFound();
 

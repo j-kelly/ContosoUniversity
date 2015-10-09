@@ -40,7 +40,7 @@
             // Departments
             DomainServices.AddService<DepartmentDelete.Request>(request => AministratorsOnly(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
             DomainServices.AddService<DepartmentCreate.Request>(request => AministratorsOnly(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
-            DomainServices.AddService<DepartmentUpdate.Request>(request => AministratorsOnly(request, p1 => DepartmentHandlers.Handle(CreateRepository(), request)));
+            DomainServices.AddService<DepartmentUpdate.Request>(request => AministratorsOnly(request, p => DepartmentHandlers.Handle(CreateRepository(), request)));
         }
 
         // Example on how to add a security decorator

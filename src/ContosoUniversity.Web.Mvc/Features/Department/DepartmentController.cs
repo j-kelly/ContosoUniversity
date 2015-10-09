@@ -29,6 +29,7 @@
         {
             var request = new DepartmentCreate.Request(SystemPrincipal.Name, commandModel);
             var response = await DomainServices.CallServiceAsync<DepartmentCreate.Response>(request);
+
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
@@ -131,10 +132,7 @@
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var departmentDetail = await _QueryRepository.GetEntityAsync<DepartmentDetail>(
-                p => p.DepartmentID == id.Value,
-                false);
-
+            var departmentDetail = await _QueryRepository.GetEntityAsync<DepartmentDetail>(p => p.DepartmentID == id.Value, false);
             if (departmentDetail == null)
             {
                 if (concurrencyError == true)

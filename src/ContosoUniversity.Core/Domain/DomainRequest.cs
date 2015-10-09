@@ -2,9 +2,10 @@ namespace ContosoUniversity.Core.Domain
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.InvariantValidation;
+    using System;
     using Utilities;
 
-    public abstract class DomainRequest<TCommandModel> : IDomainRequest, IDomainAssertable, IDomainValidatable<TCommandModel> where TCommandModel : class
+    public abstract class DomainRequest<TCommandModel> : IDomainRequest where TCommandModel : class, ICommandModel
     {
         protected DomainRequest(string userId, TCommandModel commandModel)
         {
@@ -24,6 +25,11 @@ namespace ContosoUniversity.Core.Domain
         {
             get;
             internal set;
+        }
+
+        ICommandModel IDomainRequest.CommandModel
+        {
+            get { return CommandModel; }
         }
 
         public IInvariantValidation InvariantValidation
@@ -48,19 +54,16 @@ namespace ContosoUniversity.Core.Domain
             ContextualValidation = specification;
         }
 
-        public void Assert(params object[] dependentServices)
+        public ValidationMessageCollection Assert(params object[] dependentServices)
         {
             if (InvariantValidation == null)
                 throw new ContosoUniversityException("InvariantSpecification cannot be null");
 
-            InvariantValidation.StartAsserting(dependentServices);
-        }
-
-        public ValidationMessageCollection Validate(params object[] dependentServices)
-        {
             if (ContextualValidation == null)
                 throw new ContosoUniversityException("ValidationSpecification cannot be null");
 
+            // Check invariant stuff first 
+            InvariantValidation.Validate(dependentServices);
             return ContextualValidation.Validate(dependentServices);
         }
     }

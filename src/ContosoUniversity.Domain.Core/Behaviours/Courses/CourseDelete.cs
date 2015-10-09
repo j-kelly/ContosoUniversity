@@ -8,7 +8,7 @@
     public class CourseDelete
     {
         // CourseDelete.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             [Range(1, int.MaxValue, ErrorMessage = "CourseId must have a minimum value of 1")]
             public int CourseId { get; set; }

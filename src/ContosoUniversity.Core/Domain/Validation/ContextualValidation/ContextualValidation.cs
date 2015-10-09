@@ -6,7 +6,7 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
 
     public abstract class ContextualValidation<T, TCommandModel> : IContextualValidation
         where TCommandModel : class
-        where T : class, IDomainValidatable<TCommandModel>
+        where T : class, IDomainRequest//IDomainValidatable<TCommandModel>
     {
         private static IEnumerable<object> _DependentServices = null;
 
@@ -26,17 +26,14 @@ namespace ContosoUniversity.Core.Domain.ContextualValidation
             get;
         }
 
-        public virtual void Validate()
-        {
-            // No Op
-        }
+        public virtual void ValidateContext() { /* No Op */ }
 
         public ValidationMessageCollection Validate(params object[] dependentServices)
         {
             _DependentServices = dependentServices;
 
             CheckAttributes();
-            Validate();
+            ValidateContext();
 
             return ValidationMessageCollection;
         }

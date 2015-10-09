@@ -1,6 +1,9 @@
 namespace ContosoUniversity.Core.Domain
 {
-    public interface IDomainRequest
+    using Validation;
+
+    public interface IDomainRequest : IAssertable
     {
+        ICommandModel CommandModel { get; }
     }
 }

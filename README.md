@@ -1,6 +1,6 @@
 # Contoso University
 
-A fully productionised version of the old Microsoft Contoso University example code (with ALL the business rules found in the original example fully intact). This has been implemented not only to demostrate various patterns and techniques, but also as a demonstration of some of the features of NRepository.
+A productionised version of the old Microsoft Contoso University example code (with ALL the business rules found in the original example fully intact). This has been implemented not only to demostrate various patterns and techniques, but also as a demonstration of some of the features of NRepository.
 
 Please feel free to open a discussion on what's been done and why :)
 

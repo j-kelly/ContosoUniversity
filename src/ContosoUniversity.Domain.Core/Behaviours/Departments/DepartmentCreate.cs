@@ -12,7 +12,7 @@
     public class DepartmentCreate
     {
         // DepartmentCreate.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             [Required]
             [StringLength(50, MinimumLength = 3)]
@@ -69,7 +69,7 @@
             {
             }
 
-            public override void Validate()
+            public override void ValidateContext()
             {
                 ValidateOneAdministratorAssignmentPerInstructor();
             }

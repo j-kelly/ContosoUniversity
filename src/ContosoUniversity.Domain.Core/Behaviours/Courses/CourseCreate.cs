@@ -8,7 +8,7 @@
     public class CourseCreate
     {
         // CourseCreate.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int CourseID { get; set; }
 
@@ -61,7 +61,7 @@
             {
             }
 
-            public override void Validate()
+            public override void ValidateContext()
             {
                 var deptId = Context.CommandModel.DepartmentID;
                 Validate(deptId > 0, "DepartmentID", "Missing Department");

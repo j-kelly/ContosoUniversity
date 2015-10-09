@@ -10,7 +10,7 @@
     public class InstructorModifyAndCourses
     {
         // InstructorModifyAndCourses.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int InstructorId { get; set; }
 

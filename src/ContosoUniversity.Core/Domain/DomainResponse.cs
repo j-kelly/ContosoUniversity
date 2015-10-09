@@ -12,7 +12,7 @@ namespace ContosoUniversity.Core.Domain
             ValidationDetails = validationDetails;
         }
 
-        public DomainResponse()
+        protected DomainResponse()
             : this(new ValidationMessageCollection())
         {
         }

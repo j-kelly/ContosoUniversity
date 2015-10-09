@@ -9,7 +9,7 @@
     public class StudentCreate
     {
         // StudentCreate.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             [Required]
             [StringLength(50)]

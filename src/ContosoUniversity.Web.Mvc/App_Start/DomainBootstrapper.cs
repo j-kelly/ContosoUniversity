@@ -1,6 +1,7 @@
 ﻿namespace ContosoUniversity.Web.Mvc.App_Start
 {
     using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Behaviours.Courses;
     using Core.Repository.Interceptors;
@@ -44,23 +45,35 @@
         }
 
         // Example on how to add a security decorator
-        public static IDomainResponse AministratorsOnly<T>(T command, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
+        public static IDomainResponse AministratorsOnly<T>(T request, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
         {
             var isAdministrator = true;
             if (!isAdministrator)
                 throw new UnauthorizedAccessException("Bad Person alert!");
 
-            return Default(command, handler);
+            return Default(request, handler);
         }
 
-        private static IDomainResponse Default<T>(T command, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
+        private static IDomainResponse Default<T>(T request, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
         {
             // create chain (last to first)
             Expression<Func<T, IDomainResponse>> autoDispose = p => Decorators.AutoDispose(handler);
-            Expression<Func<T, IDomainResponse>> logTimings = p => Decorators.Log(command, autoDispose);
+            Expression<Func<T, IDomainResponse>> logTimings = p => Decorators.Log(request, autoDispose);
 
             // Run it
-            return logTimings.Compile().Invoke(command);
+            return logTimings.Compile().Invoke(request);
+        }
+
+        // Example on how to auto validate
+        public static IDomainResponse AutoValidate<TRequest, TResponse>(TRequest request, Expression<Func<TRequest, IDomainResponse>> handler)
+            where TRequest : class, IDomainRequest
+            where TResponse : class, IDomainResponse
+        {
+            var validationDetails = Validator.ValidateRequest(request);
+            if (validationDetails.HasValidationIssues)
+                return (IDomainResponse)Activator.CreateInstance(typeof(TResponse), validationDetails);
+
+            return Default(request, handler);
         }
     }
 }

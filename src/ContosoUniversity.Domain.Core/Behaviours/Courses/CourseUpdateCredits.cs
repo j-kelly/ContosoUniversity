@@ -7,7 +7,7 @@
     public class CourseUpdateCredits
     {
         // CourseUpdateCredits.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int Multiplier { get; set; }
         }

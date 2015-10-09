@@ -16,8 +16,6 @@
 
         private static Dictionary<Type, List<MethodInfo>> specificationMethods = new Dictionary<Type, List<MethodInfo>>();
 
-        private static object _syncObject = new object();
-
         private static IEnumerable<object> _DependentServices = null;
 
         protected InvariantValidation(T context)
@@ -35,20 +33,17 @@
         protected virtual void Assert(bool result, string errorMessage)
         {
             if (!result)
-            {
                 throw new InvariantValidationException(errorMessage);
-            }
         }
 
         [DebuggerStepThrough]
-        public virtual void StartAsserting(params object[] dependentServices)
+        public virtual void Validate(params object[] dependentServices)
         {
             try
             {
                 _DependentServices = dependentServices;
 
-                Validate();
-                ValidateCommandModel();
+                ValidateContext();
             }
             catch (TargetInvocationException targetInvocationEx)
             {
@@ -62,10 +57,7 @@
         }
 
         [DebuggerStepThrough]
-        public virtual void Validate() { }
-
-        [DebuggerStepThrough]
-        public virtual void ValidateCommandModel() { }
+        public virtual void ValidateContext() { }
 
         protected TInterface ResolveService<TInterface>()
         {

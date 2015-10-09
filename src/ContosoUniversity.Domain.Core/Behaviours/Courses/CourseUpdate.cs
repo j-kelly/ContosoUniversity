@@ -8,7 +8,7 @@
     public class CourseUpdate
     {
         // CourseUpdate.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int CourseID { get; set; }
             public int DepartmentID { get; set; }
@@ -54,8 +54,10 @@
             {
             }
 
-            public override void ValidateCommandModel()
+            public override void ValidateContext()
             {
+                base.ValidateContext();
+
                 Assert(Context.CommandModel.Title != null, "Title cannot be null");
                 Assert(Context.CommandModel.Title != "Title", "Title cannot be set to Title");
             }
@@ -69,7 +71,7 @@
             {
             }
 
-            public override void Validate()
+            public override void ValidateContext()
             {
                 Validate(Context.CommandModel.CourseID > 0, "CourseId", "CourseId cannot be less than 1");
                 Validate(Context.CommandModel.DepartmentID > 0, "DepartmentId", "DepartmentId cannot be less than 1");

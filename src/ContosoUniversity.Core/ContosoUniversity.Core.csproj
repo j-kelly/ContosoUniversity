@@ -68,16 +68,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\GenerateTestFactoryAttribute.cs" />
+    <Compile Include="Domain\ICommandModel.cs" />
+    <Compile Include="Domain\Validation\IAssertable.cs" />
     <Compile Include="SystemPrincipal.cs" />
     <Compile Include="SystemDateTime.cs" />
-    <Compile Include="Domain\ContextualValidation\ContextualValidation.cs" />
-    <Compile Include="Domain\ContextualValidation\EmptyContextualValidation.cs" />
-    <Compile Include="Domain\ContextualValidation\IContextualValidation.cs" />
-    <Compile Include="Domain\ContextualValidation\IDomainValidatable.cs" />
-    <Compile Include="Domain\ContextualValidation\ValidationLevelType.cs" />
-    <Compile Include="Domain\ContextualValidation\ValidationMessage.cs" />
-    <Compile Include="Domain\ContextualValidation\ValidationMessageCollection.cs" />
-    <Compile Include="Domain\ContextualValidation\Validator.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\ContextualValidation.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\EmptyContextualValidation.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\IContextualValidation.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\IDomainValidatable.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\ValidationLevelType.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\ValidationMessage.cs" />
+    <Compile Include="Domain\Validation\ContextualValidation\ValidationMessageCollection.cs" />
+    <Compile Include="Domain\Validation\Validator.cs" />
     <Compile Include="Domain\Services\Decorators.cs" />
     <Compile Include="Domain\DomainEvents\BlankDomainEventHandler.cs" />
     <Compile Include="Domain\DomainEvents\DomainEvents.cs" />
@@ -89,12 +91,10 @@
     <Compile Include="Domain\Services\DomainServices.cs" />
     <Compile Include="Domain\IDomainRequest.cs" />
     <Compile Include="Domain\IDomainResponse.cs" />
-    <Compile Include="Domain\InvariantValidation\EmptyInvariantValidation.cs" />
-    <Compile Include="Domain\InvariantValidation\IDomainAssertable.cs" />
-    <Compile Include="Domain\InvariantValidation\IInvariantValidation.cs" />
-    <Compile Include="Domain\InvariantValidation\InvariantValidation.cs" />
+    <Compile Include="Domain\Validation\InvariantValidation\IInvariantValidation.cs" />
+    <Compile Include="Domain\Validation\InvariantValidation\InvariantValidation.cs" />
     <Compile Include="Exceptions\ContosoUniversityException.cs" />
-    <Compile Include="Domain\InvariantValidation\InvariantValidationException.cs" />
+    <Compile Include="Domain\Validation\InvariantValidation\InvariantValidationException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Logging\BlankLogger.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="Logging\LoggerExtensions.cs" />
     <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Domain\InvariantValidation\UserDomainRequestInvariantValidation.cs" />
+    <Compile Include="Domain\Validation\InvariantValidation\UserDomainRequestInvariantValidation.cs" />
     <Compile Include="Utilities\Check.cs" />
     <Compile Include="Utilities\DebugCheck.cs" />
   </ItemGroup>

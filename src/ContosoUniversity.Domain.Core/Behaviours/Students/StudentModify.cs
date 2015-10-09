@@ -9,7 +9,7 @@
     public class StudentModify
     {
         // StudentModify.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int ID { get; set; }
 

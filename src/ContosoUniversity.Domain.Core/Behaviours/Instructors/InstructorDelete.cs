@@ -7,7 +7,7 @@
     public class InstructorDelete
     {
         // InstructorDelete.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int InstructorId { get; set; }
         }

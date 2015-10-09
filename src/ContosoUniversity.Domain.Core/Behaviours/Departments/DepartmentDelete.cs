@@ -7,7 +7,7 @@
     public class DepartmentDelete
     {
         // DepartmentDelete.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int DepartmentID { get; set; }
             public byte[] RowVersion { get; set; }

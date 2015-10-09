@@ -157,7 +157,7 @@
         private async Task PopulateAssignedCourseData(IEnumerable<int> courseIds)
         {
             var allCourses = await _QueryRepository.GetEntitiesAsync<Course>();
-            var instructorCourses = new HashSet<int>(courseIds);
+            var instructorCourses = new HashSet<int>(courseIds ?? new int[0]);
             var viewModel = new List<AssignedCourseDataViewModel>();
             foreach (var course in allCourses)
             {

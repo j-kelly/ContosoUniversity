@@ -12,7 +12,7 @@
     public class DepartmentUpdate
     {
         // DepartmentUpdate.CommandModel
-        public class CommandModel
+        public class CommandModel : ICommandModel
         {
             public int DepartmentID { get; set; }
 
@@ -75,7 +75,7 @@
             {
             }
 
-            public override void Validate()
+            public override void ValidateContext()
             {
                 ValidateOneAdministratorAssignmentPerInstructor();
             }

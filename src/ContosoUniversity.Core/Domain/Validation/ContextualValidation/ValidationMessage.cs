@@ -9,23 +9,10 @@
             ValidationLevel = validationLevel;
         }
 
-        public ValidationLevelType ValidationLevel
-        {
-            get;
+        public ValidationLevelType ValidationLevel { get; }
 
-        }
+        public string PropertyName { get; }
 
-        public string PropertyName
-        {
-            get;
-
-        }
-
-        public string ErrorMessage
-        {
-            get;
-
-        }
+        public string ErrorMessage { get; }
     }
-
 }

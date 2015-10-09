@@ -5,14 +5,14 @@ namespace ContosoUniversity.Core.Domain.DomainEvents
     [ExcludeFromCodeCoverage]
     public static class DomainEvents
     {
-        private static ContosoUniversity.Core.Domain.DomainEvents.IDomainEventHandler eventHandler = new ContosoUniversity.Core.Domain.DomainEvents.BlankDomainEventHandler();
+        private static IDomainEventHandler eventHandler = new BlankDomainEventHandler();
 
-        public static void SetDomainEventHandler(ContosoUniversity.Core.Domain.DomainEvents.IDomainEventHandler newHandler)
+        public static void SetDomainEventHandler(IDomainEventHandler newHandler)
         {
             eventHandler = newHandler;
         }
 
-        public static void Raise<T>(T domainEvent) where T : class, ContosoUniversity.Core.Domain.DomainEvents.IDomainEvent
+        public static void Raise<T>(T domainEvent) where T : class, IDomainEvent
         {
             eventHandler.Handle(domainEvent);
         }

@@ -2,8 +2,8 @@
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Domain.Core.Behaviours.Courses;
-    using Core.Repository.Containers;
     using Core.Factories;
+    using Core.Repository.Containers;
     using Core.Repository.Entities;
     using NRepository.Core;
     using NRepository.EntityFramework;

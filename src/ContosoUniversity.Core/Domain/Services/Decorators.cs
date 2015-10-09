@@ -29,27 +29,30 @@ namespace ContosoUniversity.Core.Domain.Services
                 var bodyCallExpression = (MethodCallExpression)next.Body;
                 foreach (var arg in bodyCallExpression.Arguments)
                 {
-                    if (arg.NodeType == ExpressionType.MemberAccess)
+                    switch (arg.NodeType)
                     {
-                        var memberExpression = (MemberExpression)arg;
-                        var val = Expression.Lambda(memberExpression).Compile().DynamicInvoke();
-                        parameters.Add(val);
-                        continue;
-                    }
-
-                    if (arg.NodeType == ExpressionType.Invoke)
-                    {
-                        var callEx = (InvocationExpression)arg;
-                        var val = Expression.Lambda(callEx).Compile().DynamicInvoke();
-                        parameters.Add(val);
-                        continue;
-                    }
-
-                    if (arg.NodeType == ExpressionType.New)
-                    {
-                        var newExpression = (NewExpression)arg;
-                        var val = Expression.Lambda(newExpression).Compile().DynamicInvoke();
-                        parameters.Add(val);
+                        case (ExpressionType.MemberAccess):
+                            var memberExpression = (MemberExpression)arg;
+                            var val = Expression.Lambda(memberExpression).Compile().DynamicInvoke();
+                            parameters.Add(val);
+                            continue;
+                        case (ExpressionType.Invoke):
+                            var callEx = (InvocationExpression)arg;
+                            var val1 = Expression.Lambda(callEx).Compile().DynamicInvoke();
+                            parameters.Add(val1);
+                            continue;
+                        case (ExpressionType.New):
+                            var newExpression = (NewExpression)arg;
+                            var val2 = Expression.Lambda(newExpression).Compile().DynamicInvoke();
+                            parameters.Add(val2);
+                            continue;
+                        case (ExpressionType.Constant):
+                            var val3 = ((ConstantExpression)arg).Value;
+                            parameters.Add(val3);
+                            continue;
+                        default:
+                            // Oops we're missing one.
+                            throw new NotSupportedException($"{arg.NodeType} is not supported");
                     }
                 }
 

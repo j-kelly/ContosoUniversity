@@ -1,7 +1,7 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Course
 {
     using ContosoUniversity.Core.Annotations;
-    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Behaviours.Courses;
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using NRepository.Core.Query;

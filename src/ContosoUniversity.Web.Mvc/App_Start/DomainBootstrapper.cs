@@ -1,6 +1,7 @@
 ﻿namespace ContosoUniversity.Web.Mvc.App_Start
 {
     using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Behaviours.Courses;
     using Core.Repository.Interceptors;
     using Domain.AppServices.ServiceBehaviours;

@@ -1,6 +1,6 @@
 ﻿namespace ContosoUniversity.Web.Automation.Tests.Scaffolding.Data
 {
-    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.Services;
     using Core.Repository;
     using Domain.Core.Behaviours.Courses;
     using Domain.Core.Behaviours.Departments;
@@ -12,7 +12,6 @@
     using System.Diagnostics;
     using System.Linq;
     using TechTalk.SpecFlow;
-
     [Binding]
     public static class DataHelper
     {

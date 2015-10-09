@@ -1,7 +1,7 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Instructor
 {
     using ContosoUniversity.Core.Annotations;
-    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Behaviours.Instructors;
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using ContosoUniversity.Web.Core.Repository.Projections;

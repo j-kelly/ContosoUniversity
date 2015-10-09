@@ -1,56 +1,38 @@
-namespace ContosoUniversity.Core.Domain
+namespace ContosoUniversity.Core.Domain.Services
 {
+    using Logging;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
-    using Logging;
 
     // Common decorators for the DomainServices
     public static class Decorators
     {
-        /// <summary>
-        /// Add timing logs to each call
-        /// </summary>
+        // Add timing logs to each call
         public static IDomainResponse Log<T>(T command, Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
             var logger = LogManager.CreateLogger<T>();
-            var retVal = logger.LogTimings(0, () =>
-            {
-                return next.Compile().Invoke(command);
-            });
-
+            var retVal = logger.LogTimings(() => next.Compile().Invoke(command));
             return retVal;
         }
 
-        /// <summary>
-        /// Alters the expression so any dependencies are created seperatelywhich  allows them to be disposed
-        /// </summary>
+        // Deconstructs the expression then creates a new one so all dependencies can be disposed correctly
         public static IDomainResponse AutoDispose<T>(Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
-            var arguments = default(IEnumerable<Expression>);
-            var Invoke = default(Func<IEnumerable<object>, IDomainResponse>);
-            switch (next.Body.NodeType)
-            {
-                case (ExpressionType.Call):
-                    var callExpression = (MethodCallExpression)next.Body;
-                    arguments = callExpression.Arguments;
-                    Invoke = p => (IDomainResponse)callExpression.Method.Invoke(null, p.ToArray());
-                    break;
-                default:
-                    throw new NotSupportedException($"{next.NodeType} is not supported");
-            }
+            if (next.Body.NodeType != ExpressionType.Call)
+                throw new NotSupportedException($"{next.NodeType} is not supported");
 
             var parameters = new List<object>();
-            var bodyCallExpression = (MethodCallExpression)next.Body;
+
             try
             {
+                var bodyCallExpression = (MethodCallExpression)next.Body;
                 foreach (var arg in bodyCallExpression.Arguments)
                 {
                     if (arg.NodeType == ExpressionType.MemberAccess)
                     {
-                        var x = (MemberExpression)arg;
-                        var val = Expression.Lambda(x).Compile().DynamicInvoke();
+                        var memberExpression = (MemberExpression)arg;
+                        var val = Expression.Lambda(memberExpression).Compile().DynamicInvoke();
                         parameters.Add(val);
                         continue;
                     }
@@ -71,18 +53,17 @@ namespace ContosoUniversity.Core.Domain
                     }
                 }
 
-                // Execute method
                 var method = bodyCallExpression.Method;
                 var retVal = (IDomainResponse)method.Invoke(null, parameters.ToArray());
                 return retVal;
             }
             finally
             {
-                parameters.ToList().ForEach(dependency =>
+                foreach (var parameter in parameters)
                 {
-                    if (dependency != null && dependency is IDisposable)
-                        ((IDisposable)dependency).Dispose();
-                });
+                    if (parameter != null && parameter is IDisposable)
+                        ((IDisposable)parameter).Dispose();
+                }
             }
         }
     }

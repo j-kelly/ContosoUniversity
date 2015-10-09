@@ -78,7 +78,7 @@
     <Compile Include="Domain\ContextualValidation\ValidationMessage.cs" />
     <Compile Include="Domain\ContextualValidation\ValidationMessageCollection.cs" />
     <Compile Include="Domain\ContextualValidation\Validator.cs" />
-    <Compile Include="Domain\Decorators.cs" />
+    <Compile Include="Domain\Services\Decorators.cs" />
     <Compile Include="Domain\DomainEvents\BlankDomainEventHandler.cs" />
     <Compile Include="Domain\DomainEvents\DomainEvents.cs" />
     <Compile Include="Domain\DomainEvents\IDomainEvent.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Domain\DomainEvents\ISubscribe.cs" />
     <Compile Include="Domain\DomainRequest.cs" />
     <Compile Include="Domain\DomainResponse.cs" />
-    <Compile Include="Domain\DomainServices.cs" />
+    <Compile Include="Domain\Services\DomainServices.cs" />
     <Compile Include="Domain\IDomainRequest.cs" />
     <Compile Include="Domain\IDomainResponse.cs" />
     <Compile Include="Domain\InvariantValidation\EmptyInvariantValidation.cs" />

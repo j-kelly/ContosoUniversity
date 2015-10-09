@@ -1,7 +1,7 @@
 ﻿namespace ContosoUniversity.Web.Mvc.Features.Student
 {
     using ContosoUniversity.Core.Annotations;
-    using ContosoUniversity.Core.Domain;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Behaviours.Students;
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using NRepository.Core.Query;

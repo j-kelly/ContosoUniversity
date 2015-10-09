@@ -1,17 +1,16 @@
 ﻿namespace ContosoUniversity.Web.Automation.Tests.Steps.Behaviours
 {
-    using Domain.AppServices.ServiceBehaviours;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Web.Automation.Tests.Scaffolding;
     using ContosoUniversity.Web.Automation.Tests.Scaffolding.Data;
     using Core.Repository;
+    using Domain.Core.Behaviours.Courses;
+    using Domain.Core.Behaviours.Departments;
+    using Domain.Core.Behaviours.Instructors;
+    using Domain.Core.Behaviours.Students;
     using System;
     using System.Linq;
     using TechTalk.SpecFlow;
-    using Domain.Core.Behaviours.Departments;
-    using Domain.Core.Behaviours.Students;
-    using Domain.Core.Behaviours.Instructors;
-    using Domain.Core.Behaviours.Courses;
-    using ContosoUniversity.Core.Domain;
 
     [Binding]
     public class CreationSteps

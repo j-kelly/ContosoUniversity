@@ -3,6 +3,7 @@
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Domain.Core.Behaviours.Students;
     using Core.Factories;
+    using Core.Repository.Containers;
     using Core.Repository.Entities;
     using NRepository.Core;
 
@@ -15,7 +16,8 @@
             if (validationDetails.HasValidationIssues)
                 return new StudentCreate.Response(validationDetails);
 
-            var container = StudentFactory.Create(request.CommandModel);
+            var container = new EntityStateWrapperContainer();
+            container.AddEntity(StudentFactory.Create(request.CommandModel));
             validationDetails = repository.Save(container);
 
             var studentId = default(int?);

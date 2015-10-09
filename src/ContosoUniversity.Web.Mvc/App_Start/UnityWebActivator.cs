@@ -3,6 +3,7 @@
 
 namespace ContosoUniversity.App_Start
 {
+    using ContosoUniversity.Core.Logging;
     using Microsoft.Practices.Unity.Mvc;
     using System.Linq;
     using System.Web.Mvc;
@@ -15,16 +16,15 @@ namespace ContosoUniversity.App_Start
         /// <summary>Integrates Unity when the application starts.</summary>
         public static void Start()
         {
-            ContosoUniversity.Core.Logging.LogManager.SetFactory(new NLogLoggerFactory());
+            LogManager.SetFactory(new NLogLoggerFactory());
 
             // Set up domain functions
             DomainBootstrapper.SetUp();
 
-            var container = UnityConfig.GetConfiguredContainer();
-
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
 
+            var container = UnityConfig.GetConfiguredContainer();
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
@@ -32,7 +32,6 @@ namespace ContosoUniversity.App_Start
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new FeatureViewLocationRazorViewEngine());
-
         }
 
         public static void Shutdown()

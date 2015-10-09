@@ -17,7 +17,8 @@
             if (validationDetails.HasValidationIssues)
                 return new InstructorCreateWithCourses.Response(validationDetails);
 
-            var container = InstructorFactory.Create(repository, request.CommandModel);
+            var container = new EntityStateWrapperContainer();
+            container.AddEntity(InstructorFactory.Create(repository, request.CommandModel));
             validationDetails = repository.Save(container);
 
             var instructorId = default(int?);

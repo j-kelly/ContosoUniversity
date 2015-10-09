@@ -42,10 +42,10 @@
             DomainServices.AddService<DepartmentUpdate.Request>(request => CommonDecorator(request, p1 => DepartmentHandlers.Handle(CreateRepository(), request)));
         }
 
-        private static IDomainResponse CommonDecorator<T>(T command, Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
+        private static IDomainResponse CommonDecorator<T>(T command, Expression<Func<T, IDomainResponse>> handler) where T : class, IDomainRequest
         {
-            // create chain
-            Expression<Func<T, IDomainResponse>> autoDispose = p => Decorators.AutoDispose(next);
+            // create chain (last to first)
+            Expression<Func<T, IDomainResponse>> autoDispose = p => Decorators.AutoDispose(handler);
             Expression<Func<T, IDomainResponse>> log = p => Decorators.Log(command, autoDispose);
 
             // Run it

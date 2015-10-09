@@ -1,15 +1,14 @@
 namespace ContosoUniversity.Domain.Core.Factories
 {
-    
+    using ContosoUniversity.Domain.Core.Behaviours.Instructors;
     using ContosoUniversity.Domain.Core.Repository.Strategies;
     using NRepository.Core.Query;
-    using Repository.Containers;
     using Repository.Entities;
     using System.Linq;
 
     public static class InstructorFactory
     {
-        public static EntityStateWrapperContainer Create(IQueryRepository queryRepository, ContosoUniversity.Domain.Core.Behaviours.Instructors.InstructorCreateWithCourses.CommandModel commandModel)
+        public static Instructor Create(IQueryRepository queryRepository, InstructorCreateWithCourses.CommandModel commandModel)
         {
             // could use Course.CreatePartial here and attachEntities using EntityStateWrapperContainer
             var courses = commandModel.SelectedCourses == null
@@ -25,7 +24,7 @@ namespace ContosoUniversity.Domain.Core.Factories
                 OfficeAssignment = new OfficeAssignment { Location = commandModel.OfficeLocation },
             };
 
-            return new EntityStateWrapperContainer().AddEntity(instructor);
+            return instructor;
         }
     }
 }

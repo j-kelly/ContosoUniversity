@@ -1,7 +1,6 @@
 namespace ContosoUniversity.Domain.Core.Factories
 {
-    
-    using Repository.Containers;
+    using ContosoUniversity.Domain.Core.Behaviours.Students;
     using Repository.Entities;
 
     public static class StudentFactory
@@ -11,7 +10,7 @@ namespace ContosoUniversity.Domain.Core.Factories
             return new Student { ID = studentId };
         }
 
-        public static EntityStateWrapperContainer Create(ContosoUniversity.Domain.Core.Behaviours.Students.StudentCreate.CommandModel commandModel)
+        public static Student Create(StudentCreate.CommandModel commandModel)
         {
             var student = new Student
             {
@@ -20,7 +19,7 @@ namespace ContosoUniversity.Domain.Core.Factories
                 LastName = commandModel.LastName,
             };
 
-            return new EntityStateWrapperContainer().AddEntity(student);
+            return student;
         }
     }
 }

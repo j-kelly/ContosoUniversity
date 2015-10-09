@@ -51,9 +51,8 @@
             return new DepartmentDelete.Response(validationDetails, hasConcurrencyError);
         }
 
-
         // Update department
-        #region UpdateDepartment Handler
+        #region Update department
         public static DepartmentUpdate.Response Handle(IRepository repository, DepartmentUpdate.Request request)
         {
             var validationDetails = Validator.ValidateRequest(request, repository);

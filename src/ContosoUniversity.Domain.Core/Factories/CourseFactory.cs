@@ -1,7 +1,7 @@
 ﻿namespace ContosoUniversity.Domain.Core.Factories
 {
+    using ContosoUniversity.Domain.Core.Behaviours.Courses;
     using ContosoUniversity.Domain.Core.Repository.Entities;
-    using Repository.Containers;
 
     public static class CourseFactory
     {
@@ -10,7 +10,7 @@
             return new Course { CourseID = courseId };
         }
 
-        public static EntityStateWrapperContainer Create(ContosoUniversity.Domain.Core.Behaviours.Courses.CourseCreate.CommandModel commandModel)
+        public static Course Create(CourseCreate.CommandModel commandModel)
         {
             var course = new Course
             {
@@ -20,7 +20,7 @@
                 Credits = commandModel.Credits
             };
 
-            return new EntityStateWrapperContainer().AddEntity(course);
+            return course;
         }
     }
 }

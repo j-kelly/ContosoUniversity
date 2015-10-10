@@ -12,14 +12,15 @@ namespace ContosoUniversity.Core.Domain.Services
         public static IDomainResponse Log<T>(T command, Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
             var logger = LogManager.CreateLogger<T>();
-            logger.Debug($"Domain service call for: {command.GetType().Name}");
+            var message = $"DomainService Call: {command.GetType().FullName}";
+            logger.Debug(message);
 
             // logs to the timings file if over x ms
-            var retVal = logger.LogTimings(() => next.Compile().Invoke(command));
+            var retVal = logger.LogTimings(message, () => next.Compile().Invoke(command));
             return retVal;
         }
 
-        // Deconstructs the expression then creates a new one so all dependencies can be disposed correctly
+        // De-constructs the expression then creates a new one so all dependencies can be disposed correctly
         public static IDomainResponse AutoDispose<T>(Expression<Func<T, IDomainResponse>> next) where T : class, IDomainRequest
         {
             if (next.Body.NodeType != ExpressionType.Call)

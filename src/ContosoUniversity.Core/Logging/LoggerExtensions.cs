@@ -9,13 +9,21 @@ namespace ContosoUniversity.Core.Logging
     {
         private const string TimerThresholdKey = "Logging.TimerThreshold";
         private const int DefaultTimerThreshold = 100;
+        private readonly static int _TimerThreshold;
 
         private static readonly ILogger TimerLogger = LogManager.CreateLogger("Timer");
+
+        static LoggerExtensions()
+        {
+            var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
+            if (!int.TryParse(thresholdSetting, out _TimerThreshold))
+                _TimerThreshold = DefaultTimerThreshold;
+        }
 
         [DebuggerStepThrough]
         public static void LogTimings(this ILogger logger, string message, Action action)
         {
-            LogTimings(logger, DefaultTimerThreshold, message, action);
+            LogTimings(logger, _TimerThreshold, message, action);
         }
 
         [DebuggerStepThrough]
@@ -28,7 +36,7 @@ namespace ContosoUniversity.Core.Logging
         [DebuggerStepThrough]
         public static T LogTimings<T>(this ILogger logger, string message, Func<T> func)
         {
-            return LogTimings(logger, DefaultTimerThreshold, message, func);
+            return LogTimings(logger, _TimerThreshold, message, func);
         }
 
         [DebuggerStepThrough]
@@ -46,9 +54,6 @@ namespace ContosoUniversity.Core.Logging
             {
                 if (sw.ElapsedMilliseconds >= timerThreshold)
                 {
-                    var thresholdSetting = ConfigurationManager.AppSettings[TimerThresholdKey];
-                    int.TryParse(thresholdSetting, out timerThreshold);
-
                     var exceptionText = exceptionThrown ? "EXCEPTION THROWN" : string.Empty;
                     var msg = $"{sw.ElapsedMilliseconds} ms|{message}|{exceptionText}";
                     TimerLogger.Debug(msg);

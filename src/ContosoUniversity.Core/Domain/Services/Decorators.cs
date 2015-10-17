@@ -1,5 +1,6 @@
 namespace ContosoUniversity.Core.Domain.Services
 {
+    using ContextualValidation;
     using Logging;
     using System;
     using System.Collections.Generic;
@@ -72,6 +73,23 @@ namespace ContosoUniversity.Core.Domain.Services
                         ((IDisposable)parameter).Dispose();
                 }
             }
+        }
+
+        // In order for this to work a ctor with the signiture:
+        // 'public Response(ValidationMessageCollection validationDetails)' should exist
+        public static IDomainResponse AutoValidate<T>(T request, Expression<Func<T, IDomainResponse>> next)
+            where T : class, IDomainRequest
+        {
+            var validationDetails = Validator.ValidateRequest(request);
+            if (validationDetails.HasValidationIssues)
+            {
+                var typeName = typeof(T).AssemblyQualifiedName;
+                typeName = typeName.Replace("+Request", "+Response");
+                var responseType = Type.GetType(typeName, true);
+                return (IDomainResponse)Activator.CreateInstance(responseType, validationDetails);
+            }
+
+            return next.Compile().Invoke(request);
         }
     }
 }

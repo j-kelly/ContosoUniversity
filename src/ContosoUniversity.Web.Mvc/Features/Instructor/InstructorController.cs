@@ -34,7 +34,7 @@
                 SystemPrincipal.Name,
                 new InstructorDelete.CommandModel { InstructorId = id });
 
-            await DomainServices.CallServiceAsync(request);
+            await DomainServices.DispatchAsync(request);
             return RedirectToAction("Index");
         }
 
@@ -43,7 +43,7 @@
         public async Task<ActionResult> Create(CreateInstructorWithCoursesViewModel viewModel)
         {
             var request = new InstructorCreateWithCourses.Request(SystemPrincipal.Name, viewModel.CommandModel);
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (response.HasValidationIssues)
             {
@@ -60,7 +60,7 @@
         public async Task<ActionResult> Edit(ModifyInstructorAndCoursesViewModel viewModel)
         {
             var request = new InstructorModifyAndCourses.Request(SystemPrincipal.Name, viewModel.CommandModel);
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (response.HasValidationIssues)
             {

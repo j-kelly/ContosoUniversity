@@ -14,12 +14,10 @@
         // Create Department
         public static DepartmentCreate.Response Handle(IRepository repository, DepartmentCreate.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request, repository);
-            if (validationDetails.HasValidationIssues)
-                return new DepartmentCreate.Response(validationDetails);
+            // Validation now performed in the dispacther decorators (See AutoValidate<T> in the DomainBootstrapper class)
 
             var container = DepartmentFactory.Create(request.CommandModel);
-            validationDetails = repository.Save(container);
+            var validationDetails = repository.Save(container);
 
             var deptId = default(int?);
             if (!validationDetails.HasValidationIssues)

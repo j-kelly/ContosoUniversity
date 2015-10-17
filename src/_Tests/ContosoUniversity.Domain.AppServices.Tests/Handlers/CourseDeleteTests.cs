@@ -1,4 +1,4 @@
-﻿namespace ContosoUniversity.Domain.AppServices.Tests
+﻿namespace ContosoUniversity.Domain.AppServices.Tests.Handlers
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
     using ServiceBehaviours;
@@ -8,6 +8,7 @@
     using NUnit.Framework;
     using System;
     using System.Linq;
+    using ContosoUniversity.Core.Domain.Services;
 
     [TestFixture]
     public class CourseDeleteTests
@@ -26,8 +27,8 @@
         {
             Func<CourseDelete.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var reponse = CourseHandlers.Handle(null, request);
-                return reponse.ValidationDetails;
+                var response = DomainServices.Dispatch(request);
+                return response.ValidationDetails;
             };
 
             Assert2.CheckContextualValidation("CourseId", "CourseId must have a minimum value of 1", () => CallSut(CreateValidRequest(p => p.CommandModel.CourseId = 0)));

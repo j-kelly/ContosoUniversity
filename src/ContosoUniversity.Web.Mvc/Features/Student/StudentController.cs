@@ -28,7 +28,7 @@
         public ActionResult Delete(int id)
         {
             var request = new StudentDelete.Request(SystemPrincipal.Name, new StudentDelete.CommandModel { StudentId = id });
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -41,7 +41,7 @@
         public ActionResult Create(CreateStudentViewModel viewModel)
         {
             var request = new StudentCreate.Request(SystemPrincipal.Name, viewModel.CommandModel);
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -55,7 +55,7 @@
         public ActionResult Edit(StudentModify.CommandModel commandModel)
         {
             var request = new StudentModify.Request(SystemPrincipal.Name, commandModel);
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");

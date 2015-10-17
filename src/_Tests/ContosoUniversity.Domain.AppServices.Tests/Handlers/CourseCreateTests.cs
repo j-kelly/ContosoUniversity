@@ -1,6 +1,7 @@
-﻿namespace ContosoUniversity.Domain.AppServices.Tests.CourseApplicationService
+﻿namespace ContosoUniversity.Domain.AppServices.Tests.Handlers
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using Core.Behaviours.Courses;
     using NRepository.TestKit;
@@ -26,7 +27,7 @@
         {
             Func<CourseCreate.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var response = CourseHandlers.Handle(null, request);
+                var response = DomainServices.Dispatch(request);
                 return response.ValidationDetails;
             };
 
@@ -39,7 +40,7 @@
         {
             // Arrange
             var repository = new InMemoryRecordedRepository();
-             
+
             // Act
             var request = CreateValidRequest();
             var response = CourseHandlers.Handle(repository, request);

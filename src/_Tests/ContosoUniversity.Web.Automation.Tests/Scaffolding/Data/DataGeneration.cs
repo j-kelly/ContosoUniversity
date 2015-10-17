@@ -32,19 +32,19 @@
                 {
                     case (EntityType.Department):
                         var commandModel = new DepartmentDelete.CommandModel { DepartmentID = (int)entity.Id };
-                        DomainServices.CallService(new DepartmentDelete.Request("test", commandModel));
+                        DomainServices.Dispatch(new DepartmentDelete.Request("test", commandModel));
                         break;
                     case (EntityType.Student):
                         var commandModel1 = new StudentDelete.CommandModel { StudentId = (int)entity.Id };
-                        DomainServices.CallService(new StudentDelete.Request("test", commandModel1));
+                        DomainServices.Dispatch(new StudentDelete.Request("test", commandModel1));
                         break;
                     case (EntityType.Instructor):
                         var commandModel2 = new InstructorDelete.CommandModel { InstructorId = (int)entity.Id };
-                        DomainServices.CallService(new InstructorDelete.Request("test", commandModel2));
+                        DomainServices.Dispatch(new InstructorDelete.Request("test", commandModel2));
                         break;
                     case (EntityType.Course):
                         var commandModel3 = new CourseDelete.CommandModel { CourseId = (int)entity.Id };
-                        DomainServices.CallService(new CourseDelete.Request("test", commandModel3));
+                        DomainServices.Dispatch(new CourseDelete.Request("test", commandModel3));
                         break;
                     default:
                         throw new ApplicationException($"Missing entity removal for type {entity.Type}");

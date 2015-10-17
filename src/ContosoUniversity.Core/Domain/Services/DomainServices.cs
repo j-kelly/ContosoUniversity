@@ -11,27 +11,27 @@
         private static Dictionary<Type, Func<IDomainRequest, IDomainResponse>> _Handlers = new Dictionary<Type, Func<IDomainRequest, IDomainResponse>>();
 
         [DebuggerStepThrough]
-        public static T CallService<T>(IDomainRequest request) where T : IDomainResponse
+        public static T Dispatch<T>(IDomainRequest request) where T : IDomainResponse
         {
             return (T)_Handlers[request.GetType()](request);
         }
 
         [DebuggerStepThrough]
-        public static async Task<T> CallServiceAsync<T>(IDomainRequest request) where T : IDomainResponse
+        public static async Task<T> DispatchAsync<T>(IDomainRequest request) where T : IDomainResponse
         {
-            return await Task.Run(() => CallService<T>(request)); ;
+            return await Task.Run(() => Dispatch<T>(request)); ;
         }
 
         [DebuggerStepThrough]
-        public static IDomainResponse CallService(IDomainRequest request)
+        public static IDomainResponse Dispatch(IDomainRequest request)
         {
             return _Handlers[request.GetType()](request);
         }
 
         [DebuggerStepThrough]
-        public static async Task<IDomainResponse> CallServiceAsync(IDomainRequest request)
+        public static async Task<IDomainResponse> DispatchAsync(IDomainRequest request)
         {
-            return await Task.Run(() => CallService(request)); ;
+            return await Task.Run(() => Dispatch(request)); ;
         }
 
         public static void AddService<T>(Expression<Func<T, IDomainResponse>> func) where T : class, IDomainRequest

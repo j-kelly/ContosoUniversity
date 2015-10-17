@@ -36,7 +36,14 @@
         // StudentCreate.Response
         public class Response : DomainResponse
         {
-            public Response(ValidationMessageCollection validationDetails, int? studentId = null)
+            // If you are using the auto-validation 'decorator' do not change the signiture of this ctor (see AutoValidate<T>) in the 
+            // DomainBootstrapper class
+            public Response(ValidationMessageCollection validationDetails)
+                : base(validationDetails)
+            {
+            }
+
+            public Response(ValidationMessageCollection validationDetails, int? studentId)
                 : base(validationDetails)
             {
                 StudentId = studentId;

@@ -23,7 +23,7 @@
                 foreach (var row in table.Rows)
                 {
                     var commandModel = DataHelper.CreateCommandModelFromTable<DepartmentCreate.CommandModel>(table, row);
-                    var response = DomainServices.CallService<DepartmentCreate.Response>(new DepartmentCreate.Request("test", commandModel));
+                    var response = DomainServices.Dispatch<DepartmentCreate.Response>(new DepartmentCreate.Request("test", commandModel));
                     if (response.HasValidationIssues)
                         throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
 
@@ -38,7 +38,7 @@
             foreach (var row in table.Rows)
             {
                 var commandModel = DataHelper.CreateCommandModelFromTable<StudentCreate.CommandModel>(table, row);
-                var response = DomainServices.CallService<StudentCreate.Response>(new StudentCreate.Request("test", commandModel));
+                var response = DomainServices.Dispatch<StudentCreate.Response>(new StudentCreate.Request("test", commandModel));
 
                 if (response.HasValidationIssues)
                     throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));
@@ -53,7 +53,7 @@
             foreach (var row in table.Rows)
             {
                 var commandModel = DataHelper.CreateCommandModelFromTable<InstructorCreateWithCourses.CommandModel>(table, row);
-                var response = DomainServices.CallService<InstructorCreateWithCourses.Response>(new InstructorCreateWithCourses.Request(
+                var response = DomainServices.Dispatch<InstructorCreateWithCourses.Response>(new InstructorCreateWithCourses.Request(
                     "test",
                     commandModel));
 
@@ -70,7 +70,7 @@
             foreach (var row in table.Rows)
             {
                 var commandModel = DataHelper.CreateCommandModelFromTable<CourseCreate.CommandModel>(table, row);
-                var response = DomainServices.CallService<CourseCreate.Response>(new CourseCreate.Request("test", commandModel));
+                var response = DomainServices.Dispatch<CourseCreate.Response>(new CourseCreate.Request("test", commandModel));
 
                 if (response.HasValidationIssues)
                     throw new ApplicationException(string.Join(" | ", response.ValidationDetails.Select(p => p.ErrorMessage)));

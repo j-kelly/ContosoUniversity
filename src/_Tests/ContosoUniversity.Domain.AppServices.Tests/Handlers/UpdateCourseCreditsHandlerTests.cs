@@ -1,4 +1,4 @@
-namespace ContosoUniversity.Domain.AppServices.Tests.CourseApplicationService
+namespace ContosoUniversity.Domain.AppServices.Tests.Handlers
 {
     using Core.Behaviours.Courses;
     using NRepository.EntityFramework;

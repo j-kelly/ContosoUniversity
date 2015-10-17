@@ -1,6 +1,5 @@
 ﻿namespace ContosoUniversity.Domain.AppServices.ServiceBehaviours
 {
-    using ContosoUniversity.Core.Domain.ContextualValidation;
     using ContosoUniversity.Domain.Core.Behaviours.Instructors;
     using Core.Factories;
     using Core.Repository.Containers;
@@ -13,13 +12,12 @@
         // Update instructor with course 
         public static InstructorCreateWithCourses.Response Handle(IRepository repository, InstructorCreateWithCourses.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new InstructorCreateWithCourses.Response(validationDetails);
+
+            // Validation now performed in the dispacther decorators (See AutoValidate<T> in the DomainBootstrapper class)
 
             var container = new EntityStateWrapperContainer();
             container.AddEntity(InstructorFactory.Create(repository, request.CommandModel));
-            validationDetails = repository.Save(container);
+            var validationDetails = repository.Save(container);
 
             var instructorId = default(int?);
             if (!validationDetails.HasValidationIssues)
@@ -31,10 +29,6 @@
         // Modify instructor with course 
         public static InstructorModifyAndCourses.Response Handle(IRepository repository, InstructorModifyAndCourses.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new InstructorModifyAndCourses.Response(validationDetails);
-
             var commandModel = request.CommandModel;
             var instructor = repository.GetEntity<Instructor>(
                 p => p.ID == commandModel.InstructorId,
@@ -43,7 +37,7 @@
                     p => p.OfficeAssignment));
 
             var container = instructor.Modify(repository, request.CommandModel);
-            validationDetails = repository.Save(container);
+            var validationDetails = repository.Save(container);
 
             return new InstructorModifyAndCourses.Response(validationDetails);
         }
@@ -51,10 +45,6 @@
         // Delete instructor
         public static InstructorDelete.Response Handle(IRepository repository, InstructorDelete.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new InstructorDelete.Response(validationDetails);
-
             var container = new EntityStateWrapperContainer();
             var depts = repository.GetEntities<Department>(p => p.InstructorID == request.CommandModel.InstructorId);
             foreach (var dept in depts)
@@ -66,7 +56,7 @@
                     p => p.OfficeAssignment));
 
             container.Add(deletedInstructor.Delete());
-            validationDetails = repository.Save(container);
+            var validationDetails = repository.Save(container);
 
             return new InstructorDelete.Response(validationDetails);
         }

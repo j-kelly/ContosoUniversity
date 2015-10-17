@@ -65,10 +65,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Courses\UpdateCourseCreditsHandlerTests.cs" />
-    <Compile Include="Courses\UpdateCourseHandlerTests.cs" />
-    <Compile Include="Courses\CourseDeleteTests.cs" />
-    <Compile Include="Courses\CourseCreateTests.cs" />
+    <Compile Include="Handlers\CourseCreateTests.cs" />
+    <Compile Include="Handlers\_SetUp.cs" />
+    <Compile Include="Handlers\UpdateCourseCreditsHandlerTests.cs" />
+    <Compile Include="Handlers\UpdateCourseHandlerTests.cs" />
+    <Compile Include="Handlers\CourseDeleteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -88,6 +89,10 @@
     <ProjectReference Include="..\..\ContosoUniversity.Domain.Core\ContosoUniversity.Domain.Core.csproj">
       <Project>{d0ffc052-cd52-4bb8-8908-9ae3cc5fcafd}</Project>
       <Name>ContosoUniversity.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ContosoUniversity.Web.Mvc\ContosoUniversity.Web.Mvc.csproj">
+      <Project>{563a9765-bff7-4f54-abea-a11127007a3c}</Project>
+      <Name>ContosoUniversity.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\ContosoUniversity.TestKit\ContosoUniversity._TestKit.csproj">
       <Project>{5dbe222c-ddb6-48fe-928e-8226851036a4}</Project>

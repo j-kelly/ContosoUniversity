@@ -1,6 +1,7 @@
-﻿namespace ContosoUniversity.Domain.AppServices.Tests.CourseApplicationService
+﻿namespace ContosoUniversity.Domain.AppServices.Tests.Handlers
 {
     using ContosoUniversity.Core.Domain.ContextualValidation;
+    using ContosoUniversity.Core.Domain.Services;
     using ContosoUniversity.Domain.Core.Repository.Entities;
     using Core.Behaviours.Courses;
     using NRepository.TestKit;
@@ -26,7 +27,7 @@
         {
             Action<CourseUpdate.Request> CallSut = request =>
             {
-                CourseHandlers.Handle(null, request);
+                DomainServices.Dispatch(request);
             };
 
             // Example (not really an invariant rule)
@@ -39,7 +40,7 @@
         {
             Func<CourseUpdate.Request, ValidationMessageCollection> CallSut = request =>
             {
-                var reponse = CourseHandlers.Handle(null, request);
+                var reponse = DomainServices.Dispatch(request);
                 return reponse.ValidationDetails;
             };
 

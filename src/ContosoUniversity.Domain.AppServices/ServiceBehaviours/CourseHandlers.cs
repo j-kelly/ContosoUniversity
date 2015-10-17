@@ -13,13 +13,11 @@
         // Create course
         public static CourseCreate.Response Handle(IRepository repository, CourseCreate.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new CourseCreate.Response(validationDetails);
+            // Validation now performed in the dispacther decorators (See AutoValidate<T> in the DomainBootstrapper class)
 
             var container = new EntityStateWrapperContainer();
             container.AddEntity(CourseFactory.Create(request.CommandModel));
-            validationDetails = repository.Save(container);
+            var validationDetails = repository.Save(container);
 
             var courseId = default(int?);
             if (!validationDetails.HasValidationIssues)
@@ -31,10 +29,6 @@
         // Update course credits
         public static CourseUpdateCredits.Response Handle(IRepository repository, CourseUpdateCredits.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new CourseUpdateCredits.Response(validationDetails);
-
             var rowsAffected = repository.ExecuteStoredProcudure(
                 "UPDATE Course SET Credits = Credits * {0}",
                 request.CommandModel.Multiplier);
@@ -45,12 +39,8 @@
         // Update course 
         public static CourseUpdate.Response Handle(IRepository repository, CourseUpdate.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new CourseUpdate.Response(validationDetails);
-
             var container = CourseFactory.CreatePartial(request.CommandModel.CourseID).Modify(request.CommandModel);
-            validationDetails = repository.Save(container);
+            var validationDetails = repository.Save(container);
 
             return new CourseUpdate.Response(validationDetails);
         }
@@ -58,10 +48,6 @@
         // Delete course 
         public static CourseDelete.Response Handle(IRepository repository, CourseDelete.Request request)
         {
-            var validationDetails = Validator.ValidateRequest(request);
-            if (validationDetails.HasValidationIssues)
-                return new CourseDelete.Response(validationDetails);
-
             var course = CourseFactory.CreatePartial(request.CommandModel.CourseId);
             var container = course.Delete();
             repository.Save(container);

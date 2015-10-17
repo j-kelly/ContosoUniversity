@@ -26,7 +26,7 @@
         public async Task<ActionResult> Create(CourseCreate.CommandModel commandModel)
         {
             var request = new CourseCreate.Request(SystemPrincipal.Name, commandModel);
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -40,7 +40,7 @@
         public async Task<ActionResult> Edit(CourseUpdate.CommandModel commandModel)
         {
             var request = new CourseUpdate.Request(SystemPrincipal.Name, commandModel);
-            var response = DomainServices.CallService(request);
+            var response = DomainServices.Dispatch(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -55,7 +55,7 @@
         public ActionResult DeleteConfirmed(int id)
         {
             var request = new CourseDelete.Request(SystemPrincipal.Name, new CourseDelete.CommandModel { CourseId = id });
-            DomainServices.CallService(request);
+            DomainServices.Dispatch(request);
 
             return RedirectToAction("Index");
         }
@@ -66,7 +66,7 @@
             if (multiplier != null)
             {
                 var request = new CourseUpdateCredits.Request(SystemPrincipal.Name, new CourseUpdateCredits.CommandModel { Multiplier = multiplier.Value });
-                var response = DomainServices.CallService<CourseUpdateCredits.Response>(request);
+                var response = DomainServices.Dispatch<CourseUpdateCredits.Response>(request);
 
                 ViewBag.RowsAffected = response.RowsEffected;
             }

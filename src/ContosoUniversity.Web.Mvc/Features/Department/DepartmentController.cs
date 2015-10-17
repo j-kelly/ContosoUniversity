@@ -28,7 +28,7 @@
         public async Task<ActionResult> Create(DepartmentCreate.CommandModel commandModel)
         {
             var request = new DepartmentCreate.Request(SystemPrincipal.Name, commandModel);
-            var response = await DomainServices.CallServiceAsync<DepartmentCreate.Response>(request);
+            var response = await DomainServices.DispatchAsync<DepartmentCreate.Response>(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -45,7 +45,7 @@
         public async Task<ActionResult> Delete(DepartmentDelete.CommandModel commandModel)
         {
             var request = new DepartmentDelete.Request(SystemPrincipal.Name, commandModel);
-            var response = await DomainServices.CallServiceAsync<DepartmentDelete.Response>(request);
+            var response = await DomainServices.DispatchAsync<DepartmentDelete.Response>(request);
 
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
@@ -62,7 +62,7 @@
         public async Task<ActionResult> Edit(DepartmentUpdate.CommandModel commandModel)
         {
             var request = new DepartmentUpdate.Request(SystemPrincipal.Name, commandModel);
-            var response = await DomainServices.CallServiceAsync<DepartmentUpdate.Response>(request);
+            var response = await DomainServices.DispatchAsync<DepartmentUpdate.Response>(request);
             if (!response.HasValidationIssues)
                 return RedirectToAction("Index");
 
